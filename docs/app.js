@@ -1,10 +1,16 @@
 let leaderboardRows = [];
 let matchRows = [];
+let staticMatchRows = [];
 let predictionRows = [];
+let fallbackLeaderboardRows = [];
+let fallbackLastUpdated = "";
 let selectedPlayer = null;
+let isLoadingPageData = false;
+let isRefreshingLive = false;
 
 const LIVE_API_URL = "https://worldcup26.ir/get/games";
 const LIVE_REFRESH_MS = 15000;
+const LIVE_FETCH_TIMEOUT_MS = 30000;
 const SCORING_STATUSES = new Set(["finished", "live"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
@@ -79,7 +85,9 @@ const TEAM_ALIASES = {
   "DEMOCRATIC REPUBLIC OF CONGO": "RD CONGO",
   "DEMOCRATIC REPUBLIC OF THE CONGO": "RD CONGO",
   "CONGO DR": "RD CONGO",
+  "CURA?AO": "CURAZAO",
   CURACAO: "CURAZAO",
+  CURAÇAO: "CURAZAO",
   ECUADOR: "ECUADOR",
   EGYPT: "EGIPTO",
   ENGLAND: "INGLATERRA",
@@ -117,6 +125,9 @@ const TEAM_ALIASES = {
 };
 
 async function loadPageData() {
+  if (isLoadingPageData) return;
+  isLoadingPageData = true;
+
   try {
     const [leaderboardData, matchData, predictionData] = await Promise.all([
       fetchJson("./data/leaderboard.json"),
@@ -125,16 +136,40 @@ async function loadPageData() {
     ]);
 
     predictionRows = predictionData.predictions || [];
-    matchRows = await liveMatches(matchData.matches || []);
-    leaderboardRows = predictionRows.length
-      ? scoreLeaderboard(predictionRows, matchRows)
-      : leaderboardData.leaderboard || [];
-
-    renderLeaderboard(leaderboardRows, matchData.last_updated || leaderboardData.last_updated);
-    renderHeroLive(matchRows);
-    renderMatches(document.getElementById("match-list"));
+    staticMatchRows = matchData.matches || [];
+    fallbackLeaderboardRows = leaderboardData.leaderboard || [];
+    fallbackLastUpdated = matchData.last_updated || leaderboardData.last_updated;
+    matchRows = staticMatchRows;
+    renderPageState();
+    refreshLiveMatches();
   } catch (error) {
     setLoadError(error);
+  } finally {
+    isLoadingPageData = false;
+  }
+}
+
+function renderPageState() {
+  leaderboardRows = predictionRows.length
+    ? scoreLeaderboard(predictionRows, matchRows)
+    : fallbackLeaderboardRows;
+  renderLeaderboard(leaderboardRows, fallbackLastUpdated);
+  renderHeroLive(matchRows);
+  renderMatches(document.getElementById("match-list"));
+}
+
+async function refreshLiveMatches() {
+  if (isRefreshingLive || !staticMatchRows.length) return;
+  isRefreshingLive = true;
+
+  try {
+    const liveRows = await liveMatches(staticMatchRows);
+    if (liveRows === staticMatchRows) return;
+
+    matchRows = liveRows;
+    renderPageState();
+  } finally {
+    isRefreshingLive = false;
   }
 }
 
@@ -263,8 +298,14 @@ function renderHeroLive(matches) {
 }
 
 async function liveMatches(staticMatches) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), LIVE_FETCH_TIMEOUT_MS);
+
   try {
-    const response = await fetch(`${LIVE_API_URL}?t=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch(`${LIVE_API_URL}?t=${Date.now()}`, {
+      cache: "no-store",
+      signal: controller.signal,
+    });
     if (!response.ok) return staticMatches;
 
     const payload = await response.json();
@@ -280,6 +321,8 @@ async function liveMatches(staticMatches) {
     return [...byMatchId.values()].sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
   } catch (_error) {
     return staticMatches;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -469,6 +512,7 @@ function normalizeTeam(value) {
     .replaceAll("-", " ")
     .trim()
     .replace(/\s+/g, " ");
+  if (/^CURA.AO$/.test(text)) return "CURAZAO";
   return TEAM_ALIASES[text] || text;
 }
 
@@ -662,12 +706,18 @@ function escapeHtml(value) {
 }
 
 loadPageData();
-setInterval(loadPageData, LIVE_REFRESH_MS);
+setInterval(refreshLiveMatches, LIVE_REFRESH_MS);
 
 document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) loadPageData();
+  if (!document.hidden) {
+    if (staticMatchRows.length) refreshLiveMatches();
+    else loadPageData();
+  }
 });
-window.addEventListener("focus", loadPageData);
+window.addEventListener("focus", () => {
+  if (staticMatchRows.length) refreshLiveMatches();
+  else loadPageData();
+});
 
 document.getElementById("dialog-close").addEventListener("click", () => {
   document.getElementById("player-dialog").close();
