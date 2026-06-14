@@ -1,4 +1,19 @@
 {
-  "last_updated": null,
-  "leaderboard": []
+  "last_updated": "2026-06-14T05:01:01+00:00",
+  "leaderboard": [
+    {
+      "participant": "Kratos",
+      "confirmed_points": 12,
+      "live_projected_points": 12,
+      "exact_scores": 1,
+      "correct_results": 2
+    },
+    {
+      "participant": "Dcas",
+      "confirmed_points": 9,
+      "live_projected_points": 9,
+      "exact_scores": 1,
+      "correct_results": 1
+    }
+  ]
 }

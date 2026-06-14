@@ -1,3 +1,84 @@
 {
-  "matches": []
+  "matches": [
+    {
+      "match_id": 1,
+      "stage": "GRUPOS",
+      "group": "A",
+      "home_team": "MEXICO",
+      "away_team": "SUDAFRICA",
+      "home_score": 2,
+      "away_score": 0,
+      "status": "finished"
+    },
+    {
+      "match_id": 2,
+      "stage": "GRUPOS",
+      "group": "A",
+      "home_team": "COREA DEL SUR",
+      "away_team": "REPUBLICA CHECA",
+      "home_score": 2,
+      "away_score": 1,
+      "status": "finished"
+    },
+	{
+      "match_id": 7,
+      "stage": "GRUPOS",
+      "group": "B",
+      "home_team": "CANADA",
+      "away_team": "BOSNIA",
+      "home_score": 1,
+      "away_score": 1,
+      "status": "finished"
+    },
+	{
+      "match_id": 19,
+      "stage": "GRUPOS",
+      "group": "D",
+      "home_team": "ESTADOS UNIDOS",
+      "away_team": "PARAGUAY",
+      "home_score": 4,
+      "away_score": 1,
+      "status": "finished"
+    },
+	{
+      "match_id": 8,
+      "stage": "GRUPOS",
+      "group": "B",
+      "home_team": "QATAR",
+      "away_team": "SUIZA",
+      "home_score": 1,
+      "away_score": 1,
+      "status": "finished"
+    },
+	{
+      "match_id": 13,
+      "stage": "GRUPOS",
+      "group": "C",
+      "home_team": "BRASIL",
+      "away_team": "MARRUECOS",
+      "home_score": 1,
+      "away_score": 1,
+      "status": "finished"
+    },
+	{
+      "match_id": 14,
+      "stage": "GRUPOS",
+      "group": "C",
+      "home_team": "HAITI",
+      "away_team": "ESCOCIA",
+      "home_score": 0,
+      "away_score": 1,
+      "status": "finished"
+    },
+    {
+      "match_id": 20,
+      "stage": "GRUPOS",
+      "group": "D",
+      "home_team": "AUSTRALIA",
+      "away_team": "TURQUIA",
+      "home_score": 1,
+      "away_score": 0,
+      "status": "live"
+    }
+  ]
 }

@@ -20,7 +20,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           environment-file: environment.yml
-          activate-environment: worldcup-scoreboard
+          activate-environment: worldcup-tronky
           auto-activate-base: false
 
       - name: Fetch results and score predictions

@@ -16,7 +16,7 @@ Build a static GitHub Pages scoreboard for a friendly World Cup prediction game.
 
 - Use conda.
 - The environment file is `environment.yml`.
-- The intended environment name is `worldcup-scoreboard`.
+- The intended environment name is `worldcup-tronky`.
 
 ## Scoring rules
 
@@ -101,3 +101,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## Local commands
+
+Use conda for all Python execution.
+
+Preferred command pattern on Windows:
+
+```bat
+conda run -n worldcup-tronky python scripts\score_predictions.py
+conda run -n worldcup-tronky python scripts\import_predictions.py
+conda run -n worldcup-tronky python scripts\fetch_results.py
