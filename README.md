@@ -30,6 +30,12 @@ This no-key source comes from `rezarahiminia/worldcup2026`. The workflow still s
 
 API keys must stay in GitHub Secrets. Do not put them in frontend JavaScript or commit them.
 
+## Scoring
+
+- Marcador exacto: 5 puntos.
+- Ganador correcto: 2 puntos.
+- Fallo: 0 puntos.
+
 ## Local Commands
 
 Use conda:

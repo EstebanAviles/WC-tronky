@@ -1,55 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>World Cup Prediction Scoreboard</title>
+  <title>La Polla Tronky</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="hero">
     <div class="hero__content">
-      <p class="eyebrow">Prediction League</p>
-      <h1>World Cup Scoreboard</h1>
-      <p class="hero__summary">Finished matches and live scores roll into one table for instant bragging rights.</p>
+      <h1>La Polla Tronky</h1>
+      <p class="hero__summary">Gana Wonky, pierden TODOS</p>
     </div>
   </header>
 
   <main>
-    <section class="summary" aria-label="Scoreboard summary">
+    <section class="summary" aria-label="Resumen de la tabla">
       <div>
-        <span class="summary__label">Players</span>
+        <span class="summary__label">Jugadores</span>
         <strong id="player-count">-</strong>
       </div>
       <div>
-        <span class="summary__label">Leader</span>
+        <span class="summary__label">Líder</span>
         <strong id="leader-name">-</strong>
       </div>
       <div>
-        <span class="summary__label">Last Updated</span>
-        <strong id="last-updated">Loading...</strong>
+        <span class="summary__label">Última actualización</span>
+        <strong id="last-updated">Cargando...</strong>
       </div>
     </section>
 
     <section class="leaderboard" aria-labelledby="leaderboard-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Live Table</p>
-          <h2 id="leaderboard-title">Leaderboard</h2>
+          <p class="eyebrow">Tabla en vivo</p>
+          <h2 id="leaderboard-title">Clasificación</h2>
         </div>
-        <span class="status-pill" id="status-pill">Loading</span>
+        <span class="status-pill" id="status-pill">Cargando</span>
       </div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Rank</th>
-              <th>Player</th>
-              <th>Points</th>
-              <th>Exact Scores</th>
-              <th>Correct Results</th>
-              <th>Missed</th>
+              <th>Puesto</th>
+              <th>Jugador</th>
+              <th>Puntos</th>
+              <th>Marcador exacto</th>
+              <th>Ganador correcto</th>
+              <th>Fallos</th>
             </tr>
           </thead>
           <tbody id="leaderboard-body"></tbody>
@@ -58,18 +57,55 @@
 
       <p class="table-message" id="table-message"></p>
     </section>
+
+    <section class="rules" aria-labelledby="rules-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Reglas</p>
+          <h2 id="rules-title">Puntuación</h2>
+        </div>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule-item rule-item--exact">
+          <span>Marcador exacto</span>
+          <strong>+5</strong>
+        </div>
+        <div class="rule-item rule-item--correct">
+          <span>Ganador correcto</span>
+          <strong>+2</strong>
+        </div>
+        <div class="rule-item rule-item--miss">
+          <span>Fallo</span>
+          <strong>+0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="matches" aria-labelledby="matches-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Partidos</p>
+          <h2 id="matches-title">Resultados actuales</h2>
+        </div>
+        <span class="status-pill" id="matches-status">Cargando</span>
+      </div>
+
+      <div class="match-list" id="match-list"></div>
+      <p class="table-message" id="match-message"></p>
+    </section>
   </main>
 
   <dialog class="player-dialog" id="player-dialog">
     <div class="dialog-header">
       <div>
-        <p class="eyebrow">Player Form</p>
-        <h2 id="dialog-player-name">Player</h2>
+        <p class="eyebrow">Racha del Jugador</p>
+        <h2 id="dialog-player-name">Jugador</h2>
       </div>
-      <button class="icon-button" id="dialog-close" type="button" aria-label="Close player details">x</button>
+      <button class="icon-button" id="dialog-close" type="button" aria-label="Cerrar detalles del jugador">x</button>
     </div>
     <div class="dialog-score">
-      <span>Total points</span>
+      <span>Puntos totales</span>
       <strong id="dialog-player-points">0</strong>
     </div>
     <div class="recent-list" id="recent-list"></div>

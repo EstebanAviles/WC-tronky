@@ -111,7 +111,9 @@ main {
   font-size: 1.35rem;
 }
 
-.leaderboard {
+.leaderboard,
+.rules,
+.matches {
   margin-top: 1.25rem;
 }
 
@@ -266,6 +268,116 @@ tbody tr:nth-child(even) {
   color: var(--muted);
 }
 
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 5.25rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-left-width: 0.45rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 24px rgba(15, 40, 25, 0.06);
+}
+
+.rule-item span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.rule-item strong {
+  font-size: 2rem;
+}
+
+.rule-item--exact {
+  border-left-color: var(--gold);
+}
+
+.rule-item--correct {
+  border-left-color: var(--grass);
+}
+
+.rule-item--miss {
+  border-left-color: #c84d3d;
+}
+
+.match-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.match-card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 24px rgba(15, 40, 25, 0.06);
+}
+
+.match-card--live {
+  border-color: #9fd8b3;
+  box-shadow: 0 12px 28px rgba(15, 107, 59, 0.14);
+}
+
+.match-card__meta,
+.match-card__score {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.match-card__meta span,
+.match-card__date {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.match-card__meta strong {
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  color: var(--grass-dark);
+  background: #edf8ef;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.match-card__score {
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.match-card__score span {
+  font-weight: 900;
+}
+
+.match-card__score span:last-child {
+  text-align: right;
+}
+
+.match-card__score strong {
+  min-width: 4.4rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  color: white;
+  background: var(--grass-dark);
+  text-align: center;
+}
+
 .player-dialog {
   width: min(680px, calc(100% - 2rem));
   max-height: min(760px, calc(100vh - 2rem));
@@ -404,6 +516,11 @@ tbody tr:nth-child(even) {
   .section-heading {
     align-items: start;
     flex-direction: column;
+  }
+
+  .rules-grid,
+  .match-list {
+    grid-template-columns: 1fr;
   }
 
   th,

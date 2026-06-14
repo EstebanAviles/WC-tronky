@@ -20,11 +20,10 @@ Build a static GitHub Pages scoreboard for a friendly World Cup prediction game.
 
 ## Scoring rules
 
-- Exact score: 6 points.
-- Correct outcome only: 3 points.
+- Exact score: 5 points.
+- Correct winner/outcome: 2 points.
 - Wrong outcome: 0 points.
-- Confirmed points should use only finished matches.
-- Live projected points may use live scores as if the match ended with the current score.
+- Points may use live scores as if the match ended with the current score.
 
 ## Development rules
 
