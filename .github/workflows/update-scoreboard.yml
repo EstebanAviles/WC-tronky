@@ -3,7 +3,7 @@ name: Update scoreboard
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: write
@@ -27,6 +27,8 @@ jobs:
         shell: bash -el {0}
         env:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+          FOOTBALL_API_LEAGUE_ID: ${{ vars.FOOTBALL_API_LEAGUE_ID }}
+          FOOTBALL_API_SEASON: "2026"
         run: |
           python scripts/fetch_results.py
           python scripts/score_predictions.py

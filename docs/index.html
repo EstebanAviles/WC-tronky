@@ -7,24 +7,73 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <h1>World Cup Prediction Scoreboard</h1>
-    <p id="last-updated">Loading...</p>
+  <header class="hero">
+    <div class="hero__content">
+      <p class="eyebrow">Prediction League</p>
+      <h1>World Cup Scoreboard</h1>
+      <p class="hero__summary">Finished matches and live scores roll into one table for instant bragging rights.</p>
+    </div>
+  </header>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Confirmed</th>
-          <th>Live Projection</th>
-          <th>Exact Scores</th>
-          <th>Correct Results</th>
-        </tr>
-      </thead>
-      <tbody id="leaderboard-body"></tbody>
-    </table>
+  <main>
+    <section class="summary" aria-label="Scoreboard summary">
+      <div>
+        <span class="summary__label">Players</span>
+        <strong id="player-count">-</strong>
+      </div>
+      <div>
+        <span class="summary__label">Leader</span>
+        <strong id="leader-name">-</strong>
+      </div>
+      <div>
+        <span class="summary__label">Last Updated</span>
+        <strong id="last-updated">Loading...</strong>
+      </div>
+    </section>
+
+    <section class="leaderboard" aria-labelledby="leaderboard-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Live Table</p>
+          <h2 id="leaderboard-title">Leaderboard</h2>
+        </div>
+        <span class="status-pill" id="status-pill">Loading</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Points</th>
+              <th>Exact Scores</th>
+              <th>Correct Results</th>
+              <th>Missed</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body"></tbody>
+        </table>
+      </div>
+
+      <p class="table-message" id="table-message"></p>
+    </section>
   </main>
+
+  <dialog class="player-dialog" id="player-dialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Player Form</p>
+        <h2 id="dialog-player-name">Player</h2>
+      </div>
+      <button class="icon-button" id="dialog-close" type="button" aria-label="Close player details">x</button>
+    </div>
+    <div class="dialog-score">
+      <span>Total points</span>
+      <strong id="dialog-player-points">0</strong>
+    </div>
+    <div class="recent-list" id="recent-list"></div>
+  </dialog>
 
   <script src="app.js"></script>
 </body>
