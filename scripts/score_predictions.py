@@ -15,6 +15,7 @@ TEAM_FLAGS = {
     "ALEMANIA": "DE",
     "ARGELIA": "DZ",
     "ARGENTINA": "AR",
+    "ARABIA SAUDITA": "SA",
     "AUSTRALIA": "AU",
     "AUSTRIA": "AT",
     "BELGICA": "BE",
@@ -31,6 +32,7 @@ TEAM_FLAGS = {
     "EGIPTO": "EG",
     "ESCOCIA": "GB-SCT",
     "ESPAÑA": "ES",
+    "ESPANA": "ES",
     "ESTADOS UNIDOS": "US",
     "FRANCIA": "FR",
     "HAITI": "HT",
@@ -44,9 +46,11 @@ TEAM_FLAGS = {
     "NORUEGA": "NO",
     "NUEVA ZELANDA": "NZ",
     "PAISES BAJOS": "NL",
+    "PANAMA": "PA",
     "PARAGUAY": "PY",
     "PORTUGAL": "PT",
     "QATAR": "QA",
+    "RD CONGO": "CD",
     "REPUBLICA CHECA": "CZ",
     "SENEGAL": "SN",
     "SUDAFRICA": "ZA",
@@ -121,10 +125,56 @@ def load_matches():
     return matches
 
 
-def main():
-    predictions = pd.read_csv(PREDICTIONS_PATH)
-    matches = load_matches()
+def source_order(match):
+    return int(match.get("source_order", match["match_id"]))
 
+
+def current_scoring_matches(matches):
+    return {
+        match_id: match
+        for match_id, match in matches.items()
+        if str(match.get("status", "")).lower() in SCORING_STATUSES
+    }
+
+
+def previous_scoring_matches(matches):
+    live_matches = [
+        match
+        for match in matches.values()
+        if str(match.get("status", "")).lower() == "live"
+    ]
+    if live_matches:
+        return {
+            match_id: match
+            for match_id, match in matches.items()
+            if str(match.get("status", "")).lower() == "finished"
+        }
+
+    finished_matches = [
+        match
+        for match in matches.values()
+        if str(match.get("status", "")).lower() == "finished"
+    ]
+    if not finished_matches:
+        return {}
+
+    latest_finished = max(finished_matches, key=source_order)
+    latest_match_id = int(latest_finished["match_id"])
+    return {
+        match_id: match
+        for match_id, match in matches.items()
+        if match_id != latest_match_id
+    }
+
+
+def rank_map(leaderboard):
+    return {
+        row["participant"]: index + 1
+        for index, row in enumerate(leaderboard)
+    }
+
+
+def score_leaderboard(predictions, matches):
     rows = []
     for participant, group in predictions.groupby("participant"):
         points_total = 0
@@ -160,19 +210,38 @@ def main():
                     key=lambda row: row["source_order"],
                     reverse=True,
                 )[:5],
+                "all_results": sorted(
+                    recent_results,
+                    key=lambda row: row["source_order"],
+                    reverse=True,
+                ),
             }
         )
 
-    leaderboard = sorted(
+    return sorted(
         rows,
         key=lambda row: (
             row["points"],
             row["exact_scores"],
             row["correct_results"],
-            -row["missed_results"],
         ),
         reverse=True,
     )
+
+
+def main():
+    predictions = pd.read_csv(PREDICTIONS_PATH)
+    matches = current_scoring_matches(load_matches())
+    previous_ranks = rank_map(
+        score_leaderboard(predictions, previous_scoring_matches(matches))
+    )
+    leaderboard = score_leaderboard(predictions, matches)
+
+    for index, row in enumerate(leaderboard):
+        current_rank = index + 1
+        previous_rank = previous_ranks.get(row["participant"])
+        row["rank"] = current_rank
+        row["movement"] = 0 if previous_rank is None else previous_rank - current_rank
 
     output = {
         "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

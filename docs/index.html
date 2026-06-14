@@ -56,6 +56,18 @@
       </div>
 
       <p class="table-message" id="table-message"></p>
+      <p class="table-message">Desempate: puntos, luego marcadores exactos, luego ganadores correctos.</p>
+    </section>
+
+    <section class="stats" aria-labelledby="stats-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Datos curiosos</p>
+          <h2 id="stats-title">Estadísticas</h2>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="stats-grid"></div>
     </section>
 
     <section class="rules" aria-labelledby="rules-title">
@@ -108,7 +120,22 @@
       <span>Puntos totales</span>
       <strong id="dialog-player-points">0</strong>
     </div>
+    <div class="dialog-tabs" role="tablist" aria-label="Detalle de pronósticos">
+      <button class="tab-button tab-button--active" id="tab-recent" type="button">Últimos 5</button>
+      <button class="tab-button" id="tab-all" type="button">Todos</button>
+    </div>
     <div class="recent-list" id="recent-list"></div>
+  </dialog>
+
+  <dialog class="player-dialog" id="match-dialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Pronósticos del partido</p>
+        <h2 id="dialog-match-title">Partido</h2>
+      </div>
+      <button class="icon-button" id="match-dialog-close" type="button" aria-label="Cerrar detalles del partido">x</button>
+    </div>
+    <div class="recent-list" id="match-prediction-list"></div>
   </dialog>
 
   <script src="app.js"></script>

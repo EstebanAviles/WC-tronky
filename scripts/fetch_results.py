@@ -22,6 +22,7 @@ FINISHED_STATUSES = {"FT", "AET", "PEN"}
 TEAM_ALIASES = {
     "ALGERIA": "ARGELIA",
     "ARGENTINA": "ARGENTINA",
+    "SAUDI ARABIA": "ARABIA SAUDITA",
     "AUSTRIA": "AUSTRIA",
     "BELGIUM": "BELGICA",
     "BOSNIA AND HERZEGOVINA": "BOSNIA",
@@ -33,6 +34,10 @@ TEAM_ALIASES = {
     "CROATIA": "CROACIA",
     "CZECHIA": "REPUBLICA CHECA",
     "CZECH REPUBLIC": "REPUBLICA CHECA",
+    "DR CONGO": "RD CONGO",
+    "DEMOCRATIC REPUBLIC OF CONGO": "RD CONGO",
+    "DEMOCRATIC REPUBLIC OF THE CONGO": "RD CONGO",
+    "CONGO DR": "RD CONGO",
     "CURACAO": "CURAZAO",
     "ECUADOR": "ECUADOR",
     "EGYPT": "EGIPTO",
@@ -58,7 +63,7 @@ TEAM_ALIASES = {
     "SENEGAL": "SENEGAL",
     "SOUTH AFRICA": "SUDAFRICA",
     "SOUTH KOREA": "COREA DEL SUR",
-    "SPAIN": "ESPAÑA",
+    "SPAIN": "ESPANA",
     "SWEDEN": "SUECIA",
     "SWITZERLAND": "SUIZA",
     "TUNISIA": "TUNEZ",
@@ -66,6 +71,7 @@ TEAM_ALIASES = {
     "TURKEY": "TURQUIA",
     "UNITED STATES": "ESTADOS UNIDOS",
     "URUGUAY": "URUGUAY",
+    "UZBEKISTAN": "UZBEKISTAN",
     "USA": "ESTADOS UNIDOS",
 }
 
@@ -165,9 +171,10 @@ def convert_fixture(fixture, schedule):
     if not schedule_row:
         return None
 
+    fixture_status = api_status(status.get("short"))
     home_score = goals.get("home")
     away_score = goals.get("away")
-    if home_score is None or away_score is None:
+    if fixture_status in {"finished", "live"} and (home_score is None or away_score is None):
         return None
     if reverse_score:
         home_score, away_score = away_score, home_score
@@ -178,9 +185,9 @@ def convert_fixture(fixture, schedule):
         "group": schedule_row["group"],
         "home_team": schedule_row["home_team"],
         "away_team": schedule_row["away_team"],
-        "home_score": int(home_score),
-        "away_score": int(away_score),
-        "status": api_status(status.get("short")),
+        "home_score": int(home_score) if home_score is not None else None,
+        "away_score": int(away_score) if away_score is not None else None,
+        "status": fixture_status,
         "source_match_id": fixture.get("fixture", {}).get("id"),
         "source_order": fixture.get("fixture", {}).get("timestamp", int(schedule_row["match_id"])),
         "played_at": fixture.get("fixture", {}).get("date"),
@@ -216,9 +223,10 @@ def convert_worldcup26_game(game, schedule):
         return None
 
     match_id = int(schedule_row["match_id"])
+    game_status = worldcup26_status(game)
     home_score = game.get("home_score")
     away_score = game.get("away_score")
-    if home_score is None or away_score is None:
+    if game_status in {"finished", "live"} and (home_score is None or away_score is None):
         return None
     if reverse_score:
         home_score, away_score = away_score, home_score
@@ -229,9 +237,9 @@ def convert_worldcup26_game(game, schedule):
         "group": schedule_row["group"],
         "home_team": schedule_row["home_team"],
         "away_team": schedule_row["away_team"],
-        "home_score": int(home_score),
-        "away_score": int(away_score),
-        "status": worldcup26_status(game),
+        "home_score": int(home_score) if game_status in {"finished", "live"} else None,
+        "away_score": int(away_score) if game_status in {"finished", "live"} else None,
+        "status": game_status,
         "source_match_id": int(game["id"]),
         "source_order": worldcup26_source_order(game),
         "played_at": game.get("local_date", ""),
@@ -258,11 +266,11 @@ def main():
     fetched_matches = {}
 
     for match in fetched:
-        if match and match["status"] in {"finished", "live"}:
+        if match:
             fetched_matches[match["match_id"]] = match
 
     if not fetched_matches:
-        print(f"No live/finished {source} matches matched the prediction schedule.")
+        print(f"No {source} matches matched the prediction schedule.")
         print("Keeping existing match_scores.json unchanged.")
         return
 
@@ -276,7 +284,7 @@ def main():
         json.dump(output, file, indent=2, ensure_ascii=False)
         file.write("\n")
 
-    print(f"Fetched {len(fetched_matches)} live/finished matches from {source}.")
+    print(f"Fetched {len(fetched_matches)} matches from {source}.")
     print(f"Wrote {len(matches)} matches to {MATCH_SCORES_PATH}")
 
 
