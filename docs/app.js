@@ -667,9 +667,6 @@ function flagAssetCode(code) {
 }
 
 function rankLabel(rank) {
-  if (rank === 1) return "Oro";
-  if (rank === 2) return "Plata";
-  if (rank === 3) return "Bronce";
   return rank;
 }
 

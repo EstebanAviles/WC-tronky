@@ -223,7 +223,28 @@ table {
   width: 100%;
   min-width: 920px;
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: 0.92rem;
+}
+
+.col-rank {
+  width: 6.5rem;
+}
+
+.col-player {
+  width: 11.5rem;
+}
+
+.col-points {
+  width: 6rem;
+}
+
+.col-short {
+  width: 6.5rem;
+}
+
+.col-form {
+  width: 10.5rem;
 }
 
 th,
@@ -318,12 +339,16 @@ tbody tr.rank-last {
 }
 
 .player-button {
+  max-width: 8.5rem;
+  overflow: hidden;
   padding: 0;
   border: 0;
   color: var(--ink);
   background: transparent;
   font: inherit;
   font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: rgba(15, 107, 59, 0.35);
