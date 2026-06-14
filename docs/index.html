@@ -12,6 +12,15 @@
       <h1>La Polla Tronky</h1>
       <p class="hero__summary">Gana Wonky, pierden TODOS</p>
     </div>
+    <aside class="hero-live" id="hero-live" hidden aria-live="polite">
+      <span class="hero-live__label">En vivo</span>
+      <div class="hero-live__teams">
+        <span id="hero-live-home">-</span>
+        <strong id="hero-live-score">-</strong>
+        <span id="hero-live-away">-</span>
+      </div>
+      <small id="hero-live-meta">Actualizando marcador</small>
+    </aside>
   </header>
 
   <main>
@@ -57,17 +66,6 @@
 
       <p class="table-message" id="table-message"></p>
       <p class="table-message">Desempate: puntos, luego marcadores exactos, luego ganadores correctos.</p>
-    </section>
-
-    <section class="stats" aria-labelledby="stats-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Datos curiosos</p>
-          <h2 id="stats-title">Estadísticas</h2>
-        </div>
-      </div>
-
-      <div class="stats-grid" id="stats-grid"></div>
     </section>
 
     <section class="rules" aria-labelledby="rules-title">

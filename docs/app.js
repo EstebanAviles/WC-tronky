@@ -132,8 +132,8 @@ async function loadPageData() {
       : leaderboardData.leaderboard || [];
 
     renderLeaderboard(leaderboardRows, matchData.last_updated || leaderboardData.last_updated);
+    renderHeroLive(matchRows);
     renderMatches(document.getElementById("match-list"));
-    renderStats();
   } catch (error) {
     setLoadError(error);
   }
@@ -217,7 +217,11 @@ function renderMatches(container) {
 
     matches.forEach((match) => {
       const card = document.createElement("article");
-      card.className = `match-card ${match.status === "live" ? "match-card--live" : ""}`;
+      card.className = [
+        "match-card",
+        match.status === "live" ? "match-card--live" : "",
+        groupClass(match.group),
+      ].filter(Boolean).join(" ");
       card.innerHTML = `
         <button class="match-card__button" type="button">
           <div class="match-card__meta">
@@ -238,6 +242,24 @@ function renderMatches(container) {
 
     container.appendChild(section);
   });
+}
+
+function renderHeroLive(matches) {
+  const livePanel = document.getElementById("hero-live");
+  const liveMatch = matches
+    .filter((match) => match.status === "live")
+    .sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id))[0];
+
+  if (!liveMatch) {
+    livePanel.hidden = true;
+    return;
+  }
+
+  livePanel.hidden = false;
+  document.getElementById("hero-live-home").innerHTML = flagMarkup(flagForTeam(liveMatch.home_team), liveMatch.home_team);
+  document.getElementById("hero-live-score").textContent = scoreLabel(liveMatch);
+  document.getElementById("hero-live-away").innerHTML = flagMarkup(flagForTeam(liveMatch.away_team), liveMatch.away_team);
+  document.getElementById("hero-live-meta").textContent = `${liveMatch.home_team} vs ${liveMatch.away_team}`;
 }
 
 async function liveMatches(staticMatches) {
@@ -456,35 +478,9 @@ function numberOrNull(value) {
   return Number.isNaN(number) ? null : number;
 }
 
-function renderStats() {
-  const statsGrid = document.getElementById("stats-grid");
-  if (!statsGrid || !leaderboardRows.length) return;
-
-  const allResults = leaderboardRows.flatMap((row) =>
-    (row.all_results || []).map((result) => ({ ...result, participant: row.participant }))
-  );
-  const exactLeader = maxBy(leaderboardRows, (row) => row.exact_scores);
-  const missLeader = maxBy(leaderboardRows, (row) => row.missed_results);
-  const exactMatch = topMatchBy(allResults, "exact");
-  const hardestMatch = topMatchBy(allResults, "miss");
-
-  const cards = [
-    ["Líder", leaderboardRows[0].participant, `${leaderboardRows[0].points} pts`],
-    ["Más marcadores exactos", exactLeader.participant, exactLeader.exact_scores],
-    ["Más fallos", missLeader.participant, missLeader.missed_results],
-    ["Partido con más exactos", exactMatch?.label || "-", exactMatch ? exactMatch.count : "-"],
-    ["Partido más difícil", hardestMatch?.label || "-", hardestMatch ? hardestMatch.count : "-"],
-  ];
-
-  statsGrid.innerHTML = cards
-    .map(([label, value, detail]) => `
-      <article class="stat-card">
-        <span>${escapeHtml(label)}</span>
-        <strong>${escapeHtml(value)}</strong>
-        <small>${escapeHtml(String(detail))}</small>
-      </article>
-    `)
-    .join("");
+function groupClass(group) {
+  const normalized = String(group || "").trim().toLowerCase();
+  return /^[a-h]$/.test(normalized) ? `match-card--group-${normalized}` : "";
 }
 
 function openPlayerDialog(player) {
@@ -554,26 +550,6 @@ function resultCard(match) {
       </div>
     </article>
   `;
-}
-
-function topMatchBy(results, resultType) {
-  const counts = new Map();
-  results
-    .filter((result) => result.result === resultType)
-    .forEach((result) => {
-      const key = result.match_id;
-      const current = counts.get(key) || {
-        count: 0,
-        label: `${result.home_team} ${result.actual_home_score}-${result.actual_away_score} ${result.away_team}`,
-      };
-      current.count += 1;
-      counts.set(key, current);
-    });
-  return [...counts.values()].sort((a, b) => b.count - a.count)[0];
-}
-
-function maxBy(rows, score) {
-  return rows.slice().sort((a, b) => score(b) - score(a))[0];
 }
 
 function resultWeight(result) {
