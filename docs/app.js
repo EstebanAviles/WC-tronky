@@ -8,10 +8,18 @@ let liveLastUpdated = "";
 let selectedPlayer = null;
 let isLoadingPageData = false;
 let isRefreshingLive = false;
+let liveRefreshTimerId = null;
+let freshnessTimerId = null;
+let lastMatchSignature = "";
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
-const LIVE_REFRESH_MS = 15000;
-const LIVE_FETCH_TIMEOUT_MS = 30000;
+const LIVE_REFRESH_ACTIVE_MS = 5000;
+const LIVE_REFRESH_WATCH_MS = 10000;
+const LIVE_REFRESH_IDLE_MS = 60000;
+const LIVE_FETCH_TIMEOUT_MS = 10000;
+const LIVE_STALE_WARNING_MS = 120000;
+const KICKOFF_WATCH_BEFORE_MS = 30 * 60 * 1000;
+const KICKOFF_WATCH_AFTER_MS = 20 * 60 * 1000;
 const SCORING_STATUSES = new Set(["finished", "live"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
@@ -146,8 +154,10 @@ async function loadPageData() {
     fallbackLeaderboardRows = leaderboardData.leaderboard || [];
     fallbackLastUpdated = matchData.last_updated || leaderboardData.last_updated;
     matchRows = staticMatchRows;
+    lastMatchSignature = matchesSignature(matchRows);
     renderPageState();
-    refreshLiveMatches();
+    startFreshnessClock();
+    startLiveRefreshLoop(0);
   } catch (error) {
     setLoadError(error);
   } finally {
@@ -170,13 +180,67 @@ async function refreshLiveMatches() {
 
   try {
     const liveRows = await liveMatches(staticMatchRows);
-    if (liveRows === staticMatchRows) return;
+    if (!liveRows) return;
+
+    const nextSignature = matchesSignature(liveRows);
+    if (nextSignature === lastMatchSignature) {
+      updateFreshnessDisplay(liveLastUpdated || fallbackLastUpdated);
+      return;
+    }
 
     matchRows = liveRows;
+    lastMatchSignature = nextSignature;
     renderPageState();
   } finally {
     isRefreshingLive = false;
   }
+}
+
+function startLiveRefreshLoop(delayMs = liveRefreshDelay()) {
+  if (liveRefreshTimerId) clearTimeout(liveRefreshTimerId);
+  liveRefreshTimerId = setTimeout(async () => {
+    await refreshLiveMatches();
+    startLiveRefreshLoop();
+  }, delayMs);
+}
+
+function liveRefreshDelay() {
+  if (document.hidden) return LIVE_REFRESH_IDLE_MS;
+  if (hasLiveMatch(matchRows)) return LIVE_REFRESH_ACTIVE_MS;
+  if (hasMatchNearKickoff(matchRows)) return LIVE_REFRESH_WATCH_MS;
+  return LIVE_REFRESH_IDLE_MS;
+}
+
+function hasLiveMatch(matches) {
+  return matches.some((match) => match.status === "live");
+}
+
+function hasMatchNearKickoff(matches) {
+  const now = Date.now();
+  return matches.some((match) => {
+    if (match.status !== "scheduled") return false;
+    const kickoff = parseWorldCupDate(match.played_at || "");
+    if (Number.isNaN(kickoff)) return false;
+    return kickoff - now <= KICKOFF_WATCH_BEFORE_MS && now - kickoff <= KICKOFF_WATCH_AFTER_MS;
+  });
+}
+
+function matchesSignature(matches) {
+  return JSON.stringify(matches.map((match) => [
+    Number(match.match_id),
+    match.status,
+    match.home_score,
+    match.away_score,
+    match.played_at,
+    Number(match.source_order || match.match_id),
+  ]));
+}
+
+function startFreshnessClock() {
+  if (freshnessTimerId) return;
+  freshnessTimerId = setInterval(() => {
+    updateFreshnessDisplay(liveLastUpdated || fallbackLastUpdated);
+  }, 1000);
 }
 
 async function fetchJson(path) {
@@ -186,18 +250,14 @@ async function fetchJson(path) {
 }
 
 function renderLeaderboard(rows, lastUpdatedValue) {
-  const lastUpdated = document.getElementById("last-updated");
   const playerCount = document.getElementById("player-count");
   const leaderName = document.getElementById("leader-name");
   const tbody = document.getElementById("leaderboard-body");
-  const statusPill = document.getElementById("status-pill");
   const tableMessage = document.getElementById("table-message");
 
   playerCount.textContent = rows.length;
   leaderName.textContent = participantLabel(rows[0]?.participant) || "-";
-  lastUpdated.textContent = formatTimestamp(lastUpdatedValue);
-  statusPill.textContent = "En vivo";
-  statusPill.className = "status-pill status-pill--ok";
+  updateFreshnessDisplay(lastUpdatedValue);
   tableMessage.textContent = rows.length ? "" : "Todavía no hay pronósticos puntuados.";
   tbody.innerHTML = "";
 
@@ -313,7 +373,7 @@ async function liveMatches(staticMatches) {
       cache: "no-store",
       signal: controller.signal,
     });
-    if (!response.ok) return staticMatches;
+    if (!response.ok) return null;
 
     liveLastUpdated = response.headers.get("x-tronky-cache-updated-at") || new Date().toISOString();
     const payload = await response.json();
@@ -328,7 +388,7 @@ async function liveMatches(staticMatches) {
 
     return [...byMatchId.values()].sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
   } catch (_error) {
-    return staticMatches;
+    return null;
   } finally {
     clearTimeout(timeoutId);
   }
@@ -714,6 +774,45 @@ function formatTimestamp(value) {
   }).format(date);
 }
 
+function updateFreshnessDisplay(value) {
+  const lastUpdated = document.getElementById("last-updated");
+  const statusPill = document.getElementById("status-pill");
+  if (!lastUpdated || !statusPill) return;
+
+  lastUpdated.textContent = freshnessLabel(value);
+  lastUpdated.title = formatTimestamp(value);
+
+  if (hasLiveMatch(matchRows) && isStaleTimestamp(value)) {
+    statusPill.textContent = "Datos con demora";
+    statusPill.className = "status-pill status-pill--warning";
+    return;
+  }
+
+  statusPill.textContent = "En vivo";
+  statusPill.className = "status-pill status-pill--ok";
+}
+
+function freshnessLabel(value) {
+  if (!value) return "Sin datos";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+  if (seconds < 5) return "Actualizado ahora";
+  if (seconds < 60) return `Actualizado hace ${seconds} s`;
+
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `Actualizado hace ${minutes} min`;
+
+  return formatTimestamp(value);
+}
+
+function isStaleTimestamp(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return false;
+  return Date.now() - date.getTime() > LIVE_STALE_WARNING_MS;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -724,16 +823,23 @@ function escapeHtml(value) {
 }
 
 loadPageData();
-setInterval(refreshLiveMatches, LIVE_REFRESH_MS);
 
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden) {
-    if (staticMatchRows.length) refreshLiveMatches();
+    if (staticMatchRows.length) {
+      refreshLiveMatches();
+      startLiveRefreshLoop();
+    }
     else loadPageData();
+  } else if (staticMatchRows.length) {
+    startLiveRefreshLoop();
   }
 });
 window.addEventListener("focus", () => {
-  if (staticMatchRows.length) refreshLiveMatches();
+  if (staticMatchRows.length) {
+    refreshLiveMatches();
+    startLiveRefreshLoop();
+  }
   else loadPageData();
 });
 
