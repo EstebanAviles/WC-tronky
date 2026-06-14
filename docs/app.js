@@ -8,7 +8,7 @@ let selectedPlayer = null;
 let isLoadingPageData = false;
 let isRefreshingLive = false;
 
-const LIVE_API_URL = "https://worldcup26.ir/get/games";
+const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_MS = 15000;
 const LIVE_FETCH_TIMEOUT_MS = 30000;
 const SCORING_STATUSES = new Set(["finished", "live"]);
