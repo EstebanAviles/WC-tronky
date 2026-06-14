@@ -212,10 +212,10 @@ function renderLeaderboard(rows, lastUpdatedValue) {
         <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
       </td>
       <td data-label="Puntos"><strong>${row.points}</strong></td>
-      <td data-label="Marcador exacto">${row.exact_scores}</td>
-      <td data-label="Ganador correcto">${row.correct_results}</td>
-      <td data-label="Fallos">${row.missed_results}</td>
-      <td data-label="Jugados">${row.played_matches}</td>
+      <td data-label="E">${row.exact_scores}</td>
+      <td data-label="G">${row.correct_results}</td>
+      <td data-label="F">${row.missed_results}</td>
+      <td data-label="PJ">${row.played_matches}</td>
       <td data-label="Últimas 5">${lastFiveMarkup(row.recent_results || [])}</td>
     `;
     tr.querySelector(".player-button").addEventListener("click", () => openPlayerDialog(row));
