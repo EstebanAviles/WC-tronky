@@ -1,7 +1,14 @@
 let leaderboardRows = [];
 let matchRows = [];
+let predictionRows = [];
 let selectedPlayer = null;
 let selectedTab = "recent";
+
+const LIVE_API_URL = "https://worldcup26.ir/get/games";
+const LIVE_REFRESH_MS = 15000;
+const SCORING_STATUSES = new Set(["finished", "live"]);
+const EXACT_POINTS = 5;
+const CORRECT_POINTS = 2;
 
 const TEAM_FLAGS = {
   ALEMANIA: "DE",
@@ -54,12 +61,91 @@ const TEAM_FLAGS = {
   UZBEKISTAN: "UZ",
 };
 
+const TEAM_ALIASES = {
+  ALGERIA: "ARGELIA",
+  ARGENTINA: "ARGENTINA",
+  "SAUDI ARABIA": "ARABIA SAUDITA",
+  AUSTRIA: "AUSTRIA",
+  BELGIUM: "BELGICA",
+  "BOSNIA AND HERZEGOVINA": "BOSNIA",
+  BRAZIL: "BRASIL",
+  "CAPE VERDE": "CABO VERDE",
+  COLOMBIA: "COLOMBIA",
+  "COTE D IVOIRE": "COSTA DE MARFIL",
+  "COTE D'IVOIRE": "COSTA DE MARFIL",
+  CROATIA: "CROACIA",
+  CZECHIA: "REPUBLICA CHECA",
+  "CZECH REPUBLIC": "REPUBLICA CHECA",
+  "DR CONGO": "RD CONGO",
+  "DEMOCRATIC REPUBLIC OF CONGO": "RD CONGO",
+  "DEMOCRATIC REPUBLIC OF THE CONGO": "RD CONGO",
+  "CONGO DR": "RD CONGO",
+  CURACAO: "CURAZAO",
+  ECUADOR: "ECUADOR",
+  EGYPT: "EGIPTO",
+  ENGLAND: "INGLATERRA",
+  FRANCE: "FRANCIA",
+  GERMANY: "ALEMANIA",
+  HAITI: "HAITI",
+  IRAN: "IRAN",
+  IRAQ: "IRAK",
+  "IVORY COAST": "COSTA DE MARFIL",
+  JAPAN: "JAPON",
+  JORDAN: "JORDANIA",
+  "KOREA REPUBLIC": "COREA DEL SUR",
+  MEXICO: "MEXICO",
+  MOROCCO: "MARRUECOS",
+  NETHERLANDS: "PAISES BAJOS",
+  "NEW ZEALAND": "NUEVA ZELANDA",
+  NORWAY: "NORUEGA",
+  PARAGUAY: "PARAGUAY",
+  PORTUGAL: "PORTUGAL",
+  QATAR: "QATAR",
+  SCOTLAND: "ESCOCIA",
+  SENEGAL: "SENEGAL",
+  "SOUTH AFRICA": "SUDAFRICA",
+  "SOUTH KOREA": "COREA DEL SUR",
+  SPAIN: "ESPANA",
+  SWEDEN: "SUECIA",
+  SWITZERLAND: "SUIZA",
+  TUNISIA: "TUNEZ",
+  TURKIYE: "TURQUIA",
+  TURKEY: "TURQUIA",
+  "UNITED STATES": "ESTADOS UNIDOS",
+  URUGUAY: "URUGUAY",
+  UZBEKISTAN: "UZBEKISTAN",
+  USA: "ESTADOS UNIDOS",
+};
+
 async function loadPageData() {
-  await Promise.all([loadLeaderboard(), loadMatches()]);
-  renderStats();
+  try {
+    const [leaderboardData, matchData, predictionData] = await Promise.all([
+      fetchJson("./data/leaderboard.json"),
+      fetchJson("./data/match_scores.json"),
+      fetchJson("./data/predictions.json"),
+    ]);
+
+    predictionRows = predictionData.predictions || [];
+    matchRows = await liveMatches(matchData.matches || []);
+    leaderboardRows = predictionRows.length
+      ? scoreLeaderboard(predictionRows, matchRows)
+      : leaderboardData.leaderboard || [];
+
+    renderLeaderboard(leaderboardRows, matchData.last_updated || leaderboardData.last_updated);
+    renderMatches(document.getElementById("match-list"));
+    renderStats();
+  } catch (error) {
+    setLoadError(error);
+  }
 }
 
-async function loadLeaderboard() {
+async function fetchJson(path) {
+  const response = await fetch(path, { cache: "no-store" });
+  if (!response.ok) throw new Error(`No se pudo cargar ${path}.`);
+  return response.json();
+}
+
+function renderLeaderboard(rows, lastUpdatedValue) {
   const lastUpdated = document.getElementById("last-updated");
   const playerCount = document.getElementById("player-count");
   const leaderName = document.getElementById("leader-name");
@@ -67,75 +153,55 @@ async function loadLeaderboard() {
   const statusPill = document.getElementById("status-pill");
   const tableMessage = document.getElementById("table-message");
 
-  try {
-    const response = await fetch("./data/leaderboard.json", { cache: "no-store" });
-    if (!response.ok) throw new Error("No se pudo cargar la tabla.");
+  playerCount.textContent = rows.length;
+  leaderName.textContent = rows[0]?.participant || "-";
+  lastUpdated.textContent = formatTimestamp(lastUpdatedValue);
+  statusPill.textContent = "En vivo";
+  statusPill.className = "status-pill status-pill--ok";
+  tableMessage.textContent = rows.length ? "" : "Todavía no hay pronósticos puntuados.";
+  tbody.innerHTML = "";
 
-    const data = await response.json();
-    leaderboardRows = data.leaderboard || [];
-
-    playerCount.textContent = leaderboardRows.length;
-    leaderName.textContent = leaderboardRows[0]?.participant || "-";
-    lastUpdated.textContent = formatTimestamp(data.last_updated);
-    statusPill.textContent = "Actualizada";
-    statusPill.className = "status-pill status-pill--ok";
-    tableMessage.textContent = leaderboardRows.length ? "" : "Todavía no hay pronósticos puntuados.";
-    tbody.innerHTML = "";
-
-    leaderboardRows.forEach((row, index) => {
-      const rank = row.rank || index + 1;
-      const tr = document.createElement("tr");
-      tr.className = rank <= 3 ? `rank-${rank}` : "";
-      tr.innerHTML = `
-        <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
-        <td data-label="Jugador">
-          <button class="player-button" type="button">${escapeHtml(row.participant)}</button>
-          <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
-        </td>
-        <td data-label="Puntos"><strong>${row.points}</strong></td>
-        <td data-label="Marcador exacto">${row.exact_scores}</td>
-        <td data-label="Ganador correcto">${row.correct_results}</td>
-        <td data-label="Fallos">${row.missed_results}</td>
-      `;
-      tr.querySelector(".player-button").addEventListener("click", () => openPlayerDialog(row));
-      tbody.appendChild(tr);
-    });
-  } catch (error) {
-    statusPill.textContent = "Error de datos";
-    statusPill.className = "status-pill status-pill--error";
-    tableMessage.textContent = error.message;
-  }
+  rows.forEach((row, index) => {
+    const rank = row.rank || index + 1;
+    const tr = document.createElement("tr");
+    tr.className = rank <= 3 ? `rank-${rank}` : "";
+    tr.innerHTML = `
+      <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
+      <td data-label="Jugador">
+        <button class="player-button" type="button">${escapeHtml(row.participant)}</button>
+        <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
+      </td>
+      <td data-label="Puntos"><strong>${row.points}</strong></td>
+      <td data-label="Marcador exacto">${row.exact_scores}</td>
+      <td data-label="Ganador correcto">${row.correct_results}</td>
+      <td data-label="Fallos">${row.missed_results}</td>
+    `;
+    tr.querySelector(".player-button").addEventListener("click", () => openPlayerDialog(row));
+    tbody.appendChild(tr);
+  });
 }
 
-async function loadMatches() {
-  const matchList = document.getElementById("match-list");
-  const matchStatus = document.getElementById("matches-status");
-  const matchMessage = document.getElementById("match-message");
-
-  try {
-    const response = await fetch("./data/match_scores.json", { cache: "no-store" });
-    if (!response.ok) throw new Error("No se pudieron cargar los partidos.");
-
-    const data = await response.json();
-    matchRows = data.matches || [];
-
-    matchStatus.textContent = "Actualizados";
-    matchStatus.className = "status-pill status-pill--ok";
-    matchMessage.textContent = matchRows.length ? "" : "Todavía no hay partidos.";
-    renderMatches(matchList);
-  } catch (error) {
-    matchStatus.textContent = "Error de datos";
-    matchStatus.className = "status-pill status-pill--error";
-    matchMessage.textContent = error.message;
-  }
+function setLoadError(error) {
+  document.getElementById("status-pill").textContent = "Error de datos";
+  document.getElementById("status-pill").className = "status-pill status-pill--error";
+  document.getElementById("table-message").textContent = error.message;
+  document.getElementById("matches-status").textContent = "Error de datos";
+  document.getElementById("matches-status").className = "status-pill status-pill--error";
+  document.getElementById("match-message").textContent = error.message;
 }
 
 function renderMatches(container) {
+  const matchStatus = document.getElementById("matches-status");
+  const matchMessage = document.getElementById("match-message");
   const groups = [
     ["live", "En vivo"],
     ["finished", "Finalizados"],
     ["scheduled", "Próximos"],
   ];
+
+  matchStatus.textContent = "En vivo";
+  matchStatus.className = "status-pill status-pill--ok";
+  matchMessage.textContent = matchRows.length ? "" : "Todavía no hay partidos.";
   container.innerHTML = "";
 
   groups.forEach(([status, title]) => {
@@ -172,6 +238,222 @@ function renderMatches(container) {
 
     container.appendChild(section);
   });
+}
+
+async function liveMatches(staticMatches) {
+  try {
+    const response = await fetch(`${LIVE_API_URL}?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) return staticMatches;
+
+    const payload = await response.json();
+    const games = Array.isArray(payload) ? payload : payload.games || [];
+    const schedule = scheduleByPair(staticMatches);
+    const byMatchId = new Map(staticMatches.map((match) => [Number(match.match_id), { ...match }]));
+
+    games.forEach((game) => {
+      const converted = convertLiveGame(game, schedule);
+      if (converted) byMatchId.set(Number(converted.match_id), converted);
+    });
+
+    return [...byMatchId.values()].sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
+  } catch (_error) {
+    return staticMatches;
+  }
+}
+
+function scheduleByPair(matches) {
+  const schedule = new Map();
+  matches.forEach((match) => {
+    schedule.set(pairKey(match.home_team, match.away_team), { match, reverse: false });
+    schedule.set(pairKey(match.away_team, match.home_team), { match, reverse: true });
+  });
+  return schedule;
+}
+
+function convertLiveGame(game, schedule) {
+  const homeTeam = normalizeTeam(game.home_team_name_en || "");
+  const awayTeam = normalizeTeam(game.away_team_name_en || "");
+  const scheduleMatch = schedule.get(pairKey(homeTeam, awayTeam));
+  if (!scheduleMatch) return null;
+
+  const status = liveGameStatus(game);
+  const homeScore = numberOrNull(game.home_score);
+  const awayScore = numberOrNull(game.away_score);
+  const scoreHome = scheduleMatch.reverse ? awayScore : homeScore;
+  const scoreAway = scheduleMatch.reverse ? homeScore : awayScore;
+
+  if (status !== "scheduled" && (scoreHome === null || scoreAway === null)) return null;
+
+  return {
+    ...scheduleMatch.match,
+    home_score: status === "scheduled" ? null : scoreHome,
+    away_score: status === "scheduled" ? null : scoreAway,
+    status,
+    source_match_id: numberOrNull(game.id),
+    source_order: liveSourceOrder(game),
+    played_at: game.local_date || scheduleMatch.match.played_at || "",
+  };
+}
+
+function liveGameStatus(game) {
+  const finished = String(game.finished || "").toUpperCase();
+  const elapsed = String(game.time_elapsed || "").toLowerCase();
+  if (finished === "TRUE") return "finished";
+  if (elapsed && !["notstarted", "not started", "0", "none", "null"].includes(elapsed)) return "live";
+  return "scheduled";
+}
+
+function liveSourceOrder(game) {
+  const id = Number(game.id || 0);
+  const parsed = parseWorldCupDate(game.local_date || "");
+  return Number.isNaN(parsed) ? id : parsed + id;
+}
+
+function parseWorldCupDate(value) {
+  const match = String(value).match(/^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})$/);
+  if (!match) return NaN;
+  const [, month, day, year, hour, minute] = match;
+  return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute)).getTime();
+}
+
+function scoreLeaderboard(predictions, matches) {
+  const currentMatches = currentScoringMatches(matches);
+  const previousRanks = rankMap(scoreRows(predictions, previousScoringMatches(currentMatches)));
+  return scoreRows(predictions, currentMatches).map((row, index) => {
+    const rank = index + 1;
+    const previousRank = previousRanks.get(row.participant);
+    return {
+      ...row,
+      rank,
+      movement: previousRank ? previousRank - rank : 0,
+    };
+  });
+}
+
+function currentScoringMatches(matches) {
+  return matches.filter((match) => SCORING_STATUSES.has(String(match.status || "").toLowerCase()));
+}
+
+function previousScoringMatches(matches) {
+  if (matches.some((match) => match.status === "live")) {
+    return matches.filter((match) => match.status === "finished");
+  }
+
+  const finished = matches.filter((match) => match.status === "finished");
+  if (!finished.length) return [];
+
+  const latest = finished.slice().sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id))[0];
+  return matches.filter((match) => Number(match.match_id) !== Number(latest.match_id));
+}
+
+function rankMap(rows) {
+  return new Map(rows.map((row, index) => [row.participant, index + 1]));
+}
+
+function scoreRows(predictions, matches) {
+  const matchesById = new Map(matches.map((match) => [Number(match.match_id), match]));
+  const rowsByPlayer = new Map();
+
+  predictions.forEach((prediction) => {
+    const participant = prediction.participant;
+    const row = rowsByPlayer.get(participant) || {
+      participant,
+      points: 0,
+      exact_scores: 0,
+      correct_results: 0,
+      missed_results: 0,
+      recent_results: [],
+      all_results: [],
+    };
+    const match = matchesById.get(Number(prediction.match_id));
+
+    if (match) {
+      const scored = scorePrediction(prediction, match);
+      row.points += scored.points;
+      row.exact_scores += scored.result === "exact" ? 1 : 0;
+      row.correct_results += scored.result === "correct" ? 1 : 0;
+      row.missed_results += scored.result === "miss" ? 1 : 0;
+      row.all_results.push(resultForPlayer(prediction, match, scored));
+    }
+
+    rowsByPlayer.set(participant, row);
+  });
+
+  return [...rowsByPlayer.values()]
+    .map((row) => {
+      const allResults = row.all_results.sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id));
+      return {
+        ...row,
+        recent_results: allResults.slice(0, 5),
+        all_results: allResults,
+      };
+    })
+    .sort((a, b) => b.points - a.points || b.exact_scores - a.exact_scores || b.correct_results - a.correct_results);
+}
+
+function scorePrediction(prediction, match) {
+  const predictedHome = Number(prediction.predicted_home_score);
+  const predictedAway = Number(prediction.predicted_away_score);
+  const actualHome = Number(match.home_score);
+  const actualAway = Number(match.away_score);
+
+  if (predictedHome === actualHome && predictedAway === actualAway) {
+    return { points: EXACT_POINTS, result: "exact" };
+  }
+  if (outcome(predictedHome, predictedAway) === outcome(actualHome, actualAway)) {
+    return { points: CORRECT_POINTS, result: "correct" };
+  }
+  return { points: 0, result: "miss" };
+}
+
+function resultForPlayer(prediction, match, scored) {
+  return {
+    match_id: Number(prediction.match_id),
+    source_match_id: match.source_match_id,
+    source_order: Number(match.source_order || prediction.match_id),
+    played_at: match.played_at || "",
+    stage: match.stage || prediction.stage || "",
+    group: match.group || prediction.group || "",
+    status: String(match.status || "").toLowerCase(),
+    home_team: match.home_team || prediction.home_team,
+    away_team: match.away_team || prediction.away_team,
+    home_flag: flagForTeam(match.home_team || prediction.home_team),
+    away_flag: flagForTeam(match.away_team || prediction.away_team),
+    predicted_home_score: Number(prediction.predicted_home_score),
+    predicted_away_score: Number(prediction.predicted_away_score),
+    actual_home_score: Number(match.home_score),
+    actual_away_score: Number(match.away_score),
+    points: scored.points,
+    result: scored.result,
+  };
+}
+
+function outcome(homeScore, awayScore) {
+  if (homeScore > awayScore) return "H";
+  if (homeScore < awayScore) return "A";
+  return "D";
+}
+
+function pairKey(homeTeam, awayTeam) {
+  return `${normalizeTeam(homeTeam)}|${normalizeTeam(awayTeam)}`;
+}
+
+function normalizeTeam(value) {
+  const text = String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .replaceAll(".", "")
+    .replaceAll("-", " ")
+    .trim()
+    .replace(/\s+/g, " ");
+  return TEAM_ALIASES[text] || text;
+}
+
+function numberOrNull(value) {
+  if (value === null || value === undefined || value === "" || value === "null") return null;
+  const number = Number(value);
+  return Number.isNaN(number) ? null : number;
 }
 
 function renderStats() {
@@ -387,7 +669,7 @@ function escapeHtml(value) {
 }
 
 loadPageData();
-setInterval(loadPageData, 60000);
+setInterval(loadPageData, LIVE_REFRESH_MS);
 
 document.getElementById("dialog-close").addEventListener("click", () => {
   document.getElementById("player-dialog").close();

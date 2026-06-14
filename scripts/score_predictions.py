@@ -7,6 +7,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 PREDICTIONS_PATH = ROOT / "data" / "predictions.csv"
+PREDICTIONS_JSON_PATH = ROOT / "docs" / "data" / "predictions.json"
 MATCH_SCORES_PATH = ROOT / "docs" / "data" / "match_scores.json"
 LEADERBOARD_PATH = ROOT / "docs" / "data" / "leaderboard.json"
 SCORING_STATUSES = {"finished", "live"}
@@ -229,8 +230,35 @@ def score_leaderboard(predictions, matches):
     )
 
 
+def write_public_predictions(predictions):
+    records = []
+    for row in predictions.to_dict("records"):
+        records.append(
+            {
+                "participant": row["participant"],
+                "match_id": int(row["match_id"]),
+                "stage": row["stage"],
+                "group": row["group"],
+                "home_team": row["home_team"],
+                "away_team": row["away_team"],
+                "predicted_home_score": int(row["predicted_home_score"]),
+                "predicted_away_score": int(row["predicted_away_score"]),
+            }
+        )
+
+    output = {
+        "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "predictions": records,
+    }
+    PREDICTIONS_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with PREDICTIONS_JSON_PATH.open("w", encoding="utf-8") as file:
+        json.dump(output, file, indent=2, ensure_ascii=False)
+        file.write("\n")
+
+
 def main():
     predictions = pd.read_csv(PREDICTIONS_PATH)
+    write_public_predictions(predictions)
     matches = current_scoring_matches(load_matches())
     previous_ranks = rank_map(
         score_leaderboard(predictions, previous_scoring_matches(matches))
