@@ -1,1 +1,41 @@
 # WC-tronky
+
+Static GitHub Pages scoreboard for a friendly World Cup prediction game.
+
+## Update The Scoreboard
+
+The live scoreboard is updated by `.github/workflows/update-scoreboard.yml`.
+
+It runs automatically every 15 minutes and can also be run manually whenever you want an immediate refresh.
+
+Manual refresh:
+
+1. Go to the repository on GitHub.
+2. Open `Actions`.
+3. Select `Update scoreboard`.
+4. Click `Run workflow`.
+5. Optionally enter a reason, for example `Match ended`.
+6. Click the green `Run workflow` button.
+
+The workflow fetches live and finished scores, regenerates `docs/data/leaderboard.json`, commits changed public JSON files, and GitHub Pages serves the update.
+
+Default live data source:
+
+- `https://worldcup26.ir/get/games`
+
+This no-key source comes from `rezarahiminia/worldcup2026`. The workflow still supports API-Football as a fallback by setting `FOOTBALL_DATA_SOURCE=api-football` and providing:
+
+- Secret: `FOOTBALL_API_KEY`
+- Variable: `FOOTBALL_API_LEAGUE_ID`
+
+API keys must stay in GitHub Secrets. Do not put them in frontend JavaScript or commit them.
+
+## Local Commands
+
+Use conda:
+
+```bat
+conda run -n worldcup-tronky python scripts\import_predictions.py
+conda run -n worldcup-tronky python scripts\score_predictions.py
+conda run -n worldcup-tronky python -m http.server 8000 --directory docs
+```

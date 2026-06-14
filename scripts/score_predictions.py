@@ -90,6 +90,9 @@ def result_type(exact, correct):
 def recent_result(prediction, match, points, exact, correct):
     return {
         "match_id": int(prediction["match_id"]),
+        "source_match_id": match.get("source_match_id"),
+        "source_order": int(match.get("source_order", prediction["match_id"])),
+        "played_at": match.get("played_at", ""),
         "stage": match.get("stage", prediction.get("stage", "")),
         "group": match.get("group", prediction.get("group", "")),
         "status": str(match.get("status", "")).lower(),
@@ -154,7 +157,7 @@ def main():
                 "missed_results": missed_results,
                 "recent_results": sorted(
                     recent_results,
-                    key=lambda row: row["match_id"],
+                    key=lambda row: row["source_order"],
                     reverse=True,
                 )[:5],
             }

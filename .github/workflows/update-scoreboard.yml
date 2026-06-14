@@ -2,6 +2,11 @@ name: Update scoreboard
 
 on:
   workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why are you updating now?"
+        required: false
+        default: "Manual scoreboard refresh"
   schedule:
     - cron: "*/15 * * * *"
 
@@ -26,6 +31,8 @@ jobs:
       - name: Fetch results and score predictions
         shell: bash -el {0}
         env:
+          FOOTBALL_DATA_SOURCE: "worldcup26"
+          WORLDCUP26_API_URL: "https://worldcup26.ir/get/games"
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
           FOOTBALL_API_LEAGUE_ID: ${{ vars.FOOTBALL_API_LEAGUE_ID }}
           FOOTBALL_API_SEASON: "2026"

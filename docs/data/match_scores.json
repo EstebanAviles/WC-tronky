@@ -1,4 +1,6 @@
 {
+  "last_updated": "2026-06-14T05:53:26+00:00",
+  "source": "worldcup26",
   "matches": [
     {
       "match_id": 1,
@@ -8,7 +10,10 @@
       "away_team": "SUDAFRICA",
       "home_score": 2,
       "away_score": 0,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 1,
+      "source_order": 1781200800001,
+      "played_at": "06/11/2026 13:00"
     },
     {
       "match_id": 2,
@@ -18,9 +23,12 @@
       "away_team": "REPUBLICA CHECA",
       "home_score": 2,
       "away_score": 1,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 2,
+      "source_order": 1781226000002,
+      "played_at": "06/11/2026 20:00"
     },
-	{
+    {
       "match_id": 7,
       "stage": "GRUPOS",
       "group": "B",
@@ -28,9 +36,12 @@
       "away_team": "BOSNIA",
       "home_score": 1,
       "away_score": 1,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 3,
+      "source_order": 1781294400003,
+      "played_at": "06/12/2026 15:00"
     },
-	{
+    {
       "match_id": 19,
       "stage": "GRUPOS",
       "group": "D",
@@ -38,9 +49,12 @@
       "away_team": "PARAGUAY",
       "home_score": 4,
       "away_score": 1,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 4,
+      "source_order": 1781305200004,
+      "played_at": "06/12/2026 18:00"
     },
-	{
+    {
       "match_id": 8,
       "stage": "GRUPOS",
       "group": "B",
@@ -48,9 +62,12 @@
       "away_team": "SUIZA",
       "home_score": 1,
       "away_score": 1,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 8,
+      "source_order": 1781370000008,
+      "played_at": "06/13/2026 12:00"
     },
-	{
+    {
       "match_id": 13,
       "stage": "GRUPOS",
       "group": "C",
@@ -58,9 +75,12 @@
       "away_team": "MARRUECOS",
       "home_score": 1,
       "away_score": 1,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 7,
+      "source_order": 1781391600007,
+      "played_at": "06/13/2026 18:00"
     },
-	{
+    {
       "match_id": 14,
       "stage": "GRUPOS",
       "group": "C",
@@ -68,7 +88,10 @@
       "away_team": "ESCOCIA",
       "home_score": 0,
       "away_score": 1,
-      "status": "finished"
+      "status": "finished",
+      "source_match_id": 5,
+      "source_order": 1781402400005,
+      "played_at": "06/13/2026 21:00"
     },
     {
       "match_id": 20,
@@ -76,9 +99,12 @@
       "group": "D",
       "home_team": "AUSTRALIA",
       "away_team": "TURQUIA",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 0,
-      "status": "live"
+      "status": "live",
+      "source_match_id": 6,
+      "source_order": 1781402400006,
+      "played_at": "06/13/2026 21:00"
     }
   ]
 }
