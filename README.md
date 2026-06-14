@@ -6,7 +6,7 @@ Static GitHub Pages scoreboard for a friendly World Cup prediction game.
 
 The live scoreboard is updated by `.github/workflows/update-scoreboard.yml`.
 
-It runs automatically every 15 minutes and can also be run manually whenever you want an immediate refresh.
+It runs automatically every 5 minutes and can also be run manually whenever you want an immediate refresh.
 
 Manual refresh:
 

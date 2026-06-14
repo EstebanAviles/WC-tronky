@@ -8,7 +8,7 @@ on:
         required: false
         default: "Manual scoreboard refresh"
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write

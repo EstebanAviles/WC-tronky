@@ -206,6 +206,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
         <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
       </td>
       <td data-label="Últimas 5">${lastFiveMarkup(row.recent_results || [])}</td>
+      <td data-label="Jugados">${row.played_matches}</td>
       <td data-label="Puntos"><strong>${row.points}</strong></td>
       <td data-label="Marcador exacto">${row.exact_scores}</td>
       <td data-label="Ganador correcto">${row.correct_results}</td>
@@ -427,6 +428,7 @@ function scoreRows(predictions, matches) {
       exact_scores: 0,
       correct_results: 0,
       missed_results: 0,
+      played_matches: 0,
       recent_results: [],
       all_results: [],
     };
@@ -438,6 +440,7 @@ function scoreRows(predictions, matches) {
       row.exact_scores += scored.result === "exact" ? 1 : 0;
       row.correct_results += scored.result === "correct" ? 1 : 0;
       row.missed_results += scored.result === "miss" ? 1 : 0;
+      row.played_matches += 1;
       row.all_results.push(resultForPlayer(prediction, match, scored));
     }
 

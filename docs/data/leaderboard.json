@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-14T17:04:25+00:00",
+  "last_updated": "2026-06-14T19:01:57+00:00",
   "leaderboard": [
     {
       "participant": "Jogy",
@@ -7,6 +7,7 @@
       "exact_scores": 2,
       "correct_results": 3,
       "missed_results": 3,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -267,6 +268,7 @@
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -527,6 +529,7 @@
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -787,6 +790,7 @@
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -1047,6 +1051,7 @@
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -1307,6 +1312,7 @@
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -1567,6 +1573,7 @@
       "exact_scores": 1,
       "correct_results": 4,
       "missed_results": 3,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -1827,6 +1834,7 @@
       "exact_scores": 2,
       "correct_results": 0,
       "missed_results": 6,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -2087,6 +2095,7 @@
       "exact_scores": 1,
       "correct_results": 2,
       "missed_results": 5,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -2347,6 +2356,7 @@
       "exact_scores": 1,
       "correct_results": 2,
       "missed_results": 5,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -2607,6 +2617,7 @@
       "exact_scores": 1,
       "correct_results": 2,
       "missed_results": 5,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -2867,6 +2878,7 @@
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -3127,6 +3139,7 @@
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -3387,6 +3400,7 @@
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -3647,6 +3661,7 @@
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,
@@ -3907,6 +3922,7 @@
       "exact_scores": 0,
       "correct_results": 2,
       "missed_results": 6,
+      "played_matches": 8,
       "recent_results": [
         {
           "match_id": 20,

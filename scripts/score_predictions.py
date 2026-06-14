@@ -182,6 +182,7 @@ def score_leaderboard(predictions, matches):
         exact_scores = 0
         correct_results = 0
         missed_results = 0
+        played_matches = 0
         recent_results = []
 
         for _, prediction in group.iterrows():
@@ -197,6 +198,7 @@ def score_leaderboard(predictions, matches):
                 exact_scores += int(exact)
                 correct_results += int(correct)
                 missed_results += int(not exact and not correct)
+                played_matches += 1
                 recent_results.append(recent_result(prediction, match, points, exact, correct))
 
         rows.append(
@@ -206,6 +208,7 @@ def score_leaderboard(predictions, matches):
                 "exact_scores": exact_scores,
                 "correct_results": correct_results,
                 "missed_results": missed_results,
+                "played_matches": played_matches,
                 "recent_results": sorted(
                     recent_results,
                     key=lambda row: row["source_order"],
