@@ -78,9 +78,9 @@ def points_for_prediction(prediction, match):
     actual_away = int(match["away_score"])
 
     if predicted_home == actual_home and predicted_away == actual_away:
-        return 5, True, False
+        return 6, True, False
     if outcome(predicted_home, predicted_away) == outcome(actual_home, actual_away):
-        return 2, False, True
+        return 3, False, True
     return 0, False, False
 
 

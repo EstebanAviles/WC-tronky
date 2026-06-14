@@ -2,13 +2,12 @@ let leaderboardRows = [];
 let matchRows = [];
 let predictionRows = [];
 let selectedPlayer = null;
-let selectedTab = "recent";
 
 const LIVE_API_URL = "https://worldcup26.ir/get/games";
 const LIVE_REFRESH_MS = 15000;
 const SCORING_STATUSES = new Set(["finished", "live"]);
-const EXACT_POINTS = 5;
-const CORRECT_POINTS = 2;
+const EXACT_POINTS = 6;
+const CORRECT_POINTS = 3;
 
 const TEAM_FLAGS = {
   ALEMANIA: "DE",
@@ -164,13 +163,14 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   rows.forEach((row, index) => {
     const rank = row.rank || index + 1;
     const tr = document.createElement("tr");
-    tr.className = rank <= 3 ? `rank-${rank}` : "";
+    tr.className = rowClass(rank, rows.length);
     tr.innerHTML = `
       <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
       <td data-label="Jugador">
         <button class="player-button" type="button">${escapeHtml(row.participant)}</button>
         <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
       </td>
+      <td data-label="Últimas 5">${lastFiveMarkup(row.recent_results || [])}</td>
       <td data-label="Puntos"><strong>${row.points}</strong></td>
       <td data-label="Marcador exacto">${row.exact_scores}</td>
       <td data-label="Ganador correcto">${row.correct_results}</td>
@@ -485,19 +485,15 @@ function groupClass(group) {
 
 function openPlayerDialog(player) {
   selectedPlayer = player;
-  selectedTab = "recent";
   document.getElementById("dialog-player-name").textContent = player.participant;
   document.getElementById("dialog-player-points").textContent = player.points;
-  setActiveTab();
   renderPlayerResults();
   document.getElementById("player-dialog").showModal();
 }
 
 function renderPlayerResults() {
   const recentList = document.getElementById("recent-list");
-  const results = selectedTab === "all"
-    ? selectedPlayer?.all_results || []
-    : selectedPlayer?.recent_results || [];
+  const results = selectedPlayer?.all_results || [];
 
   recentList.innerHTML = results.length
     ? results.map((match) => resultCard(match)).join("")
@@ -620,6 +616,32 @@ function rankClass(rank) {
   return "";
 }
 
+function rowClass(rank, rowCount) {
+  const classes = [];
+  if (rank <= 3) classes.push(`rank-${rank}`);
+  if (rank === rowCount) classes.push("rank-last");
+  return classes.join(" ");
+}
+
+function lastFiveMarkup(results) {
+  if (!results.length) return `<span class="form-strip form-strip--empty">-</span>`;
+  return `
+    <span class="form-strip" aria-label="Últimas 5 predicciones">
+      ${results.slice(0, 5).map((result) => `
+        <span class="form-dot form-dot--${result.result}" title="${resultLabel(result.result)}">
+          ${shortResultLabel(result.result)}
+        </span>
+      `).join("")}
+    </span>
+  `;
+}
+
+function shortResultLabel(result) {
+  if (result === "exact") return "E";
+  if (result === "correct") return "G";
+  return "F";
+}
+
 function formatTimestamp(value) {
   if (!value) return "Sin datos";
   const date = new Date(value);
@@ -628,11 +650,6 @@ function formatTimestamp(value) {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(date);
-}
-
-function setActiveTab() {
-  document.getElementById("tab-recent").classList.toggle("tab-button--active", selectedTab === "recent");
-  document.getElementById("tab-all").classList.toggle("tab-button--active", selectedTab === "all");
 }
 
 function escapeHtml(value) {
@@ -647,19 +664,14 @@ function escapeHtml(value) {
 loadPageData();
 setInterval(loadPageData, LIVE_REFRESH_MS);
 
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) loadPageData();
+});
+window.addEventListener("focus", loadPageData);
+
 document.getElementById("dialog-close").addEventListener("click", () => {
   document.getElementById("player-dialog").close();
 });
 document.getElementById("match-dialog-close").addEventListener("click", () => {
   document.getElementById("match-dialog").close();
-});
-document.getElementById("tab-recent").addEventListener("click", () => {
-  selectedTab = "recent";
-  setActiveTab();
-  renderPlayerResults();
-});
-document.getElementById("tab-all").addEventListener("click", () => {
-  selectedTab = "all";
-  setActiveTab();
-  renderPlayerResults();
 });

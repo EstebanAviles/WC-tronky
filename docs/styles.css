@@ -221,13 +221,14 @@ main {
 
 table {
   width: 100%;
-  min-width: 760px;
+  min-width: 860px;
   border-collapse: collapse;
+  font-size: 0.92rem;
 }
 
 th,
 td {
-  padding: 1rem;
+  padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--line);
   text-align: left;
 }
@@ -235,7 +236,7 @@ td {
 th {
   color: var(--muted);
   background: #f4f8f2;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -253,29 +254,39 @@ tbody tr:nth-child(even) {
 }
 
 .rank-1 {
-  background: linear-gradient(90deg, rgba(216, 162, 42, 0.18), white 44%);
+  background: linear-gradient(90deg, rgba(216, 162, 42, 0.24), rgba(255, 248, 222, 0.72) 44%, white 82%);
 }
 
 .rank-2 {
-  background: linear-gradient(90deg, rgba(174, 183, 193, 0.18), white 44%);
+  background: linear-gradient(90deg, rgba(153, 166, 180, 0.38), rgba(238, 242, 246, 0.82) 48%, white 84%);
 }
 
 .rank-3 {
-  background: linear-gradient(90deg, rgba(184, 120, 66, 0.16), white 44%);
+  background: linear-gradient(90deg, rgba(184, 120, 66, 0.22), rgba(255, 237, 222, 0.7) 44%, white 82%);
+}
+
+.rank-last {
+  background: linear-gradient(90deg, rgba(200, 77, 61, 0.26), rgba(255, 231, 226, 0.78) 48%, white 84%);
+}
+
+.rank-last .rank-badge {
+  color: #6d1f17;
+  border-color: #efb3aa;
+  background: #fff1ee;
 }
 
 .rank-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.35rem;
-  min-height: 2.35rem;
-  padding: 0 0.65rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0 0.5rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--ink);
   background: white;
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   font-weight: 900;
   white-space: nowrap;
 }
@@ -288,8 +299,8 @@ tbody tr:nth-child(even) {
 
 .rank-badge--silver {
   color: #26313b;
-  border-color: #d5dbe0;
-  background: linear-gradient(135deg, #f7fbff, var(--silver));
+  border-color: #b9c2cc;
+  background: linear-gradient(135deg, #ffffff, #c5ced8 58%, #9faab5);
 }
 
 .rank-badge--bronze {
@@ -323,14 +334,14 @@ tbody tr:nth-child(even) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2rem;
-  min-height: 1.45rem;
-  margin-left: 0.55rem;
-  padding: 0.15rem 0.35rem;
+  min-width: 1.65rem;
+  min-height: 1.2rem;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.28rem;
   border-radius: 999px;
   color: var(--muted);
   background: #f4f8f2;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 900;
 }
 
@@ -342,6 +353,44 @@ tbody tr:nth-child(even) {
 .movement--down {
   color: #8c271d;
   background: #ffe9e5;
+}
+
+.form-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 6.4rem;
+}
+
+.form-strip--empty {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.form-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.18rem;
+  height: 1.18rem;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.form-dot--exact {
+  background: var(--grass);
+}
+
+.form-dot--correct {
+  color: #4a3200;
+  background: #f4c54a;
+}
+
+.form-dot--miss {
+  background: #c84d3d;
 }
 
 .table-message {
@@ -524,32 +573,6 @@ tbody tr:nth-child(even) {
   color: white;
   background: var(--grass-dark);
   text-align: center;
-}
-
-.dialog-tabs {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.9rem 1.25rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.tab-button {
-  min-height: 2rem;
-  padding: 0.35rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--muted);
-  background: white;
-  font: inherit;
-  font-size: 0.82rem;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.tab-button--active {
-  color: white;
-  border-color: var(--grass-dark);
-  background: var(--grass-dark);
 }
 
 .player-dialog {

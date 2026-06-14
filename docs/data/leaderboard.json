@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-14T08:23:06+00:00",
+  "last_updated": "2026-06-14T17:04:25+00:00",
   "leaderboard": [
     {
       "participant": "Jogy",
-      "points": 16,
+      "points": 21,
       "exact_scores": 2,
       "correct_results": 3,
       "missed_results": 3,
@@ -43,7 +43,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -62,7 +62,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 1,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -100,7 +100,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -140,7 +140,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -159,7 +159,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 1,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -197,7 +197,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -235,7 +235,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -254,7 +254,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -263,7 +263,7 @@
     },
     {
       "participant": "Biankits",
-      "points": 14,
+      "points": 18,
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
@@ -303,7 +303,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -360,7 +360,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -400,7 +400,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -457,7 +457,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -495,7 +495,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -514,7 +514,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -523,7 +523,7 @@
     },
     {
       "participant": "Gus",
-      "points": 14,
+      "points": 18,
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
@@ -563,7 +563,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -620,7 +620,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -660,7 +660,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -717,7 +717,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -755,7 +755,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -774,7 +774,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -783,7 +783,7 @@
     },
     {
       "participant": "Luismi",
-      "points": 14,
+      "points": 18,
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
@@ -823,7 +823,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -920,7 +920,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -996,7 +996,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 1,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -1015,7 +1015,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1034,7 +1034,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -1043,7 +1043,7 @@
     },
     {
       "participant": "Wonky",
-      "points": 14,
+      "points": 18,
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
@@ -1083,7 +1083,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1140,7 +1140,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -1180,7 +1180,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1237,7 +1237,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1275,7 +1275,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -1294,7 +1294,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -1303,7 +1303,7 @@
     },
     {
       "participant": "Ñeño",
-      "points": 14,
+      "points": 18,
       "exact_scores": 2,
       "correct_results": 2,
       "missed_results": 4,
@@ -1343,7 +1343,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -1400,7 +1400,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -1440,7 +1440,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -1497,7 +1497,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1516,7 +1516,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 1,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -1554,7 +1554,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -1563,7 +1563,7 @@
     },
     {
       "participant": "Artola",
-      "points": 13,
+      "points": 18,
       "exact_scores": 1,
       "correct_results": 4,
       "missed_results": 3,
@@ -1584,7 +1584,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1603,7 +1603,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1660,7 +1660,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -1681,7 +1681,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1700,7 +1700,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1757,7 +1757,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1795,7 +1795,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -1814,7 +1814,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -1823,7 +1823,7 @@
     },
     {
       "participant": "Djunza",
-      "points": 10,
+      "points": 12,
       "exact_scores": 2,
       "correct_results": 0,
       "missed_results": 6,
@@ -1863,7 +1863,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -1960,7 +1960,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -2074,7 +2074,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -2083,7 +2083,7 @@
     },
     {
       "participant": "Arana",
-      "points": 9,
+      "points": 12,
       "exact_scores": 1,
       "correct_results": 2,
       "missed_results": 5,
@@ -2123,7 +2123,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2220,7 +2220,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2296,7 +2296,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 1,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2334,7 +2334,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -2343,7 +2343,7 @@
     },
     {
       "participant": "Kratos",
-      "points": 9,
+      "points": 12,
       "exact_scores": 1,
       "correct_results": 2,
       "missed_results": 5,
@@ -2383,7 +2383,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -2440,7 +2440,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -2480,7 +2480,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         },
         {
@@ -2537,7 +2537,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2594,7 +2594,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -2603,7 +2603,7 @@
     },
     {
       "participant": "Zhoko",
-      "points": 9,
+      "points": 12,
       "exact_scores": 1,
       "correct_results": 2,
       "missed_results": 5,
@@ -2643,7 +2643,7 @@
           "predicted_away_score": 3,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2700,7 +2700,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],
@@ -2740,7 +2740,7 @@
           "predicted_away_score": 3,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2797,7 +2797,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 4,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -2854,7 +2854,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -2863,7 +2863,7 @@
     },
     {
       "participant": "Alen",
-      "points": 7,
+      "points": 9,
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
@@ -2903,7 +2903,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3000,7 +3000,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3114,7 +3114,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -3123,7 +3123,7 @@
     },
     {
       "participant": "Dcas",
-      "points": 7,
+      "points": 9,
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
@@ -3163,7 +3163,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3260,7 +3260,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3374,7 +3374,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -3383,7 +3383,7 @@
     },
     {
       "participant": "Masaru",
-      "points": 7,
+      "points": 9,
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
@@ -3423,7 +3423,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3520,7 +3520,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3634,7 +3634,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -3643,7 +3643,7 @@
     },
     {
       "participant": "Trucha",
-      "points": 7,
+      "points": 9,
       "exact_scores": 1,
       "correct_results": 1,
       "missed_results": 6,
@@ -3683,7 +3683,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3780,7 +3780,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -3894,7 +3894,7 @@
           "predicted_away_score": 0,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 5,
+          "points": 6,
           "result": "exact"
         }
       ],
@@ -3903,7 +3903,7 @@
     },
     {
       "participant": "Angel",
-      "points": 4,
+      "points": 6,
       "exact_scores": 0,
       "correct_results": 2,
       "missed_results": 6,
@@ -3943,7 +3943,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -4040,7 +4040,7 @@
           "predicted_away_score": 2,
           "actual_home_score": 0,
           "actual_away_score": 1,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         },
         {
@@ -4154,7 +4154,7 @@
           "predicted_away_score": 1,
           "actual_home_score": 2,
           "actual_away_score": 0,
-          "points": 2,
+          "points": 3,
           "result": "correct"
         }
       ],

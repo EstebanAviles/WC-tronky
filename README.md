@@ -34,8 +34,8 @@ API keys must stay in GitHub Secrets. Do not put them in frontend JavaScript or 
 
 ## Scoring
 
-- Marcador exacto: 5 puntos.
-- Ganador correcto: 2 puntos.
+- Marcador exacto: 6 puntos.
+- Ganador correcto: 3 puntos.
 - Fallo: 0 puntos.
 
 ## Local Commands
