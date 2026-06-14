@@ -216,3 +216,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+
+# Local environment files
+.env
+
+# Conda / local environments
+.conda/
+.venv/
+env/
+venv/
+
+# Raw Excel files should stay private/local
+data/raw/*.xlsx
+data/raw/*.xls
+!data/raw/.gitkeep
