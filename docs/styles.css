@@ -822,49 +822,6 @@ tbody tr.rank-last {
     grid-template-columns: 1fr;
   }
 
-  table,
-  thead,
-  tbody,
-  tr,
-  th,
-  td {
-    display: block;
-  }
-
-  table {
-    min-width: 0;
-  }
-
-  thead {
-    display: none;
-  }
-
-  tbody tr {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  tbody tr:last-child {
-    border-bottom: 0;
-  }
-
-  td {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 0;
-    border-bottom: 0;
-  }
-
-  td::before {
-    content: attr(data-label);
-    color: var(--muted);
-    font-size: 0.75rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
   .prediction-card,
   .recent-card__teams,
   .recent-card__meta {

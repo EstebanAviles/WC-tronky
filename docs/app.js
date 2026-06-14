@@ -125,6 +125,11 @@ const TEAM_ALIASES = {
   USA: "ESTADOS UNIDOS",
 };
 
+const PARTICIPANT_LABELS = {
+  Alen: "Alen Ganador",
+  Zhoko: "Zhoko Ganador",
+};
+
 async function loadPageData() {
   if (isLoadingPageData) return;
   isLoadingPageData = true;
@@ -189,7 +194,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   const tableMessage = document.getElementById("table-message");
 
   playerCount.textContent = rows.length;
-  leaderName.textContent = rows[0]?.participant || "-";
+  leaderName.textContent = participantLabel(rows[0]?.participant) || "-";
   lastUpdated.textContent = formatTimestamp(lastUpdatedValue);
   statusPill.textContent = "En vivo";
   statusPill.className = "status-pill status-pill--ok";
@@ -203,15 +208,15 @@ function renderLeaderboard(rows, lastUpdatedValue) {
     tr.innerHTML = `
       <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
       <td data-label="Jugador">
-        <button class="player-button" type="button">${escapeHtml(row.participant)}</button>
+        <button class="player-button" type="button">${escapeHtml(participantLabel(row.participant))}</button>
         <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
       </td>
-      <td data-label="Últimas 5">${lastFiveMarkup(row.recent_results || [])}</td>
-      <td data-label="Jugados">${row.played_matches}</td>
       <td data-label="Puntos"><strong>${row.points}</strong></td>
       <td data-label="Marcador exacto">${row.exact_scores}</td>
       <td data-label="Ganador correcto">${row.correct_results}</td>
       <td data-label="Fallos">${row.missed_results}</td>
+      <td data-label="Jugados">${row.played_matches}</td>
+      <td data-label="Últimas 5">${lastFiveMarkup(row.recent_results || [])}</td>
     `;
     tr.querySelector(".player-button").addEventListener("click", () => openPlayerDialog(row));
     tbody.appendChild(tr);
@@ -538,9 +543,13 @@ function groupClass(group) {
   return /^[a-h]$/.test(normalized) ? `match-card--group-${normalized}` : "";
 }
 
+function participantLabel(name) {
+  return PARTICIPANT_LABELS[name] || name || "";
+}
+
 function openPlayerDialog(player) {
   selectedPlayer = player;
-  document.getElementById("dialog-player-name").textContent = player.participant;
+  document.getElementById("dialog-player-name").textContent = participantLabel(player.participant);
   document.getElementById("dialog-player-points").textContent = player.points;
   renderPlayerResults();
   document.getElementById("player-dialog").showModal();
@@ -575,7 +584,7 @@ function openMatchDialog(match) {
   list.innerHTML = predictions.length
     ? predictions.map((prediction) => `
       <article class="prediction-card prediction-card--${prediction.result}">
-        <strong>${escapeHtml(prediction.participant)}</strong>
+        <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
         <span>Pronóstico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}</span>
         <span>${resultLabel(prediction.result)}</span>
         <b>+${prediction.points}</b>
