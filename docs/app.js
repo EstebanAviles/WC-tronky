@@ -4,6 +4,7 @@ let staticMatchRows = [];
 let predictionRows = [];
 let fallbackLeaderboardRows = [];
 let fallbackLastUpdated = "";
+let liveLastUpdated = "";
 let selectedPlayer = null;
 let isLoadingPageData = false;
 let isRefreshingLive = false;
@@ -153,7 +154,7 @@ function renderPageState() {
   leaderboardRows = predictionRows.length
     ? scoreLeaderboard(predictionRows, matchRows)
     : fallbackLeaderboardRows;
-  renderLeaderboard(leaderboardRows, fallbackLastUpdated);
+  renderLeaderboard(leaderboardRows, liveLastUpdated || fallbackLastUpdated);
   renderHeroLive(matchRows);
   renderMatches(document.getElementById("match-list"));
 }
@@ -243,7 +244,7 @@ function renderMatches(container) {
   groups.forEach(([status, title]) => {
     const matches = matchRows
       .filter((match) => match.status === status)
-      .sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id));
+      .sort((a, b) => matchSort(status, a, b));
     if (!matches.length) return;
 
     const section = document.createElement("section");
@@ -309,6 +310,7 @@ async function liveMatches(staticMatches) {
     });
     if (!response.ok) return staticMatches;
 
+    liveLastUpdated = response.headers.get("x-tronky-cache-updated-at") || new Date().toISOString();
     const payload = await response.json();
     const games = Array.isArray(payload) ? payload : payload.games || [];
     const schedule = scheduleByPair(staticMatches);
@@ -325,6 +327,12 @@ async function liveMatches(staticMatches) {
   } finally {
     clearTimeout(timeoutId);
   }
+}
+
+function matchSort(status, a, b) {
+  const orderA = Number(a.source_order || a.match_id);
+  const orderB = Number(b.source_order || b.match_id);
+  return status === "scheduled" ? orderA - orderB : orderB - orderA;
 }
 
 function scheduleByPair(matches) {
@@ -694,6 +702,7 @@ function formatTimestamp(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
   return new Intl.DateTimeFormat("es", {
+    timeZone: "America/Lima",
     dateStyle: "medium",
     timeStyle: "short",
   }).format(date);

@@ -261,7 +261,6 @@ tbody tr.rank-2 {
   background:
     linear-gradient(90deg, rgba(117, 132, 149, 0.34), rgba(220, 227, 234, 0.78) 46%, white 84%),
     white;
-  box-shadow: inset 0.28rem 0 rgba(117, 132, 149, 0.38);
 }
 
 tbody tr.rank-3 {
@@ -272,7 +271,6 @@ tbody tr.rank-last {
   background:
     linear-gradient(90deg, rgba(211, 65, 48, 0.3), rgba(255, 220, 214, 0.78) 46%, white 84%),
     white;
-  box-shadow: inset 0.28rem 0 rgba(211, 65, 48, 0.42);
 }
 
 .rank-last .rank-badge {
