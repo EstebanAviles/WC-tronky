@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -18,6 +19,81 @@ API_URL = "https://v3.football.api-sports.io/fixtures"
 WORLDCUP26_API_URL = "https://worldcup26.ir/get/games"
 LIVE_STATUSES = {"1H", "HT", "2H", "ET", "BT", "P", "LIVE", "INT"}
 FINISHED_STATUSES = {"FT", "AET", "PEN"}
+
+MATCH_TIME_ZONES = {
+    1: "America/Mexico_City",
+    2: "America/Mexico_City",
+    3: "America/Toronto",
+    4: "America/Los_Angeles",
+    5: "America/New_York",
+    6: "America/Vancouver",
+    7: "America/New_York",
+    8: "America/Los_Angeles",
+    9: "America/New_York",
+    10: "America/Chicago",
+    11: "America/Chicago",
+    12: "America/Mexico_City",
+    13: "America/Los_Angeles",
+    14: "America/New_York",
+    15: "America/Los_Angeles",
+    16: "America/New_York",
+    17: "America/New_York",
+    18: "America/New_York",
+    19: "America/Chicago",
+    20: "America/Los_Angeles",
+    21: "America/Chicago",
+    22: "America/Chicago",
+    23: "America/Mexico_City",
+    24: "America/Toronto",
+    25: "America/Mexico_City",
+    26: "America/Los_Angeles",
+    27: "America/Vancouver",
+    28: "America/New_York",
+    29: "America/New_York",
+    30: "America/New_York",
+    31: "America/Los_Angeles",
+    32: "America/Los_Angeles",
+    33: "America/Toronto",
+    34: "America/Chicago",
+    35: "America/Chicago",
+    36: "America/Mexico_City",
+    37: "America/Los_Angeles",
+    38: "America/Vancouver",
+    39: "America/New_York",
+    40: "America/New_York",
+    41: "America/New_York",
+    42: "America/New_York",
+    43: "America/Chicago",
+    44: "America/Los_Angeles",
+    45: "America/Chicago",
+    46: "America/Toronto",
+    47: "America/Mexico_City",
+    48: "America/New_York",
+    49: "America/New_York",
+    50: "America/New_York",
+    51: "America/Mexico_City",
+    52: "America/Mexico_City",
+    53: "America/Los_Angeles",
+    54: "America/Vancouver",
+    55: "America/New_York",
+    56: "America/New_York",
+    57: "America/Los_Angeles",
+    58: "America/Los_Angeles",
+    59: "America/Chicago",
+    60: "America/Chicago",
+    61: "America/Toronto",
+    62: "America/New_York",
+    63: "America/Los_Angeles",
+    64: "America/Vancouver",
+    65: "America/Chicago",
+    66: "America/Mexico_City",
+    67: "America/New_York",
+    68: "America/New_York",
+    69: "America/Chicago",
+    70: "America/Chicago",
+    71: "America/New_York",
+    72: "America/New_York",
+}
 
 TEAM_ALIASES = {
     "ALGERIA": "ARGELIA",
@@ -209,7 +285,8 @@ def worldcup26_source_order(game):
     source_id = int(game["id"])
     local_date = game.get("local_date", "")
     try:
-        played_at = datetime.strptime(local_date, "%m/%d/%Y %H:%M")
+        time_zone = ZoneInfo(MATCH_TIME_ZONES.get(source_id, "America/Lima"))
+        played_at = datetime.strptime(local_date, "%m/%d/%Y %H:%M").replace(tzinfo=time_zone)
         return int(played_at.timestamp()) * 1000 + source_id
     except ValueError:
         return source_id
@@ -223,6 +300,7 @@ def convert_worldcup26_game(game, schedule):
         return None
 
     match_id = int(schedule_row["match_id"])
+    source_match_id = int(game["id"])
     game_status = worldcup26_status(game)
     home_score = game.get("home_score")
     away_score = game.get("away_score")
@@ -240,8 +318,9 @@ def convert_worldcup26_game(game, schedule):
         "home_score": int(home_score) if game_status in {"finished", "live"} else None,
         "away_score": int(away_score) if game_status in {"finished", "live"} else None,
         "status": game_status,
-        "source_match_id": int(game["id"]),
+        "source_match_id": source_match_id,
         "source_order": worldcup26_source_order(game),
+        "played_at_timezone": MATCH_TIME_ZONES.get(source_match_id, ""),
         "played_at": game.get("local_date", ""),
     }
 

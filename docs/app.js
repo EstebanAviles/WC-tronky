@@ -20,9 +20,85 @@ const LIVE_FETCH_TIMEOUT_MS = 10000;
 const LIVE_STALE_WARNING_MS = 120000;
 const KICKOFF_WATCH_BEFORE_MS = 30 * 60 * 1000;
 const KICKOFF_WATCH_AFTER_MS = 20 * 60 * 1000;
+const DISPLAY_TIME_ZONE = "America/Lima";
 const SCORING_STATUSES = new Set(["finished", "live"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
+
+const MATCH_TIME_ZONES = {
+  1: "America/Mexico_City",
+  2: "America/Mexico_City",
+  3: "America/Toronto",
+  4: "America/Los_Angeles",
+  5: "America/New_York",
+  6: "America/Vancouver",
+  7: "America/New_York",
+  8: "America/Los_Angeles",
+  9: "America/New_York",
+  10: "America/Chicago",
+  11: "America/Chicago",
+  12: "America/Mexico_City",
+  13: "America/Los_Angeles",
+  14: "America/New_York",
+  15: "America/Los_Angeles",
+  16: "America/New_York",
+  17: "America/New_York",
+  18: "America/New_York",
+  19: "America/Chicago",
+  20: "America/Los_Angeles",
+  21: "America/Chicago",
+  22: "America/Chicago",
+  23: "America/Mexico_City",
+  24: "America/Toronto",
+  25: "America/Mexico_City",
+  26: "America/Los_Angeles",
+  27: "America/Vancouver",
+  28: "America/New_York",
+  29: "America/New_York",
+  30: "America/New_York",
+  31: "America/Los_Angeles",
+  32: "America/Los_Angeles",
+  33: "America/Toronto",
+  34: "America/Chicago",
+  35: "America/Chicago",
+  36: "America/Mexico_City",
+  37: "America/Los_Angeles",
+  38: "America/Vancouver",
+  39: "America/New_York",
+  40: "America/New_York",
+  41: "America/New_York",
+  42: "America/New_York",
+  43: "America/Chicago",
+  44: "America/Los_Angeles",
+  45: "America/Chicago",
+  46: "America/Toronto",
+  47: "America/Mexico_City",
+  48: "America/New_York",
+  49: "America/New_York",
+  50: "America/New_York",
+  51: "America/Mexico_City",
+  52: "America/Mexico_City",
+  53: "America/Los_Angeles",
+  54: "America/Vancouver",
+  55: "America/New_York",
+  56: "America/New_York",
+  57: "America/Los_Angeles",
+  58: "America/Los_Angeles",
+  59: "America/Chicago",
+  60: "America/Chicago",
+  61: "America/Toronto",
+  62: "America/New_York",
+  63: "America/Los_Angeles",
+  64: "America/Vancouver",
+  65: "America/Chicago",
+  66: "America/Mexico_City",
+  67: "America/New_York",
+  68: "America/New_York",
+  69: "America/Chicago",
+  70: "America/Chicago",
+  71: "America/New_York",
+  72: "America/New_York",
+};
 
 const TEAM_FLAGS = {
   ALEMANIA: "DE",
@@ -219,7 +295,7 @@ function hasMatchNearKickoff(matches) {
   const now = Date.now();
   return matches.some((match) => {
     if (match.status !== "scheduled") return false;
-    const kickoff = parseWorldCupDate(match.played_at || "");
+    const kickoff = matchTimestamp(match);
     if (Number.isNaN(kickoff)) return false;
     return kickoff - now <= KICKOFF_WATCH_BEFORE_MS && now - kickoff <= KICKOFF_WATCH_AFTER_MS;
   });
@@ -335,7 +411,7 @@ function renderMatches(container) {
             <strong>${scoreLabel(match)}</strong>
             <span title="${escapeHtml(match.away_team)}">${flagMarkup(flagForTeam(match.away_team), match.away_team, "flag-img--large")}</span>
           </div>
-          <div class="match-card__date">${escapeHtml(match.played_at || "")}</div>
+          <div class="match-card__date">${escapeHtml(matchDateLabel(match))}</div>
         </button>
       `;
       card.querySelector("button").addEventListener("click", () => openMatchDialog(match));
@@ -395,9 +471,42 @@ async function liveMatches(staticMatches) {
 }
 
 function matchSort(status, a, b) {
-  const orderA = Number(a.source_order || a.match_id);
-  const orderB = Number(b.source_order || b.match_id);
+  const orderA = matchSortValue(a);
+  const orderB = matchSortValue(b);
   return status === "scheduled" ? orderA - orderB : orderB - orderA;
+}
+
+function matchSortValue(match) {
+  const timestamp = matchTimestamp(match);
+  return Number.isNaN(timestamp) ? Number(match.source_order || match.match_id) : timestamp;
+}
+
+function matchTimestamp(match) {
+  return parseWorldCupDate(match.played_at || "", timeZoneForMatch(match));
+}
+
+function timeZoneForMatch(match) {
+  return match.played_at_timezone || MATCH_TIME_ZONES[Number(match.source_match_id)] || DISPLAY_TIME_ZONE;
+}
+
+function matchDateLabel(match) {
+  const timestamp = matchTimestamp(match);
+  if (Number.isNaN(timestamp)) return match.played_at || "";
+  return `${formatPeruDateTime(timestamp)} (Peru)`;
+}
+
+function formatPeruDateTime(timestamp) {
+  const parts = new Intl.DateTimeFormat("es-PE", {
+    timeZone: DISPLAY_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date(timestamp));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.day}/${values.month}/${values.year} ${values.hour}:${values.minute}`;
 }
 
 function scheduleByPair(matches) {
@@ -429,7 +538,7 @@ function convertLiveGame(game, schedule) {
     away_score: status === "scheduled" ? null : scoreAway,
     status,
     source_match_id: numberOrNull(game.id),
-    source_order: liveSourceOrder(game),
+    source_order: liveSourceOrder(game, scheduleMatch.match),
     played_at: game.local_date || scheduleMatch.match.played_at || "",
   };
 }
@@ -442,17 +551,57 @@ function liveGameStatus(game) {
   return "scheduled";
 }
 
-function liveSourceOrder(game) {
+function liveSourceOrder(game, match) {
   const id = Number(game.id || 0);
-  const parsed = parseWorldCupDate(game.local_date || "");
+  const parsed = parseWorldCupDate(game.local_date || "", timeZoneForMatch(match));
   return Number.isNaN(parsed) ? id : parsed + id;
 }
 
-function parseWorldCupDate(value) {
+function parseWorldCupDate(value, timeZone = DISPLAY_TIME_ZONE) {
   const match = String(value).match(/^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})$/);
   if (!match) return NaN;
   const [, month, day, year, hour, minute] = match;
-  return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute)).getTime();
+  return zonedTimeToUtcMs({
+    year: Number(year),
+    month: Number(month),
+    day: Number(day),
+    hour: Number(hour),
+    minute: Number(minute),
+  }, timeZone);
+}
+
+function zonedTimeToUtcMs(target, timeZone) {
+  let utcMs = Date.UTC(target.year, target.month - 1, target.day, target.hour, target.minute);
+  for (let index = 0; index < 3; index += 1) {
+    const parts = datePartsInTimeZone(utcMs, timeZone);
+    const localAsUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute);
+    const targetAsUtc = Date.UTC(target.year, target.month - 1, target.day, target.hour, target.minute);
+    const offset = targetAsUtc - localAsUtc;
+    if (offset === 0) break;
+    utcMs += offset;
+  }
+  return utcMs;
+}
+
+function datePartsInTimeZone(timestamp, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    hourCycle: "h23",
+  }).formatToParts(new Date(timestamp));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return {
+    year: Number(values.year),
+    month: Number(values.month),
+    day: Number(values.day),
+    hour: Number(values.hour),
+    minute: Number(values.minute),
+  };
 }
 
 function scoreLeaderboard(predictions, matches) {
@@ -732,7 +881,7 @@ function upcomingCard(match, prediction) {
       </div>
       <div class="upcoming-card__meta">
         <span>${match.group ? `Grupo ${escapeHtml(match.group)}` : escapeHtml(match.stage || "")}</span>
-        <span>${escapeHtml(match.played_at || "Por programar")}</span>
+        <span>${escapeHtml(matchDateLabel(match) || "Por programar")}</span>
       </div>
     </article>
   `;
