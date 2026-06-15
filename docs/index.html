@@ -130,7 +130,12 @@
       <span>Puntos totales</span>
       <strong id="dialog-player-points">0</strong>
     </div>
-    <div class="recent-list" id="recent-list"></div>
+    <div class="dialog-tabs" role="tablist" aria-label="Detalles del jugador">
+      <button class="dialog-tab dialog-tab--active" id="history-tab" type="button" role="tab" aria-selected="true" aria-controls="history-panel" data-player-tab="history">Historial</button>
+      <button class="dialog-tab" id="upcoming-tab" type="button" role="tab" aria-selected="false" aria-controls="upcoming-panel" data-player-tab="upcoming">Próximos 4</button>
+    </div>
+    <div class="recent-list dialog-panel" id="history-panel" role="tabpanel" aria-labelledby="history-tab"></div>
+    <div class="recent-list dialog-panel" id="upcoming-panel" role="tabpanel" aria-labelledby="upcoming-tab" hidden></div>
   </dialog>
 
   <dialog class="player-dialog" id="match-dialog">

@@ -256,7 +256,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   const tableMessage = document.getElementById("table-message");
 
   playerCount.textContent = rows.length;
-  leaderName.textContent = participantLabel(rows[0]?.participant) || "-";
+  leaderName.textContent = leaderLabel(rows);
   updateFreshnessDisplay(lastUpdatedValue);
   tableMessage.textContent = rows.length ? "" : "Todavía no hay pronósticos puntuados.";
   tbody.innerHTML = "";
@@ -607,21 +607,71 @@ function participantLabel(name) {
   return PARTICIPANT_LABELS[name] || name || "";
 }
 
+function leaderLabel(rows) {
+  if (!rows.length) return "-";
+  const leader = rows[0];
+  return rows
+    .filter((row) => sameLeaderboardScore(row, leader))
+    .map((row) => participantLabel(row.participant))
+    .join(", ");
+}
+
+function sameLeaderboardScore(a, b) {
+  return Number(a.points) === Number(b.points)
+    && Number(a.exact_scores) === Number(b.exact_scores)
+    && Number(a.correct_results) === Number(b.correct_results);
+}
+
 function openPlayerDialog(player) {
   selectedPlayer = player;
   document.getElementById("dialog-player-name").textContent = participantLabel(player.participant);
   document.getElementById("dialog-player-points").textContent = player.points;
+  setPlayerTab("history");
   renderPlayerResults();
+  renderUpcomingPredictions();
   document.getElementById("player-dialog").showModal();
 }
 
 function renderPlayerResults() {
-  const recentList = document.getElementById("recent-list");
+  const recentList = document.getElementById("history-panel");
   const results = selectedPlayer?.all_results || [];
 
   recentList.innerHTML = results.length
     ? results.map((match) => resultCard(match)).join("")
     : `<p class="table-message">Todavía no hay partidos puntuados.</p>`;
+}
+
+function renderUpcomingPredictions() {
+  const upcomingList = document.getElementById("upcoming-panel");
+  const predictionsByMatch = new Map(
+    predictionRows
+      .filter((prediction) => prediction.participant === selectedPlayer?.participant)
+      .map((prediction) => [Number(prediction.match_id), prediction])
+  );
+  const upcoming = matchRows
+    .filter((match) => String(match.status || "").toLowerCase() === "scheduled")
+    .sort((a, b) => matchSort("scheduled", a, b))
+    .map((match) => ({
+      match,
+      prediction: predictionsByMatch.get(Number(match.match_id)),
+    }))
+    .filter((item) => item.prediction)
+    .slice(0, 4);
+
+  upcomingList.innerHTML = upcoming.length
+    ? upcoming.map(({ match, prediction }) => upcomingCard(match, prediction)).join("")
+    : `<p class="table-message">No hay pron&oacute;sticos para los siguientes partidos.</p>`;
+}
+
+function setPlayerTab(tabName) {
+  document.querySelectorAll("[data-player-tab]").forEach((button) => {
+    const isActive = button.dataset.playerTab === tabName;
+    button.classList.toggle("dialog-tab--active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+
+  document.getElementById("history-panel").hidden = tabName !== "history";
+  document.getElementById("upcoming-panel").hidden = tabName !== "upcoming";
 }
 
 function openMatchDialog(match) {
@@ -667,6 +717,22 @@ function resultCard(match) {
         <span>Pronóstico: ${match.predicted_home_score} - ${match.predicted_away_score}</span>
         <span>${resultLabel(match.result)}</span>
         <strong>+${match.points}</strong>
+      </div>
+    </article>
+  `;
+}
+
+function upcomingCard(match, prediction) {
+  return `
+    <article class="upcoming-card">
+      <div class="recent-card__teams">
+        <span>${flagMarkup(flagForTeam(match.home_team), match.home_team)} ${escapeHtml(match.home_team)}</span>
+        <strong>${prediction.predicted_home_score} - ${prediction.predicted_away_score}</strong>
+        <span>${flagMarkup(flagForTeam(match.away_team), match.away_team)} ${escapeHtml(match.away_team)}</span>
+      </div>
+      <div class="upcoming-card__meta">
+        <span>${match.group ? `Grupo ${escapeHtml(match.group)}` : escapeHtml(match.stage || "")}</span>
+        <span>${escapeHtml(match.played_at || "Por programar")}</span>
       </div>
     </article>
   `;
@@ -845,6 +911,9 @@ window.addEventListener("focus", () => {
 
 document.getElementById("dialog-close").addEventListener("click", () => {
   document.getElementById("player-dialog").close();
+});
+document.querySelectorAll("[data-player-tab]").forEach((button) => {
+  button.addEventListener("click", () => setPlayerTab(button.dataset.playerTab));
 });
 document.getElementById("match-dialog-close").addEventListener("click", () => {
   document.getElementById("match-dialog").close();

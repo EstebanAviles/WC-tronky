@@ -676,6 +676,37 @@ tbody tr.rank-last {
   font-size: 2rem;
 }
 
+.dialog-tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+  background: white;
+}
+
+.dialog-tab {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.dialog-tab--active {
+  color: var(--grass-dark);
+  border-color: var(--line);
+  background: #f4f8f2;
+}
+
+.dialog-panel[hidden] {
+  display: none;
+}
+
 .recent-list {
   display: grid;
   gap: 0.8rem;
@@ -703,6 +734,15 @@ tbody tr.rank-last {
 .recent-card--miss {
   border-left-color: #c84d3d;
   background: linear-gradient(90deg, rgba(200, 77, 61, 0.14), white 38%);
+}
+
+.upcoming-card {
+  border: 1px solid var(--line);
+  border-left-width: 0.45rem;
+  border-left-color: var(--grass);
+  border-radius: 8px;
+  padding: 1rem;
+  background: linear-gradient(90deg, rgba(15, 107, 59, 0.08), white 38%);
 }
 
 .recent-card__teams,
@@ -746,6 +786,17 @@ tbody tr.rank-last {
   margin-top: 0.75rem;
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.upcoming-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .recent-card__meta strong {
@@ -857,6 +908,11 @@ tbody tr.rank-last {
   .recent-card__teams,
   .recent-card__meta {
     grid-template-columns: 1fr;
+  }
+
+  .upcoming-card__meta {
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
   .recent-card__teams span:last-child,
