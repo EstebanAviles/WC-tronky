@@ -851,7 +851,71 @@ function openMatchDialog(match) {
     `).join("")
     : `<p class="table-message">Este partido todavía no tiene pronósticos puntuados.</p>`;
 
+  if (match.status === "scheduled") {
+    list.innerHTML = scheduledMatchPredictionsMarkup(match);
+  }
+
   dialog.showModal();
+}
+
+function scheduledMatchPredictionsMarkup(match) {
+  const predictions = predictionRows
+    .filter((prediction) => Number(prediction.match_id) === Number(match.match_id))
+    .sort((a, b) => participantLabel(a.participant).localeCompare(participantLabel(b.participant), "es"));
+
+  if (!predictions.length) {
+    return `<p class="table-message">Este partido todav&iacute;a no tiene pron&oacute;sticos.</p>`;
+  }
+
+  const groups = [
+    {
+      outcome: "H",
+      title: teamHeading(match.home_team),
+      predictions: predictions.filter((prediction) => predictionOutcome(prediction) === "H"),
+    },
+    {
+      outcome: "A",
+      title: teamHeading(match.away_team),
+      predictions: predictions.filter((prediction) => predictionOutcome(prediction) === "A"),
+    },
+    {
+      outcome: "D",
+      title: "Empate",
+      predictions: predictions.filter((prediction) => predictionOutcome(prediction) === "D"),
+    },
+  ];
+
+  return groups.map((group) => predictionGroupMarkup(group)).join("");
+}
+
+function predictionGroupMarkup(group) {
+  return `
+    <section class="prediction-group prediction-group--${group.outcome.toLowerCase()}">
+      <h3>${group.title}<span>${group.predictions.length}</span></h3>
+      <div class="prediction-group__list">
+        ${group.predictions.length
+          ? group.predictions.map((prediction) => scheduledPredictionCard(prediction)).join("")
+          : `<p class="table-message">Sin pron&oacute;sticos.</p>`}
+      </div>
+    </section>
+  `;
+}
+
+function scheduledPredictionCard(prediction) {
+  return `
+    <article class="prediction-card prediction-card--scheduled">
+      <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
+      <span>Pron&oacute;stico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}</span>
+    </article>
+  `;
+}
+
+function predictionOutcome(prediction) {
+  return outcome(Number(prediction.predicted_home_score), Number(prediction.predicted_away_score));
+}
+
+function teamHeading(team) {
+  return `${flagMarkup(flagForTeam(team), team)} ${escapeHtml(team)}`;
 }
 
 function resultCard(match) {

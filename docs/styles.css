@@ -845,6 +845,50 @@ tbody tr.rank-last {
   background: white;
 }
 
+.prediction-group {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.prediction-group + .prediction-group {
+  margin-top: 0.35rem;
+}
+
+.prediction-group h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.prediction-group h3 span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  min-height: 1.6rem;
+  border-radius: 999px;
+  color: var(--grass-dark);
+  background: #edf8ef;
+  font-size: 0.72rem;
+}
+
+.prediction-group__list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.prediction-card--scheduled {
+  grid-template-columns: 1fr auto;
+  border-left-color: var(--grass);
+  background: linear-gradient(90deg, rgba(15, 107, 59, 0.08), white 34%);
+}
+
 .prediction-card--exact {
   border-left-color: var(--grass);
   background: linear-gradient(90deg, rgba(15, 107, 59, 0.1), white 36%);
