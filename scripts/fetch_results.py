@@ -17,8 +17,12 @@ MATCH_SCORES_PATH = ROOT / "docs" / "data" / "match_scores.json"
 
 API_URL = "https://v3.football.api-sports.io/fixtures"
 WORLDCUP26_API_URL = "https://worldcup26.ir/get/games"
+FOOTBALL_DATA_API_URL = "https://api.football-data.org/v4/competitions/WC/matches"
 LIVE_STATUSES = {"1H", "HT", "2H", "ET", "BT", "P", "LIVE", "INT"}
 FINISHED_STATUSES = {"FT", "AET", "PEN"}
+FOOTBALL_DATA_LIVE_STATUSES = {"IN_PLAY", "PAUSED"}
+FOOTBALL_DATA_FINISHED_STATUSES = {"FINISHED"}
+ASSUMED_LIVE_WINDOW_SECONDS = 165 * 60
 
 MATCH_TIME_ZONES = {
     1: "America/Mexico_City",
@@ -122,6 +126,7 @@ TEAM_ALIASES = {
     "GERMANY": "ALEMANIA",
     "HAITI": "HAITI",
     "IRAN": "IRAN",
+    "IR IRAN": "IRAN",
     "IRAQ": "IRAK",
     "IVORY COAST": "COSTA DE MARFIL",
     "JAPAN": "JAPON",
@@ -226,6 +231,19 @@ def fetch_worldcup26_games():
     return payload.get("games", [])
 
 
+def fetch_football_data_matches():
+    token = os.environ.get("FOOTBALL_DATA_TOKEN")
+    season = os.environ.get("FOOTBALL_DATA_SEASON", "2026")
+    if not token:
+        return []
+
+    payload = get_json(
+        f"{FOOTBALL_DATA_API_URL}?{urlencode({'season': season})}",
+        headers={"X-Auth-Token": token},
+    )
+    return payload.get("matches", [])
+
+
 def get_json(url, headers=None):
     request = Request(url, headers=headers or {})
     try:
@@ -281,6 +299,19 @@ def worldcup26_status(game):
     return "scheduled"
 
 
+def is_within_assumed_live_window(game):
+    local_date = game.get("local_date", "")
+    source_id = int(game["id"])
+    try:
+        time_zone = ZoneInfo(MATCH_TIME_ZONES.get(source_id, "America/Lima"))
+        kickoff = datetime.strptime(local_date, "%m/%d/%Y %H:%M").replace(tzinfo=time_zone)
+    except ValueError:
+        return False
+
+    elapsed = datetime.now(timezone.utc) - kickoff.astimezone(timezone.utc)
+    return 0 <= elapsed.total_seconds() <= ASSUMED_LIVE_WINDOW_SECONDS
+
+
 def worldcup26_source_order(game):
     source_id = int(game["id"])
     local_date = game.get("local_date", "")
@@ -325,6 +356,96 @@ def convert_worldcup26_game(game, schedule):
     }
 
 
+def football_data_status(status):
+    if status in FOOTBALL_DATA_FINISHED_STATUSES:
+        return "finished"
+    if status in FOOTBALL_DATA_LIVE_STATUSES:
+        return "live"
+    return "scheduled"
+
+
+def football_data_score(match):
+    score = match.get("score", {})
+    full_time = score.get("fullTime") or {}
+    regular_time = score.get("regularTime") or {}
+    half_time = score.get("halfTime") or {}
+    return (
+        first_score(full_time.get("home"), regular_time.get("home"), half_time.get("home")),
+        first_score(full_time.get("away"), regular_time.get("away"), half_time.get("away")),
+    )
+
+
+def first_score(*values):
+    for value in values:
+        if value is not None:
+            return value
+    return None
+
+
+def convert_football_data_match(match, schedule):
+    home_names = match.get("homeTeam", {})
+    away_names = match.get("awayTeam", {})
+    home_team = normalize_team(home_names.get("name") or home_names.get("shortName") or home_names.get("tla", ""))
+    away_team = normalize_team(away_names.get("name") or away_names.get("shortName") or away_names.get("tla", ""))
+    schedule_row, reverse_score = find_schedule_match(schedule, home_team, away_team)
+    if not schedule_row:
+        return None
+
+    match_status = football_data_status(match.get("status", ""))
+    home_score, away_score = football_data_score(match)
+    if match_status in {"finished", "live"} and (home_score is None or away_score is None):
+        return None
+    if reverse_score:
+        home_score, away_score = away_score, home_score
+
+    utc_date = match.get("utcDate")
+    source_order = int(datetime.fromisoformat(utc_date.replace("Z", "+00:00")).timestamp()) if utc_date else int(schedule_row["match_id"])
+    return {
+        "match_id": int(schedule_row["match_id"]),
+        "stage": schedule_row["stage"],
+        "group": schedule_row["group"],
+        "home_team": schedule_row["home_team"],
+        "away_team": schedule_row["away_team"],
+        "home_score": int(home_score) if match_status in {"finished", "live"} else None,
+        "away_score": int(away_score) if match_status in {"finished", "live"} else None,
+        "status": match_status,
+        "source_match_id": match.get("id"),
+        "source_order": source_order * 1000,
+        "played_at": utc_date or "",
+        "backup_source": "football-data",
+    }
+
+
+def apply_football_data_backup(matches, schedule):
+    if not os.environ.get("FOOTBALL_DATA_TOKEN"):
+        return matches
+
+    suspicious_match_ids = {
+        match["match_id"]
+        for match in matches
+        if match and match["status"] == "scheduled" and is_within_assumed_live_window({"id": match["source_match_id"], "local_date": match["played_at"]})
+    }
+    if not suspicious_match_ids:
+        return matches
+
+    backups = {}
+    try:
+        football_data_matches = fetch_football_data_matches()
+    except RuntimeError as error:
+        print(f"football-data backup failed: {error}")
+        return matches
+
+    for match in football_data_matches:
+        converted = convert_football_data_match(match, schedule)
+        if converted and converted["match_id"] in suspicious_match_ids and converted["status"] in {"live", "finished"}:
+            backups[converted["match_id"]] = converted
+
+    return [
+        backups.get(match["match_id"], match) if match else None
+        for match in matches
+    ]
+
+
 def fetch_matches(schedule):
     source = os.environ.get("FOOTBALL_DATA_SOURCE", "worldcup26").lower()
     if source == "api-football":
@@ -333,10 +454,11 @@ def fetch_matches(schedule):
             for fixture in fetch_fixtures()
         ], "api-football"
 
-    return [
+    matches = [
         convert_worldcup26_game(game, schedule)
         for game in fetch_worldcup26_games()
-    ], "worldcup26"
+    ]
+    return apply_football_data_backup(matches, schedule), "worldcup26"
 
 
 def main():

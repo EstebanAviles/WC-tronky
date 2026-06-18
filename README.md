@@ -46,6 +46,13 @@ This no-key source comes from `rezarahiminia/worldcup2026`. The workflow still s
 - Secret: `FOOTBALL_API_KEY`
 - Variable: `FOOTBALL_API_LEAGUE_ID`
 
+The Cloudflare Worker and GitHub Action can also use football-data.org as a backup when the free World Cup source leaves an active match marked as not started. Add this token in both places:
+
+- GitHub Actions secret: `FOOTBALL_DATA_TOKEN`
+- Cloudflare Worker secret: `FOOTBALL_DATA_TOKEN`
+
+The backup is rate-limited in the Worker to one football-data.org call every 12 seconds, at most 5 calls per minute. The optional season variable is `FOOTBALL_DATA_SEASON`, defaulting to `2026`.
+
 API keys must stay in GitHub Secrets. Do not put them in frontend JavaScript or commit them.
 
 ## Scoring

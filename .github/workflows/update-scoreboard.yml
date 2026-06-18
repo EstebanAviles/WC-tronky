@@ -36,6 +36,8 @@ jobs:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
           FOOTBALL_API_LEAGUE_ID: ${{ vars.FOOTBALL_API_LEAGUE_ID }}
           FOOTBALL_API_SEASON: "2026"
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+          FOOTBALL_DATA_SEASON: "2026"
         run: |
           python scripts/fetch_results.py
           python scripts/score_predictions.py
