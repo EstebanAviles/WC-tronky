@@ -76,12 +76,13 @@ def points_for_prediction(prediction, match):
     predicted_away = int(prediction["predicted_away_score"])
     actual_home = int(match["home_score"])
     actual_away = int(match["away_score"])
+    goal_difference = predicted_home - predicted_away == actual_home - actual_away
 
     if predicted_home == actual_home and predicted_away == actual_away:
-        return 6, True, False
+        return 6, True, False, goal_difference
     if outcome(predicted_home, predicted_away) == outcome(actual_home, actual_away):
-        return 3, False, True
-    return 0, False, False
+        return 3, False, True, goal_difference
+    return 0, False, False, goal_difference
 
 
 def result_type(exact, correct):
@@ -180,6 +181,7 @@ def score_leaderboard(predictions, matches):
     for participant, group in predictions.groupby("participant"):
         points_total = 0
         exact_scores = 0
+        goal_differences = 0
         correct_results = 0
         missed_results = 0
         played_matches = 0
@@ -190,12 +192,13 @@ def score_leaderboard(predictions, matches):
             if not match:
                 continue
 
-            points, exact, correct = points_for_prediction(prediction, match)
+            points, exact, correct, goal_difference = points_for_prediction(prediction, match)
             status = str(match.get("status", "")).lower()
 
             if status in SCORING_STATUSES:
                 points_total += points
                 exact_scores += int(exact)
+                goal_differences += int(goal_difference)
                 correct_results += int(correct)
                 missed_results += int(not exact and not correct)
                 played_matches += 1
@@ -206,6 +209,7 @@ def score_leaderboard(predictions, matches):
                 "participant": participant,
                 "points": points_total,
                 "exact_scores": exact_scores,
+                "goal_differences": goal_differences,
                 "correct_results": correct_results,
                 "missed_results": missed_results,
                 "played_matches": played_matches,
@@ -227,6 +231,7 @@ def score_leaderboard(predictions, matches):
         key=lambda row: (
             row["points"],
             row["exact_scores"],
+            row["goal_differences"],
             row["correct_results"],
         ),
         reverse=True,

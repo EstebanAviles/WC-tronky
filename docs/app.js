@@ -349,6 +349,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
       </td>
       <td data-label="Puntos"><strong>${row.points}</strong></td>
       <td data-label="E">${row.exact_scores}</td>
+      <td data-label="DG">${row.goal_differences ?? 0}</td>
       <td data-label="G">${row.correct_results}</td>
       <td data-label="F">${row.missed_results}</td>
       <td data-label="PJ">${row.played_matches}</td>
@@ -648,6 +649,7 @@ function scoreRows(predictions, matches) {
       participant,
       points: 0,
       exact_scores: 0,
+      goal_differences: 0,
       correct_results: 0,
       missed_results: 0,
       played_matches: 0,
@@ -660,6 +662,7 @@ function scoreRows(predictions, matches) {
       const scored = scorePrediction(prediction, match);
       row.points += scored.points;
       row.exact_scores += scored.result === "exact" ? 1 : 0;
+      row.goal_differences += scored.goalDifference ? 1 : 0;
       row.correct_results += scored.result === "correct" ? 1 : 0;
       row.missed_results += scored.result === "miss" ? 1 : 0;
       row.played_matches += 1;
@@ -678,7 +681,7 @@ function scoreRows(predictions, matches) {
         all_results: allResults,
       };
     })
-    .sort((a, b) => b.points - a.points || b.exact_scores - a.exact_scores || b.correct_results - a.correct_results);
+    .sort((a, b) => b.points - a.points || b.exact_scores - a.exact_scores || b.goal_differences - a.goal_differences || b.correct_results - a.correct_results);
 }
 
 function scorePrediction(prediction, match) {
@@ -688,12 +691,20 @@ function scorePrediction(prediction, match) {
   const actualAway = Number(match.away_score);
 
   if (predictedHome === actualHome && predictedAway === actualAway) {
-    return { points: EXACT_POINTS, result: "exact" };
+    return { points: EXACT_POINTS, result: "exact", goalDifference: true };
   }
   if (outcome(predictedHome, predictedAway) === outcome(actualHome, actualAway)) {
-    return { points: CORRECT_POINTS, result: "correct" };
+    return {
+      points: CORRECT_POINTS,
+      result: "correct",
+      goalDifference: predictedHome - predictedAway === actualHome - actualAway,
+    };
   }
-  return { points: 0, result: "miss" };
+  return {
+    points: 0,
+    result: "miss",
+    goalDifference: predictedHome - predictedAway === actualHome - actualAway,
+  };
 }
 
 function resultForPlayer(prediction, match, scored) {
@@ -768,6 +779,7 @@ function leaderLabel(rows) {
 function sameLeaderboardScore(a, b) {
   return Number(a.points) === Number(b.points)
     && Number(a.exact_scores) === Number(b.exact_scores)
+    && Number(a.goal_differences || 0) === Number(b.goal_differences || 0)
     && Number(a.correct_results) === Number(b.correct_results);
 }
 
