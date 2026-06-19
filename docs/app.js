@@ -918,8 +918,8 @@ function rankHistoryPlotMarkup(history) {
 }
 
 function rankPointMarkup(point, x, y, width, margin) {
-  const label = `Partido ${point.played}: puesto ${point.rank}`;
-  const tooltipWidth = 126;
+  const label = String(point.rank);
+  const tooltipWidth = 34;
   const tooltipHeight = 28;
   const tooltipX = Math.max(margin.left + 4, Math.min(x - tooltipWidth / 2, width - margin.right - tooltipWidth - 4));
   const tooltipY = y - tooltipHeight - 14 < margin.top ? y + 14 : y - tooltipHeight - 14;
