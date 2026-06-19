@@ -821,6 +821,47 @@ tbody tr.rank-last {
   stroke-width: 2;
 }
 
+.rank-plot__point-wrap {
+  outline: none;
+  cursor: pointer;
+}
+
+.rank-plot__point-hit {
+  fill: transparent;
+}
+
+.rank-plot__point-wrap:hover .rank-plot__point,
+.rank-plot__point-wrap:focus .rank-plot__point,
+.rank-plot__point-wrap--active .rank-plot__point {
+  fill: var(--grass-dark);
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+.rank-plot__tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.rank-plot__point-wrap:hover .rank-plot__tooltip,
+.rank-plot__point-wrap:focus .rank-plot__tooltip,
+.rank-plot__point-wrap--active .rank-plot__tooltip {
+  opacity: 1;
+}
+
+.rank-plot__tooltip rect {
+  fill: var(--grass-dark);
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 1;
+}
+
+.rank-plot__tooltip text {
+  fill: white;
+  font-size: 0.66rem;
+  font-weight: 900;
+}
+
 .rank-plot__tick,
 .rank-plot__label {
   fill: var(--muted);

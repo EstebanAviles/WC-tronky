@@ -845,6 +845,7 @@ function renderRankHistory() {
   panel.innerHTML = history.points.length
     ? rankHistoryPlotMarkup(history)
     : `<p class="table-message">Todavía no hay suficientes partidos para mostrar puestos.</p>`;
+  attachRankPlotTooltipHandlers(panel);
 }
 
 function rankHistoryForPlayer(participant) {
@@ -883,6 +884,9 @@ function rankHistoryPlotMarkup(history) {
   const xFor = (played) => margin.left + (maxPlayed === 1 ? plotWidth / 2 : ((played - 1) / (maxPlayed - 1)) * plotWidth);
   const yFor = (rank) => margin.top + (maxRank === 1 ? 0 : ((rank - 1) / (maxRank - 1)) * plotHeight);
   const linePoints = history.points.map((point) => `${xFor(point.played)},${yFor(point.rank)}`).join(" ");
+  const pointMarkup = history.points
+    .map((point) => rankPointMarkup(point, xFor(point.played), yFor(point.rank), width, margin))
+    .join("");
   const rankBands = [1, 2, 3, history.lastRank]
     .filter((rank, index, ranks) => rank <= maxRank && ranks.indexOf(rank) === index)
     .map((rank) => rankBandMarkup(rank, maxRank, margin.left, yFor(rank), plotWidth, plotHeight));
@@ -907,9 +911,29 @@ function rankHistoryPlotMarkup(history) {
         <text class="rank-plot__label" x="${margin.left}" y="16">Puesto</text>
         <text class="rank-plot__label" x="${width - margin.right}" y="${height - 10}" text-anchor="end">Partidos jugados</text>
         <polyline class="rank-plot__line" points="${linePoints}"></polyline>
-        ${history.points.map((point) => `<circle class="rank-plot__point" cx="${xFor(point.played)}" cy="${yFor(point.rank)}" r="4"><title>Partido ${point.played}: puesto ${point.rank}</title></circle>`).join("")}
+        ${pointMarkup}
       </svg>
     </div>
+  `;
+}
+
+function rankPointMarkup(point, x, y, width, margin) {
+  const label = `Partido ${point.played}: puesto ${point.rank}`;
+  const tooltipWidth = 126;
+  const tooltipHeight = 28;
+  const tooltipX = Math.max(margin.left + 4, Math.min(x - tooltipWidth / 2, width - margin.right - tooltipWidth - 4));
+  const tooltipY = y - tooltipHeight - 14 < margin.top ? y + 14 : y - tooltipHeight - 14;
+  const textY = tooltipY + 18;
+
+  return `
+    <g class="rank-plot__point-wrap" tabindex="0" role="button" aria-label="${escapeHtml(label)}">
+      <circle class="rank-plot__point-hit" cx="${x}" cy="${y}" r="13"></circle>
+      <circle class="rank-plot__point" cx="${x}" cy="${y}" r="4"></circle>
+      <g class="rank-plot__tooltip">
+        <rect x="${tooltipX}" y="${tooltipY}" width="${tooltipWidth}" height="${tooltipHeight}" rx="6"></rect>
+        <text x="${tooltipX + tooltipWidth / 2}" y="${textY}" text-anchor="middle">${escapeHtml(label)}</text>
+      </g>
+    </g>
   `;
 }
 
@@ -919,6 +943,22 @@ function rankBandMarkup(rank, maxRank, x, y, width, plotHeight) {
   if (!className) return "";
   const bandHeight = maxRank === 1 ? plotHeight : Math.max(12, plotHeight / maxRank);
   return `<rect class="rank-plot__band rank-plot__band--${className}" x="${x}" y="${y - bandHeight / 2}" width="${width}" height="${bandHeight}"></rect>`;
+}
+
+function attachRankPlotTooltipHandlers(panel) {
+  const points = panel.querySelectorAll(".rank-plot__point-wrap");
+  points.forEach((point) => {
+    point.addEventListener("click", () => {
+      const wasActive = point.classList.contains("rank-plot__point-wrap--active");
+      points.forEach((item) => item.classList.remove("rank-plot__point-wrap--active"));
+      if (!wasActive) point.classList.add("rank-plot__point-wrap--active");
+    });
+    point.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      point.click();
+    });
+  });
 }
 
 function setPlayerTab(tabName) {
