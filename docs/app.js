@@ -15,6 +15,7 @@ let selectedResultFilter = null;
 let selectedMatchView = "scheduled";
 let previousLeaderboardSnapshot = new Map();
 let hasRenderedLeaderboard = false;
+let enableLeaderboardAnimations = false;
 const expandedMatchViews = new Set();
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
@@ -281,6 +282,7 @@ async function refreshLiveMatches() {
     renderPageState();
   } finally {
     isRefreshingLive = false;
+    enableLeaderboardAnimations = true;
   }
 }
 
@@ -354,7 +356,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   rows.forEach((row, index) => {
     const rank = row.rank || index + 1;
     const previous = previousLeaderboardSnapshot.get(row.participant);
-    const didChange = hasRenderedLeaderboard && previous && (previous.rank !== rank || previous.points !== row.points);
+    const didChange = enableLeaderboardAnimations && hasRenderedLeaderboard && previous && (previous.rank !== rank || previous.points !== row.points);
     const tr = document.createElement("tr");
     tr.className = rowClass(rank, rows.length, row.is_last);
     if (didChange) tr.classList.add("row-updated");
