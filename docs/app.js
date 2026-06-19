@@ -348,7 +348,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   rows.forEach((row, index) => {
     const rank = row.rank || index + 1;
     const tr = document.createElement("tr");
-    tr.className = rowClass(rank, rows.length);
+    tr.className = rowClass(rank, rows.length, row.is_last);
     tr.innerHTML = `
       <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
       <td data-label="Jugador">
@@ -616,14 +616,12 @@ function datePartsInTimeZone(timestamp, timeZone) {
 
 function scoreLeaderboard(predictions, matches) {
   const currentMatches = currentScoringMatches(matches);
-  const previousRanks = rankMap(scoreRows(predictions, previousScoringMatches(currentMatches)));
-  return scoreRows(predictions, currentMatches).map((row, index) => {
-    const rank = index + 1;
+  const previousRanks = rankMap(assignCompetitionRanks(scoreRows(predictions, previousScoringMatches(currentMatches))));
+  return assignCompetitionRanks(scoreRows(predictions, currentMatches)).map((row) => {
     const previousRank = previousRanks.get(row.participant);
     return {
       ...row,
-      rank,
-      movement: previousRank ? previousRank - rank : 0,
+      movement: previousRank ? previousRank - row.rank : 0,
     };
   });
 }
@@ -645,7 +643,22 @@ function previousScoringMatches(matches) {
 }
 
 function rankMap(rows) {
-  return new Map(rows.map((row, index) => [row.participant, index + 1]));
+  return new Map(rows.map((row, index) => [row.participant, row.rank || index + 1]));
+}
+
+function assignCompetitionRanks(rows) {
+  const lastIndex = rows.length - 1;
+  const rankedRows = [];
+  rows.forEach((row, index) => {
+    const previous = rankedRows[index - 1];
+    const rank = previous && sameLeaderboardScore(row, previous) ? previous.rank : index + 1;
+    rankedRows.push({
+      ...row,
+      rank,
+      is_last: index === lastIndex || (rows[lastIndex] && sameLeaderboardScore(row, rows[lastIndex])),
+    });
+  });
+  return rankedRows;
 }
 
 function scoreRows(predictions, matches) {
@@ -838,45 +851,46 @@ function rankHistoryForPlayer(participant) {
   const playedMatches = currentScoringMatches(matchRows)
     .slice()
     .sort((a, b) => matchSortValue(a) - matchSortValue(b));
+  const currentRows = assignCompetitionRanks(scoreRows(predictionRows, playedMatches));
   const points = [];
 
   playedMatches.forEach((_, index) => {
     const partialMatches = playedMatches.slice(0, index + 1);
-    const rows = scoreRows(predictionRows, partialMatches);
-    const playerIndex = rows.findIndex((row) => row.participant === participant);
-    if (playerIndex < 0) return;
+    const rows = assignCompetitionRanks(scoreRows(predictionRows, partialMatches));
+    const playerRow = rows.find((row) => row.participant === participant);
+    if (!playerRow) return;
     points.push({
       played: index + 1,
-      rank: playerIndex + 1,
+      rank: playerRow.rank,
       rowCount: rows.length,
     });
   });
 
   return {
     points,
-    rowCount: Math.max(leaderboardRows.length, ...points.map((point) => point.rowCount), 1),
+    lastRank: currentRows.at(-1)?.rank || 1,
   };
 }
 
 function rankHistoryPlotMarkup(history) {
   const width = 640;
-  const height = 280;
-  const margin = { top: 26, right: 24, bottom: 42, left: 50 };
+  const height = 305;
+  const margin = { top: 26, right: 24, bottom: 64, left: 50 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const maxPlayed = Math.max(...history.points.map((point) => point.played), 1);
-  const maxRank = Math.max(history.rowCount, 1);
+  const maxRank = Math.max(history.lastRank, ...history.points.map((point) => point.rank), 1);
   const xFor = (played) => margin.left + (maxPlayed === 1 ? plotWidth / 2 : ((played - 1) / (maxPlayed - 1)) * plotWidth);
   const yFor = (rank) => margin.top + (maxRank === 1 ? 0 : ((rank - 1) / (maxRank - 1)) * plotHeight);
   const linePoints = history.points.map((point) => `${xFor(point.played)},${yFor(point.rank)}`).join(" ");
-  const rankBands = [1, 2, 3, maxRank]
+  const rankBands = [1, 2, 3, history.lastRank]
     .filter((rank, index, ranks) => rank <= maxRank && ranks.indexOf(rank) === index)
     .map((rank) => rankBandMarkup(rank, maxRank, margin.left, yFor(rank), plotWidth, plotHeight));
   const xTicks = history.points
     .filter((point, index, points) => index === 0 || index === points.length - 1 || point.played % 5 === 0)
-    .map((point) => `<text class="rank-plot__tick" x="${xFor(point.played)}" y="${height - 16}" text-anchor="middle">${point.played}</text>`)
+    .map((point) => `<text class="rank-plot__tick" x="${xFor(point.played)}" y="${height - 38}" text-anchor="middle">${point.played}</text>`)
     .join("");
-  const yTicks = [1, 2, 3, maxRank]
+  const yTicks = [1, 2, 3, history.lastRank, maxRank]
     .filter((rank, index, ranks) => rank <= maxRank && ranks.indexOf(rank) === index)
     .map((rank) => `<text class="rank-plot__tick" x="${margin.left - 12}" y="${yFor(rank) + 4}" text-anchor="end">${rank}</text>`)
     .join("");
@@ -891,7 +905,7 @@ function rankHistoryPlotMarkup(history) {
         ${yTicks}
         ${xTicks}
         <text class="rank-plot__label" x="${margin.left}" y="16">Puesto</text>
-        <text class="rank-plot__label" x="${width - margin.right}" y="${height - 16}" text-anchor="end">Partidos jugados</text>
+        <text class="rank-plot__label" x="${width - margin.right}" y="${height - 10}" text-anchor="end">Partidos jugados</text>
         <polyline class="rank-plot__line" points="${linePoints}"></polyline>
         ${history.points.map((point) => `<circle class="rank-plot__point" cx="${xFor(point.played)}" cy="${yFor(point.rank)}" r="4"><title>Partido ${point.played}: puesto ${point.rank}</title></circle>`).join("")}
       </svg>
@@ -1128,10 +1142,10 @@ function rankClass(rank) {
   return "";
 }
 
-function rowClass(rank, rowCount) {
+function rowClass(rank, rowCount, isLast = false) {
   const classes = [];
   if (rank <= 3) classes.push(`rank-${rank}`);
-  if (rank === rowCount) classes.push("rank-last");
+  if (rank === rowCount || isLast) classes.push("rank-last");
   return classes.join(" ");
 }
 

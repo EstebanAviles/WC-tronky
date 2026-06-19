@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-19T04:00:01+00:00",
+  "last_updated": "2026-06-19T04:39:49+00:00",
   "leaderboard": [
     {
       "participant": "Jogy",
@@ -274,6 +274,7 @@
         }
       ],
       "rank": 1,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -549,6 +550,7 @@
         }
       ],
       "rank": 2,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -824,6 +826,7 @@
         }
       ],
       "rank": 3,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -1098,7 +1101,8 @@
           "goal_difference": true
         }
       ],
-      "rank": 4,
+      "rank": 3,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -1373,7 +1377,8 @@
           "goal_difference": true
         }
       ],
-      "rank": 5,
+      "rank": 3,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -1648,7 +1653,8 @@
           "goal_difference": false
         }
       ],
-      "rank": 6,
+      "rank": 3,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -1924,6 +1930,7 @@
         }
       ],
       "rank": 7,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -2199,6 +2206,7 @@
         }
       ],
       "rank": 8,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -2474,6 +2482,7 @@
         }
       ],
       "rank": 9,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -2749,6 +2758,7 @@
         }
       ],
       "rank": 10,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -3023,7 +3033,8 @@
           "goal_difference": true
         }
       ],
-      "rank": 11,
+      "rank": 10,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -3299,6 +3310,7 @@
         }
       ],
       "rank": 12,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -3573,7 +3585,8 @@
           "goal_difference": true
         }
       ],
-      "rank": 13,
+      "rank": 12,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -3848,7 +3861,8 @@
           "goal_difference": true
         }
       ],
-      "rank": 14,
+      "rank": 12,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -4123,7 +4137,8 @@
           "goal_difference": true
         }
       ],
-      "rank": 15,
+      "rank": 12,
+      "is_last": false,
       "movement": 0
     },
     {
@@ -4399,6 +4414,7 @@
         }
       ],
       "rank": 16,
+      "is_last": true,
       "movement": 0
     }
   ]

@@ -460,6 +460,22 @@ tbody tr.rank-last {
   font-size: 0.86rem;
 }
 
+.score-rule {
+  font-weight: 900;
+}
+
+.score-rule--exact {
+  color: var(--grass);
+}
+
+.score-rule--correct {
+  color: #946900;
+}
+
+.score-rule--miss {
+  color: #a33a2d;
+}
+
 .match-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

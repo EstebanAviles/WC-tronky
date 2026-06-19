@@ -172,9 +172,34 @@ def previous_scoring_matches(matches):
 
 def rank_map(leaderboard):
     return {
-        row["participant"]: index + 1
+        row["participant"]: row.get("rank", index + 1)
         for index, row in enumerate(leaderboard)
     }
+
+
+def same_leaderboard_score(first, second):
+    return (
+        first["points"] == second["points"]
+        and first["exact_scores"] == second["exact_scores"]
+        and first["goal_differences"] == second["goal_differences"]
+        and first["correct_results"] == second["correct_results"]
+    )
+
+
+def add_competition_ranks(rows):
+    last_row = rows[-1] if rows else None
+    ranked_rows = []
+    for index, row in enumerate(rows):
+        previous = ranked_rows[index - 1] if index else None
+        rank = previous["rank"] if previous and same_leaderboard_score(row, previous) else index + 1
+        ranked_rows.append(
+            {
+                **row,
+                "rank": rank,
+                "is_last": bool(last_row and same_leaderboard_score(row, last_row)),
+            }
+        )
+    return ranked_rows
 
 
 def score_leaderboard(predictions, matches):
@@ -227,7 +252,7 @@ def score_leaderboard(predictions, matches):
             }
         )
 
-    return sorted(
+    return add_competition_ranks(sorted(
         rows,
         key=lambda row: (
             row["points"],
@@ -236,7 +261,7 @@ def score_leaderboard(predictions, matches):
             row["correct_results"],
         ),
         reverse=True,
-    )
+    ))
 
 
 def write_public_predictions(predictions):
@@ -274,10 +299,9 @@ def main():
     )
     leaderboard = score_leaderboard(predictions, matches)
 
-    for index, row in enumerate(leaderboard):
-        current_rank = index + 1
+    for row in leaderboard:
+        current_rank = row["rank"]
         previous_rank = previous_ranks.get(row["participant"])
-        row["rank"] = current_rank
         row["movement"] = 0 if previous_rank is None else previous_rank - current_rank
 
     output = {
