@@ -797,6 +797,9 @@ function sameLeaderboardScore(a, b) {
 function openPlayerDialog(player, resultFilter = null) {
   selectedPlayer = player;
   selectedResultFilter = resultFilter;
+  const isCounterDetail = Boolean(resultFilter);
+  document.querySelector("#player-dialog .dialog-score").hidden = isCounterDetail;
+  document.querySelector("#player-dialog .dialog-tabs").hidden = isCounterDetail;
   document.getElementById("player-dialog-eyebrow").textContent = resultFilter ? "Detalle del contador" : "Racha del Jugador";
   document.getElementById("dialog-player-name").textContent = participantLabel(player.participant);
   document.getElementById("dialog-player-points").textContent = player.points;
@@ -980,11 +983,11 @@ function resultCard(match) {
     <article class="recent-card recent-card--${match.result}">
       <div class="recent-card__teams">
         <span>${flagMarkup(match.home_flag, match.home_team)} ${escapeHtml(match.home_team)}</span>
-        <strong>${match.actual_home_score} - ${match.actual_away_score}</strong>
+        <strong title="Pronóstico">${match.predicted_home_score} - ${match.predicted_away_score}</strong>
         <span>${flagMarkup(match.away_flag, match.away_team)} ${escapeHtml(match.away_team)}</span>
       </div>
       <div class="recent-card__meta">
-        <span>Pronóstico: ${match.predicted_home_score} - ${match.predicted_away_score}</span>
+        <span>Final: ${match.actual_home_score} - ${match.actual_away_score}</span>
         <span>${resultLabel(match.result)}</span>
         <strong>+${match.points}</strong>
       </div>
