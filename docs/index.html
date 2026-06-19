@@ -79,42 +79,22 @@
       </div>
 
       <p class="table-message" id="table-message"></p>
-      <p class="table-message">Desempate: puntos, luego marcadores exactos, luego diferencias de gol, luego ganadores correctos.</p>
-    </section>
-
-    <section class="rules" aria-labelledby="rules-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Reglas</p>
-          <h2 id="rules-title">Puntuación</h2>
-        </div>
-      </div>
-
-      <div class="rules-grid">
-        <div class="rule-item rule-item--exact">
-          <span>Marcador exacto</span>
-          <strong>+6</strong>
-        </div>
-        <div class="rule-item rule-item--correct">
-          <span>Ganador correcto</span>
-          <strong>+3</strong>
-        </div>
-        <div class="rule-item rule-item--miss">
-          <span>Fallo</span>
-          <strong>+0</strong>
-        </div>
-      </div>
+      <p class="table-message scoring-note">Puntuación: marcador exacto +6, ganador correcto +3, fallo +0. Desempate: puntos, luego marcadores exactos, luego diferencias de gol, luego ganadores correctos.</p>
     </section>
 
     <section class="matches" aria-labelledby="matches-title">
       <div class="section-heading">
         <div>
           <p class="eyebrow">Partidos</p>
-          <h2 id="matches-title">Resultados actuales</h2>
+          <h2 id="matches-title">Próximos partidos</h2>
         </div>
         <span class="status-pill" id="matches-status">Cargando</span>
       </div>
 
+      <div class="match-tabs" role="tablist" aria-label="Vista de partidos">
+        <button class="match-tab match-tab--active" type="button" role="tab" aria-selected="true" data-match-view="scheduled">Próximos partidos</button>
+        <button class="match-tab" type="button" role="tab" aria-selected="false" data-match-view="recent">Resultados recientes</button>
+      </div>
       <div class="match-list" id="match-list"></div>
       <p class="table-message" id="match-message"></p>
     </section>
@@ -134,10 +114,10 @@
     </div>
     <div class="dialog-tabs" role="tablist" aria-label="Detalles del jugador">
       <button class="dialog-tab dialog-tab--active" id="history-tab" type="button" role="tab" aria-selected="true" aria-controls="history-panel" data-player-tab="history">Historial</button>
-      <button class="dialog-tab" id="upcoming-tab" type="button" role="tab" aria-selected="false" aria-controls="upcoming-panel" data-player-tab="upcoming">Prox. Predicciones</button>
+      <button class="dialog-tab" id="rank-history-tab" type="button" role="tab" aria-selected="false" aria-controls="rank-history-panel" data-player-tab="rankHistory">Puestos</button>
     </div>
     <div class="recent-list dialog-panel" id="history-panel" role="tabpanel" aria-labelledby="history-tab"></div>
-    <div class="recent-list dialog-panel" id="upcoming-panel" role="tabpanel" aria-labelledby="upcoming-tab" hidden></div>
+    <div class="rank-history-panel dialog-panel" id="rank-history-panel" role="tabpanel" aria-labelledby="rank-history-tab" hidden></div>
   </dialog>
 
   <dialog class="player-dialog" id="match-dialog">

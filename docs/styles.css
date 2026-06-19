@@ -169,7 +169,6 @@ main {
 }
 
 .leaderboard,
-.rules,
 .matches {
   margin-top: 1.25rem;
 }
@@ -456,47 +455,42 @@ tbody tr.rank-last {
   color: var(--muted);
 }
 
-.rules-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.rule-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 5.25rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--line);
-  border-left-width: 0.45rem;
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 10px 24px rgba(15, 40, 25, 0.06);
-}
-
-.rule-item span {
-  color: var(--muted);
+.scoring-note {
+  max-width: 920px;
   font-size: 0.86rem;
+}
+
+.match-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.match-tab {
+  min-height: 3.6rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  background: white;
+  font: inherit;
   font-weight: 900;
-  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(15, 40, 25, 0.05);
 }
 
-.rule-item strong {
-  font-size: 2rem;
+.match-tab:hover,
+.match-tab:focus-visible {
+  color: var(--grass-dark);
+  border-color: #b9dbc2;
 }
 
-.rule-item--exact {
-  border-left-color: var(--grass);
-}
-
-.rule-item--correct {
-  border-left-color: var(--gold);
-}
-
-.rule-item--miss {
-  border-left-color: #c84d3d;
+.match-tab--active {
+  color: var(--grass-dark);
+  border-color: #b9dbc2;
+  background: linear-gradient(90deg, rgba(15, 107, 59, 0.12), white 72%);
 }
 
 .match-list {
@@ -753,6 +747,72 @@ tbody tr.rank-last {
   text-transform: uppercase;
 }
 
+.rank-history-panel {
+  padding: 1.25rem;
+}
+
+.rank-plot-card {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.rank-plot {
+  display: block;
+  min-width: 620px;
+  width: 100%;
+  height: auto;
+}
+
+.rank-plot__area {
+  fill: #fbfdf9;
+  stroke: var(--line);
+}
+
+.rank-plot__band--gold {
+  fill: rgba(216, 162, 42, 0.22);
+}
+
+.rank-plot__band--silver {
+  fill: rgba(117, 132, 149, 0.22);
+}
+
+.rank-plot__band--bronze {
+  fill: rgba(184, 120, 66, 0.2);
+}
+
+.rank-plot__band--last {
+  fill: rgba(211, 65, 48, 0.2);
+}
+
+.rank-plot__axis {
+  stroke: rgba(98, 112, 100, 0.45);
+  stroke-width: 1;
+}
+
+.rank-plot__line {
+  fill: none;
+  stroke: var(--grass-dark);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.rank-plot__point {
+  fill: white;
+  stroke: var(--grass-dark);
+  stroke-width: 2;
+}
+
+.rank-plot__tick,
+.rank-plot__label {
+  fill: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .recent-list {
   display: grid;
   gap: 0.8rem;
@@ -780,15 +840,6 @@ tbody tr.rank-last {
 .recent-card--miss {
   border-left-color: #c84d3d;
   background: linear-gradient(90deg, rgba(200, 77, 61, 0.14), white 38%);
-}
-
-.upcoming-card {
-  border: 1px solid var(--line);
-  border-left-width: 0.45rem;
-  border-left-color: var(--grass);
-  border-radius: 8px;
-  padding: 1rem;
-  background: linear-gradient(90deg, rgba(15, 107, 59, 0.08), white 38%);
 }
 
 .recent-card__teams,
@@ -847,17 +898,6 @@ tbody tr.rank-last {
   margin-top: 1.1rem;
   color: var(--muted);
   font-size: 0.88rem;
-}
-
-.upcoming-card__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.75rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-transform: uppercase;
 }
 
 .recent-card__meta strong {
@@ -1004,7 +1044,6 @@ tbody tr.rank-last {
     flex-direction: column;
   }
 
-  .rules-grid,
   .match-grid {
     grid-template-columns: 1fr;
   }
@@ -1013,11 +1052,6 @@ tbody tr.rank-last {
   .recent-card__teams,
   .recent-card__meta {
     grid-template-columns: 1fr;
-  }
-
-  .upcoming-card__meta {
-    flex-direction: column;
-    gap: 0.35rem;
   }
 
   .recent-card__teams span:last-child,

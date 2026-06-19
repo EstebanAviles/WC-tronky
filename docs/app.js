@@ -12,6 +12,7 @@ let liveRefreshTimerId = null;
 let freshnessTimerId = null;
 let lastMatchSignature = "";
 let selectedResultFilter = null;
+let selectedMatchView = "scheduled";
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -382,55 +383,53 @@ function setLoadError(error) {
 function renderMatches(container) {
   const matchStatus = document.getElementById("matches-status");
   const matchMessage = document.getElementById("match-message");
-  const groups = [
-    ["live", "En vivo"],
-    ["finished", "Finalizados"],
-    ["scheduled", "Próximos"],
-  ];
+  const matchesTitle = document.getElementById("matches-title");
+  const isScheduledView = selectedMatchView === "scheduled";
+  const matches = matchRows
+    .filter((match) => isScheduledView ? match.status === "scheduled" : ["live", "finished"].includes(match.status))
+    .sort((a, b) => isScheduledView ? matchSort("scheduled", a, b) : matchSort("recent", a, b));
 
-  matchStatus.textContent = "En vivo";
+  matchesTitle.textContent = isScheduledView ? "Próximos partidos" : "Resultados recientes";
+  matchStatus.textContent = isScheduledView ? "Próximos" : "Recientes";
   matchStatus.className = "status-pill status-pill--ok";
-  matchMessage.textContent = matchRows.length ? "" : "Todavía no hay partidos.";
+  matchMessage.textContent = matches.length
+    ? ""
+    : (isScheduledView ? "No hay próximos partidos." : "Todavía no hay resultados recientes.");
   container.innerHTML = "";
 
-  groups.forEach(([status, title]) => {
-    const matches = matchRows
-      .filter((match) => match.status === status)
-      .sort((a, b) => matchSort(status, a, b));
-    if (!matches.length) return;
+  if (!matches.length) return;
 
-    const section = document.createElement("section");
-    section.className = "match-group";
-    section.innerHTML = `<h3>${title}</h3><div class="match-grid"></div>`;
-    const grid = section.querySelector(".match-grid");
+  const section = document.createElement("section");
+  section.className = "match-group";
+  section.innerHTML = `<div class="match-grid"></div>`;
+  const grid = section.querySelector(".match-grid");
 
-    matches.forEach((match) => {
-      const card = document.createElement("article");
-      card.className = [
-        "match-card",
-        match.status === "live" ? "match-card--live" : "",
-        groupClass(match.group),
-      ].filter(Boolean).join(" ");
-      card.innerHTML = `
-        <button class="match-card__button" type="button">
-          <div class="match-card__meta">
-            <span>${match.group ? `Grupo ${match.group}` : match.stage}</span>
-            <strong>${statusLabel(match.status)}</strong>
-          </div>
-          <div class="match-card__score">
-            <span title="${escapeHtml(match.home_team)}">${flagMarkup(flagForTeam(match.home_team), match.home_team, "flag-img--large")}</span>
-            <strong>${scoreLabel(match)}</strong>
-            <span title="${escapeHtml(match.away_team)}">${flagMarkup(flagForTeam(match.away_team), match.away_team, "flag-img--large")}</span>
-          </div>
-          <div class="match-card__date">${escapeHtml(matchDateLabel(match))}</div>
-        </button>
-      `;
-      card.querySelector("button").addEventListener("click", () => openMatchDialog(match));
-      grid.appendChild(card);
-    });
-
-    container.appendChild(section);
+  matches.forEach((match) => {
+    const card = document.createElement("article");
+    card.className = [
+      "match-card",
+      match.status === "live" ? "match-card--live" : "",
+      groupClass(match.group),
+    ].filter(Boolean).join(" ");
+    card.innerHTML = `
+      <button class="match-card__button" type="button">
+        <div class="match-card__meta">
+          <span>${match.group ? `Grupo ${match.group}` : match.stage}</span>
+          <strong>${statusLabel(match.status)}</strong>
+        </div>
+        <div class="match-card__score">
+          <span title="${escapeHtml(match.home_team)}">${flagMarkup(flagForTeam(match.home_team), match.home_team, "flag-img--large")}</span>
+          <strong>${scoreLabel(match)}</strong>
+          <span title="${escapeHtml(match.away_team)}">${flagMarkup(flagForTeam(match.away_team), match.away_team, "flag-img--large")}</span>
+        </div>
+        <div class="match-card__date">${escapeHtml(matchDateLabel(match))}</div>
+      </button>
+    `;
+    card.querySelector("button").addEventListener("click", () => openMatchDialog(match));
+    grid.appendChild(card);
   });
+
+  container.appendChild(section);
 }
 
 function renderHeroLive(matches) {
@@ -805,7 +804,7 @@ function openPlayerDialog(player, resultFilter = null) {
   document.getElementById("dialog-player-points").textContent = player.points;
   setPlayerTab("history");
   renderPlayerResults();
-  renderUpcomingPredictions();
+  renderRankHistory();
   document.getElementById("player-dialog").showModal();
 }
 
@@ -827,26 +826,85 @@ function renderPlayerResults() {
     : `${heading}<p class="table-message">${emptyMessage}</p>`;
 }
 
-function renderUpcomingPredictions() {
-  const upcomingList = document.getElementById("upcoming-panel");
-  const predictionsByMatch = new Map(
-    predictionRows
-      .filter((prediction) => prediction.participant === selectedPlayer?.participant)
-      .map((prediction) => [Number(prediction.match_id), prediction])
-  );
-  const upcoming = matchRows
-    .filter((match) => String(match.status || "").toLowerCase() === "scheduled")
-    .sort((a, b) => matchSort("scheduled", a, b))
-    .map((match) => ({
-      match,
-      prediction: predictionsByMatch.get(Number(match.match_id)),
-    }))
-    .filter((item) => item.prediction)
-    .slice(0, 4);
+function renderRankHistory() {
+  const panel = document.getElementById("rank-history-panel");
+  const history = rankHistoryForPlayer(selectedPlayer?.participant);
+  panel.innerHTML = history.points.length
+    ? rankHistoryPlotMarkup(history)
+    : `<p class="table-message">Todavía no hay suficientes partidos para mostrar puestos.</p>`;
+}
 
-  upcomingList.innerHTML = upcoming.length
-    ? upcoming.map(({ match, prediction }) => upcomingCard(match, prediction)).join("")
-    : `<p class="table-message">No hay pron&oacute;sticos para los siguientes partidos.</p>`;
+function rankHistoryForPlayer(participant) {
+  const playedMatches = currentScoringMatches(matchRows)
+    .slice()
+    .sort((a, b) => matchSortValue(a) - matchSortValue(b));
+  const points = [];
+
+  playedMatches.forEach((_, index) => {
+    const partialMatches = playedMatches.slice(0, index + 1);
+    const rows = scoreRows(predictionRows, partialMatches);
+    const playerIndex = rows.findIndex((row) => row.participant === participant);
+    if (playerIndex < 0) return;
+    points.push({
+      played: index + 1,
+      rank: playerIndex + 1,
+      rowCount: rows.length,
+    });
+  });
+
+  return {
+    points,
+    rowCount: Math.max(leaderboardRows.length, ...points.map((point) => point.rowCount), 1),
+  };
+}
+
+function rankHistoryPlotMarkup(history) {
+  const width = 640;
+  const height = 280;
+  const margin = { top: 26, right: 24, bottom: 42, left: 50 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const maxPlayed = Math.max(...history.points.map((point) => point.played), 1);
+  const maxRank = Math.max(history.rowCount, 1);
+  const xFor = (played) => margin.left + (maxPlayed === 1 ? plotWidth / 2 : ((played - 1) / (maxPlayed - 1)) * plotWidth);
+  const yFor = (rank) => margin.top + (maxRank === 1 ? 0 : ((rank - 1) / (maxRank - 1)) * plotHeight);
+  const linePoints = history.points.map((point) => `${xFor(point.played)},${yFor(point.rank)}`).join(" ");
+  const rankBands = [1, 2, 3, maxRank]
+    .filter((rank, index, ranks) => rank <= maxRank && ranks.indexOf(rank) === index)
+    .map((rank) => rankBandMarkup(rank, maxRank, margin.left, yFor(rank), plotWidth, plotHeight));
+  const xTicks = history.points
+    .filter((point, index, points) => index === 0 || index === points.length - 1 || point.played % 5 === 0)
+    .map((point) => `<text class="rank-plot__tick" x="${xFor(point.played)}" y="${height - 16}" text-anchor="middle">${point.played}</text>`)
+    .join("");
+  const yTicks = [1, 2, 3, maxRank]
+    .filter((rank, index, ranks) => rank <= maxRank && ranks.indexOf(rank) === index)
+    .map((rank) => `<text class="rank-plot__tick" x="${margin.left - 12}" y="${yFor(rank) + 4}" text-anchor="end">${rank}</text>`)
+    .join("");
+
+  return `
+    <div class="rank-plot-card">
+      <svg class="rank-plot" viewBox="0 0 ${width} ${height}" role="img" aria-label="Evolución de puestos de ${escapeHtml(participantLabel(selectedPlayer?.participant))}">
+        <rect class="rank-plot__area" x="${margin.left}" y="${margin.top}" width="${plotWidth}" height="${plotHeight}" rx="8"></rect>
+        ${rankBands.join("")}
+        <line class="rank-plot__axis" x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + plotHeight}"></line>
+        <line class="rank-plot__axis" x1="${margin.left}" y1="${margin.top + plotHeight}" x2="${margin.left + plotWidth}" y2="${margin.top + plotHeight}"></line>
+        ${yTicks}
+        ${xTicks}
+        <text class="rank-plot__label" x="${margin.left}" y="16">Puesto</text>
+        <text class="rank-plot__label" x="${width - margin.right}" y="${height - 16}" text-anchor="end">Partidos jugados</text>
+        <polyline class="rank-plot__line" points="${linePoints}"></polyline>
+        ${history.points.map((point) => `<circle class="rank-plot__point" cx="${xFor(point.played)}" cy="${yFor(point.rank)}" r="4"><title>Partido ${point.played}: puesto ${point.rank}</title></circle>`).join("")}
+      </svg>
+    </div>
+  `;
+}
+
+function rankBandMarkup(rank, maxRank, x, y, width, plotHeight) {
+  const classes = { 1: "gold", 2: "silver", 3: "bronze" };
+  const className = rank === maxRank ? "last" : classes[rank];
+  if (!className) return "";
+  const bandHeight = maxRank === 1 ? plotHeight : Math.max(12, plotHeight / maxRank);
+  return `<rect class="rank-plot__band rank-plot__band--${className}" x="${x}" y="${y - bandHeight / 2}" width="${width}" height="${bandHeight}"></rect>`;
 }
 
 function setPlayerTab(tabName) {
@@ -857,7 +915,17 @@ function setPlayerTab(tabName) {
   });
 
   document.getElementById("history-panel").hidden = tabName !== "history";
-  document.getElementById("upcoming-panel").hidden = tabName !== "upcoming";
+  document.getElementById("rank-history-panel").hidden = tabName !== "rankHistory";
+}
+
+function setMatchView(viewName) {
+  selectedMatchView = viewName;
+  document.querySelectorAll("[data-match-view]").forEach((button) => {
+    const isActive = button.dataset.matchView === viewName;
+    button.classList.toggle("match-tab--active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+  renderMatches(document.getElementById("match-list"));
 }
 
 function counterButtonMarkup(filterName, value) {
@@ -990,22 +1058,6 @@ function resultCard(match) {
         <span>Final: ${match.actual_home_score} - ${match.actual_away_score}</span>
         <span>${resultLabel(match.result)}</span>
         <strong>+${match.points}</strong>
-      </div>
-    </article>
-  `;
-}
-
-function upcomingCard(match, prediction) {
-  return `
-    <article class="upcoming-card">
-      <div class="recent-card__teams">
-        <span>${flagMarkup(flagForTeam(match.home_team), match.home_team)} ${escapeHtml(match.home_team)}</span>
-        <strong>${prediction.predicted_home_score} - ${prediction.predicted_away_score}</strong>
-        <span>${flagMarkup(flagForTeam(match.away_team), match.away_team)} ${escapeHtml(match.away_team)}</span>
-      </div>
-      <div class="upcoming-card__meta">
-        <span>${match.group ? `Grupo ${escapeHtml(match.group)}` : escapeHtml(match.stage || "")}</span>
-        <span>${escapeHtml(matchDateLabel(match) || "Por programar")}</span>
       </div>
     </article>
   `;
@@ -1187,6 +1239,9 @@ document.getElementById("dialog-close").addEventListener("click", () => {
 });
 document.querySelectorAll("[data-player-tab]").forEach((button) => {
   button.addEventListener("click", () => setPlayerTab(button.dataset.playerTab));
+});
+document.querySelectorAll("[data-match-view]").forEach((button) => {
+  button.addEventListener("click", () => setMatchView(button.dataset.matchView));
 });
 document.getElementById("match-dialog-close").addEventListener("click", () => {
   document.getElementById("match-dialog").close();
