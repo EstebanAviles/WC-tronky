@@ -406,7 +406,7 @@ function renderMatches(container) {
   const matchesTitle = document.getElementById("matches-title");
   const isScheduledView = selectedMatchView === "scheduled";
   const allMatches = matchRows
-    .filter((match) => isScheduledView ? match.status === "scheduled" : ["live", "finished"].includes(match.status))
+    .filter((match) => isScheduledView ? match.status === "scheduled" : match.status === "finished")
     .sort((a, b) => isScheduledView ? matchSort("scheduled", a, b) : matchSort("recent", a, b));
   const isExpanded = expandedMatchViews.has(selectedMatchView);
   const matches = isExpanded ? allMatches : allMatches.slice(0, MATCH_COMPACT_LIMIT);
@@ -469,12 +469,14 @@ function renderMatches(container) {
 
 function renderHeroLive(matches) {
   const livePanel = document.getElementById("hero-live");
+  const liveButton = document.getElementById("hero-live-button");
   const liveMatch = matches
     .filter((match) => match.status === "live")
     .sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id))[0];
 
   if (!liveMatch) {
     livePanel.hidden = true;
+    liveButton.onclick = null;
     return;
   }
 
@@ -483,6 +485,7 @@ function renderHeroLive(matches) {
   document.getElementById("hero-live-score").textContent = scoreLabel(liveMatch);
   document.getElementById("hero-live-away").innerHTML = flagMarkup(flagForTeam(liveMatch.away_team), liveMatch.away_team);
   document.getElementById("hero-live-meta").textContent = `${liveMatch.home_team} vs ${liveMatch.away_team}`;
+  liveButton.onclick = () => openMatchDialog(liveMatch);
 }
 
 async function liveMatches(staticMatches) {
