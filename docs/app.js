@@ -13,6 +13,9 @@ let freshnessTimerId = null;
 let lastMatchSignature = "";
 let selectedResultFilter = null;
 let selectedMatchView = "scheduled";
+let previousLeaderboardSnapshot = new Map();
+let hasRenderedLeaderboard = false;
+const expandedMatchViews = new Set();
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -26,6 +29,7 @@ const DISPLAY_TIME_ZONE = "America/Lima";
 const SCORING_STATUSES = new Set(["finished", "live"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
+const MATCH_COMPACT_LIMIT = 6;
 const COUNTER_FILTERS = {
   exact: "Marcador exacto",
   goalDifference: "Diferencia de goles",
@@ -336,19 +340,24 @@ async function fetchJson(path) {
 function renderLeaderboard(rows, lastUpdatedValue) {
   const playerCount = document.getElementById("player-count");
   const leaderName = document.getElementById("leader-name");
+  const leaderSummary = document.getElementById("leader-summary");
   const tbody = document.getElementById("leaderboard-body");
   const tableMessage = document.getElementById("table-message");
 
   playerCount.textContent = rows.length;
   leaderName.textContent = leaderLabel(rows);
+  leaderSummary.textContent = leaderSummaryLabel(rows);
   updateFreshnessDisplay(lastUpdatedValue);
   tableMessage.textContent = rows.length ? "" : "Todavía no hay pronósticos puntuados.";
   tbody.innerHTML = "";
 
   rows.forEach((row, index) => {
     const rank = row.rank || index + 1;
+    const previous = previousLeaderboardSnapshot.get(row.participant);
+    const didChange = hasRenderedLeaderboard && previous && (previous.rank !== rank || previous.points !== row.points);
     const tr = document.createElement("tr");
     tr.className = rowClass(rank, rows.length, row.is_last);
+    if (didChange) tr.classList.add("row-updated");
     tr.innerHTML = `
       <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
       <td data-label="Jugador">
@@ -369,6 +378,15 @@ function renderLeaderboard(rows, lastUpdatedValue) {
     });
     tbody.appendChild(tr);
   });
+
+  previousLeaderboardSnapshot = new Map(rows.map((row, index) => [
+    row.participant,
+    {
+      rank: row.rank || index + 1,
+      points: row.points,
+    },
+  ]));
+  hasRenderedLeaderboard = true;
 }
 
 function setLoadError(error) {
@@ -385,19 +403,21 @@ function renderMatches(container) {
   const matchMessage = document.getElementById("match-message");
   const matchesTitle = document.getElementById("matches-title");
   const isScheduledView = selectedMatchView === "scheduled";
-  const matches = matchRows
+  const allMatches = matchRows
     .filter((match) => isScheduledView ? match.status === "scheduled" : ["live", "finished"].includes(match.status))
     .sort((a, b) => isScheduledView ? matchSort("scheduled", a, b) : matchSort("recent", a, b));
+  const isExpanded = expandedMatchViews.has(selectedMatchView);
+  const matches = isExpanded ? allMatches : allMatches.slice(0, MATCH_COMPACT_LIMIT);
 
   matchesTitle.textContent = isScheduledView ? "Próximos partidos" : "Resultados recientes";
   matchStatus.textContent = isScheduledView ? "Próximos" : "Recientes";
   matchStatus.className = "status-pill status-pill--ok";
-  matchMessage.textContent = matches.length
+  matchMessage.textContent = allMatches.length
     ? ""
     : (isScheduledView ? "No hay próximos partidos." : "Todavía no hay resultados recientes.");
   container.innerHTML = "";
 
-  if (!matches.length) return;
+  if (!allMatches.length) return;
 
   const section = document.createElement("section");
   section.className = "match-group";
@@ -430,6 +450,19 @@ function renderMatches(container) {
   });
 
   container.appendChild(section);
+
+  if (allMatches.length > MATCH_COMPACT_LIMIT) {
+    const toggle = document.createElement("button");
+    toggle.className = "match-toggle";
+    toggle.type = "button";
+    toggle.textContent = isExpanded ? "Ver menos" : `Ver todos (${allMatches.length})`;
+    toggle.addEventListener("click", () => {
+      if (isExpanded) expandedMatchViews.delete(selectedMatchView);
+      else expandedMatchViews.add(selectedMatchView);
+      renderMatches(container);
+    });
+    container.appendChild(toggle);
+  }
 }
 
 function renderHeroLive(matches) {
@@ -799,6 +832,31 @@ function leaderLabel(rows) {
     .join(", ");
 }
 
+function leaderSummaryLabel(rows) {
+  if (!rows.length) return "Todavía no hay líder.";
+  const leaders = rows.filter((row) => sameLeaderboardScore(row, rows[0]));
+  const next = rows.find((row) => !sameLeaderboardScore(row, rows[0]));
+  const pointsTiedNext = rows.find((row) => row.participant !== rows[0].participant && Number(row.points) === Number(rows[0].points));
+
+  if (leaders.length > 1) {
+    return `Empate en la punta con ${rows[0].points} puntos.`;
+  }
+  if (!next) return `Lidera con ${rows[0].points} puntos.`;
+  if (pointsTiedNext) {
+    return `Lidera por ${tiebreakerLabel(rows[0], pointsTiedNext)}.`;
+  }
+
+  const gap = rows[0].points - next.points;
+  return `Lidera por ${gap} punto${gap === 1 ? "" : "s"}.`;
+}
+
+function tiebreakerLabel(leader, challenger) {
+  if (Number(leader.exact_scores) !== Number(challenger.exact_scores)) return "marcadores exactos";
+  if (Number(leader.goal_differences || 0) !== Number(challenger.goal_differences || 0)) return "diferencias de gol";
+  if (Number(leader.correct_results) !== Number(challenger.correct_results)) return "ganadores correctos";
+  return "desempate";
+}
+
 function sameLeaderboardScore(a, b) {
   return Number(a.points) === Number(b.points)
     && Number(a.exact_scores) === Number(b.exact_scores)
@@ -1023,14 +1081,14 @@ function openMatchDialog(match) {
     ${flagMarkup(flagForTeam(match.away_team), match.away_team)}
   `;
   list.innerHTML = predictions.length
-    ? predictions.map((prediction) => `
+    ? `${matchImpactMarkup(predictions)}${predictions.map((prediction) => `
       <article class="prediction-card prediction-card--${prediction.result}">
         <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
         <span>Pronóstico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}</span>
         <span>${resultLabel(prediction.result)}</span>
         <b>+${prediction.points}</b>
       </article>
-    `).join("")
+    `).join("")}`
     : `<p class="table-message">Este partido todavía no tiene pronósticos puntuados.</p>`;
 
   if (match.status === "scheduled") {
@@ -1038,6 +1096,38 @@ function openMatchDialog(match) {
   }
 
   dialog.showModal();
+}
+
+function matchImpactMarkup(predictions) {
+  const exact = predictions.filter((prediction) => prediction.result === "exact");
+  const correct = predictions.filter((prediction) => prediction.result === "correct");
+  const scoring = exact.length + correct.length;
+
+  return `
+    <section class="match-impact">
+      <div>
+        <span>Están sumando con este resultado</span>
+        <strong>${scoring} jugador${scoring === 1 ? "" : "es"}</strong>
+      </div>
+      <div class="match-impact__groups">
+        ${impactGroupMarkup("Marcador exacto", exact, "exact")}
+        ${impactGroupMarkup("Ganador correcto", correct, "correct")}
+      </div>
+    </section>
+  `;
+}
+
+function impactGroupMarkup(label, predictions, result) {
+  return `
+    <div class="match-impact__group match-impact__group--${result}">
+      <span>${label}</span>
+      <div>
+        ${predictions.length
+          ? predictions.map((prediction) => `<b>${escapeHtml(participantLabel(prediction.participant))}</b>`).join("")
+          : "<em>Nadie</em>"}
+      </div>
+    </div>
+  `;
 }
 
 function scheduledMatchPredictionsMarkup(match) {
