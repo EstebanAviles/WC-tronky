@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-18T17:54:06+00:00",
+  "last_updated": "2026-06-19T04:00:01+00:00",
   "leaderboard": [
     {
       "participant": "Jogy",
@@ -27,7 +27,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -46,7 +47,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -65,7 +67,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 8,
@@ -84,7 +87,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -103,7 +107,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -124,7 +129,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -143,7 +149,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -162,7 +169,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 8,
@@ -181,7 +189,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -200,7 +209,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -219,7 +229,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -238,7 +249,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 1,
@@ -257,7 +269,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": true
         }
       ],
       "rank": 1,
@@ -289,7 +302,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -308,7 +322,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -327,7 +342,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -346,7 +362,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -365,7 +382,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -386,7 +404,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -405,7 +424,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -424,7 +444,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -443,7 +464,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -462,7 +484,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -481,7 +504,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 2,
@@ -500,7 +524,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": true
         },
         {
           "match_id": 1,
@@ -519,7 +544,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "rank": 2,
@@ -551,7 +577,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -570,7 +597,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -589,7 +617,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -608,7 +637,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -627,7 +657,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -648,7 +679,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -667,7 +699,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -686,7 +719,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -705,7 +739,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -724,7 +759,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -743,7 +779,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -762,7 +799,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 1,
@@ -781,7 +819,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 3,
@@ -813,7 +852,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -832,7 +872,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -851,7 +892,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -870,7 +912,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -889,7 +932,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -910,7 +954,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -929,7 +974,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -948,7 +994,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -967,7 +1014,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -986,7 +1034,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -1005,7 +1054,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -1024,7 +1074,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 1,
@@ -1043,7 +1094,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 4,
@@ -1075,7 +1127,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1094,7 +1147,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -1113,7 +1167,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1132,7 +1187,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1151,7 +1207,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -1172,7 +1229,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1191,7 +1249,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -1210,7 +1269,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1229,7 +1289,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1248,7 +1309,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -1267,7 +1329,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -1286,7 +1349,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 1,
@@ -1305,7 +1369,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 5,
@@ -1337,7 +1402,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1356,7 +1422,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -1375,7 +1442,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1394,7 +1462,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1413,7 +1482,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -1434,7 +1504,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1453,7 +1524,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -1472,7 +1544,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1491,7 +1564,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1510,7 +1584,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -1529,7 +1604,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 2,
@@ -1548,7 +1624,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -1567,7 +1644,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "rank": 6,
@@ -1599,7 +1677,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1618,7 +1697,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -1637,7 +1717,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1656,7 +1737,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1675,7 +1757,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -1696,7 +1779,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1715,7 +1799,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -1734,7 +1819,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1753,7 +1839,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1772,7 +1859,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -1791,7 +1879,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -1810,7 +1899,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -1829,7 +1919,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 7,
@@ -1861,7 +1952,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1880,7 +1972,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -1899,7 +1992,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -1918,7 +2012,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -1937,7 +2032,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -1958,7 +2054,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -1977,7 +2074,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -1996,7 +2094,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2015,7 +2114,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2034,7 +2134,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -2053,7 +2154,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -2072,7 +2174,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -2091,7 +2194,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 8,
@@ -2123,7 +2227,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2142,7 +2247,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -2161,7 +2267,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2180,7 +2287,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2199,7 +2307,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -2220,7 +2329,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2239,7 +2349,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -2258,7 +2369,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2277,7 +2389,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2296,7 +2409,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -2315,7 +2429,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": true
         },
         {
           "match_id": 2,
@@ -2334,7 +2449,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -2353,7 +2469,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 9,
@@ -2385,7 +2502,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2404,7 +2522,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -2423,7 +2542,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2442,7 +2562,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2461,7 +2582,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -2482,7 +2604,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2501,7 +2624,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         },
         {
           "match_id": 13,
@@ -2520,7 +2644,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2539,7 +2664,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2558,7 +2684,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -2577,7 +2704,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -2596,7 +2724,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -2615,7 +2744,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "rank": 10,
@@ -2647,7 +2777,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2666,7 +2797,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -2685,7 +2817,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2704,7 +2837,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2723,7 +2857,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -2744,7 +2879,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2763,7 +2899,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -2782,7 +2919,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2801,7 +2939,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2820,7 +2959,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -2839,7 +2979,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -2858,7 +2999,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -2877,7 +3019,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 11,
@@ -2909,7 +3052,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -2928,7 +3072,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -2947,7 +3092,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -2966,7 +3112,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -2985,7 +3132,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -3006,7 +3154,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3025,7 +3174,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3044,7 +3194,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3063,7 +3214,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3082,7 +3234,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -3101,7 +3254,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -3120,7 +3274,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -3139,7 +3294,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 12,
@@ -3171,7 +3327,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3190,7 +3347,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3209,7 +3367,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3228,7 +3387,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3247,7 +3407,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -3268,7 +3429,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3287,7 +3449,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3306,7 +3469,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3325,7 +3489,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3344,7 +3509,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -3363,7 +3529,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -3382,7 +3549,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -3401,7 +3569,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 13,
@@ -3433,7 +3602,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3452,7 +3622,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3471,7 +3642,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3490,7 +3662,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3509,7 +3682,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -3530,7 +3704,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3549,7 +3724,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3568,7 +3744,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3587,7 +3764,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3606,7 +3784,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -3625,7 +3804,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -3644,7 +3824,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -3663,7 +3844,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 14,
@@ -3695,7 +3877,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3714,7 +3897,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3733,7 +3917,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3752,7 +3937,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3771,7 +3957,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -3792,7 +3979,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3811,7 +3999,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3830,7 +4019,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -3849,7 +4039,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -3868,7 +4059,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -3887,7 +4079,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -3906,7 +4099,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -3925,7 +4119,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 6,
-          "result": "exact"
+          "result": "exact",
+          "goal_difference": true
         }
       ],
       "rank": 15,
@@ -3957,7 +4152,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -3976,7 +4172,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -3995,7 +4192,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -4014,7 +4212,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -4033,7 +4232,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         }
       ],
       "all_results": [
@@ -4054,7 +4254,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 14,
@@ -4073,7 +4274,8 @@
           "actual_home_score": 0,
           "actual_away_score": 1,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         },
         {
           "match_id": 13,
@@ -4092,7 +4294,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 8,
@@ -4111,7 +4314,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 19,
@@ -4130,7 +4334,8 @@
           "actual_home_score": 4,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 7,
@@ -4149,7 +4354,8 @@
           "actual_home_score": 1,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 2,
@@ -4168,7 +4374,8 @@
           "actual_home_score": 2,
           "actual_away_score": 1,
           "points": 0,
-          "result": "miss"
+          "result": "miss",
+          "goal_difference": false
         },
         {
           "match_id": 1,
@@ -4187,7 +4394,8 @@
           "actual_home_score": 2,
           "actual_away_score": 0,
           "points": 3,
-          "result": "correct"
+          "result": "correct",
+          "goal_difference": false
         }
       ],
       "rank": 16,

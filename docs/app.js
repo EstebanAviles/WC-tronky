@@ -11,6 +11,7 @@ let isRefreshingLive = false;
 let liveRefreshTimerId = null;
 let freshnessTimerId = null;
 let lastMatchSignature = "";
+let selectedResultFilter = null;
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -24,6 +25,12 @@ const DISPLAY_TIME_ZONE = "America/Lima";
 const SCORING_STATUSES = new Set(["finished", "live"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
+const COUNTER_FILTERS = {
+  exact: "Marcador exacto",
+  goalDifference: "Diferencia de goles",
+  correct: "Ganador correcto",
+  miss: "Fallos",
+};
 
 const MATCH_TIME_ZONES = {
   1: "America/Mexico_City",
@@ -348,14 +355,17 @@ function renderLeaderboard(rows, lastUpdatedValue) {
         <span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span>
       </td>
       <td data-label="Puntos"><strong>${row.points}</strong></td>
-      <td data-label="E">${row.exact_scores}</td>
-      <td data-label="DG">${row.goal_differences ?? 0}</td>
-      <td data-label="G">${row.correct_results}</td>
-      <td data-label="F">${row.missed_results}</td>
+      <td data-label="E">${counterButtonMarkup("exact", row.exact_scores)}</td>
+      <td data-label="DG">${counterButtonMarkup("goalDifference", row.goal_differences ?? 0)}</td>
+      <td data-label="G">${counterButtonMarkup("correct", row.correct_results)}</td>
+      <td data-label="F">${counterButtonMarkup("miss", row.missed_results)}</td>
       <td data-label="PJ">${row.played_matches}</td>
       <td data-label="Últimas 5">${lastFiveMarkup(row.recent_results || [])}</td>
     `;
     tr.querySelector(".player-button").addEventListener("click", () => openPlayerDialog(row));
+    tr.querySelectorAll("[data-counter-filter]").forEach((button) => {
+      button.addEventListener("click", () => openPlayerDialog(row, button.dataset.counterFilter));
+    });
     tbody.appendChild(tr);
   });
 }
@@ -726,6 +736,7 @@ function resultForPlayer(prediction, match, scored) {
     actual_away_score: Number(match.away_score),
     points: scored.points,
     result: scored.result,
+    goal_difference: scored.goalDifference,
   };
 }
 
@@ -783,8 +794,10 @@ function sameLeaderboardScore(a, b) {
     && Number(a.correct_results) === Number(b.correct_results);
 }
 
-function openPlayerDialog(player) {
+function openPlayerDialog(player, resultFilter = null) {
   selectedPlayer = player;
+  selectedResultFilter = resultFilter;
+  document.getElementById("player-dialog-eyebrow").textContent = resultFilter ? "Detalle del contador" : "Racha del Jugador";
   document.getElementById("dialog-player-name").textContent = participantLabel(player.participant);
   document.getElementById("dialog-player-points").textContent = player.points;
   setPlayerTab("history");
@@ -796,10 +809,19 @@ function openPlayerDialog(player) {
 function renderPlayerResults() {
   const recentList = document.getElementById("history-panel");
   const results = selectedPlayer?.all_results || [];
+  const filteredResults = selectedResultFilter
+    ? results.filter((match) => matchMatchesCounterFilter(match, selectedResultFilter))
+    : results;
+  const heading = selectedResultFilter
+    ? `<div class="filter-summary"><strong>${escapeHtml(COUNTER_FILTERS[selectedResultFilter])}</strong><span>${filteredResults.length} partido${filteredResults.length === 1 ? "" : "s"}</span></div>`
+    : "";
+  const emptyMessage = selectedResultFilter
+    ? "No hay partidos para este contador."
+    : "Todavía no hay partidos puntuados.";
 
-  recentList.innerHTML = results.length
-    ? results.map((match) => resultCard(match)).join("")
-    : `<p class="table-message">Todavía no hay partidos puntuados.</p>`;
+  recentList.innerHTML = filteredResults.length
+    ? `${heading}${filteredResults.map((match) => resultCard(match)).join("")}`
+    : `${heading}<p class="table-message">${emptyMessage}</p>`;
 }
 
 function renderUpcomingPredictions() {
@@ -833,6 +855,29 @@ function setPlayerTab(tabName) {
 
   document.getElementById("history-panel").hidden = tabName !== "history";
   document.getElementById("upcoming-panel").hidden = tabName !== "upcoming";
+}
+
+function counterButtonMarkup(filterName, value) {
+  const label = COUNTER_FILTERS[filterName];
+  return `
+    <button class="counter-button" type="button" data-counter-filter="${filterName}" aria-label="Ver ${escapeHtml(label)}">
+      ${value}
+    </button>
+  `;
+}
+
+function matchMatchesCounterFilter(match, filterName) {
+  if (filterName === "exact") return match.result === "exact";
+  if (filterName === "correct") return match.result === "correct";
+  if (filterName === "miss") return match.result === "miss";
+  if (filterName === "goalDifference") return hasGoalDifference(match);
+  return true;
+}
+
+function hasGoalDifference(match) {
+  if (typeof match.goal_difference === "boolean") return match.goal_difference;
+  return Number(match.predicted_home_score) - Number(match.predicted_away_score)
+    === Number(match.actual_home_score) - Number(match.actual_away_score);
 }
 
 function openMatchDialog(match) {

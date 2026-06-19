@@ -93,7 +93,7 @@ def result_type(exact, correct):
     return "miss"
 
 
-def recent_result(prediction, match, points, exact, correct):
+def recent_result(prediction, match, points, exact, correct, goal_difference):
     return {
         "match_id": int(prediction["match_id"]),
         "source_match_id": match.get("source_match_id"),
@@ -112,6 +112,7 @@ def recent_result(prediction, match, points, exact, correct):
         "actual_away_score": int(match["away_score"]),
         "points": points,
         "result": result_type(exact, correct),
+        "goal_difference": goal_difference,
     }
 
 
@@ -202,7 +203,7 @@ def score_leaderboard(predictions, matches):
                 correct_results += int(correct)
                 missed_results += int(not exact and not correct)
                 played_matches += 1
-                recent_results.append(recent_result(prediction, match, points, exact, correct))
+                recent_results.append(recent_result(prediction, match, points, exact, correct, goal_difference))
 
         rows.append(
             {

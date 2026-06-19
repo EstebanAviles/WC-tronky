@@ -365,6 +365,28 @@ tbody tr.rank-last {
   color: var(--grass);
 }
 
+.counter-button {
+  min-width: 2rem;
+  padding: 0.18rem 0.35rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(15, 107, 59, 0.24);
+  text-underline-offset: 0.2rem;
+}
+
+.counter-button:hover,
+.counter-button:focus-visible {
+  color: var(--grass-dark);
+  border-color: rgba(15, 107, 59, 0.22);
+  background: #eef8f1;
+}
+
 .movement {
   display: inline-flex;
   align-items: center;
@@ -705,6 +727,25 @@ tbody tr.rank-last {
 
 .dialog-panel[hidden] {
   display: none;
+}
+
+.filter-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--grass-dark);
+  background: #f4f8f2;
+  font-weight: 900;
+}
+
+.filter-summary span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
 }
 
 .recent-list {
