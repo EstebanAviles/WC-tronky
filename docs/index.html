@@ -131,7 +131,12 @@
       </div>
       <button class="icon-button" id="match-dialog-close" type="button" aria-label="Cerrar detalles del partido">x</button>
     </div>
-    <div class="recent-list" id="match-prediction-list"></div>
+    <div class="dialog-tabs" id="match-dialog-tabs" role="tablist" aria-label="Detalles del partido" hidden>
+      <button class="dialog-tab dialog-tab--active" type="button" role="tab" aria-selected="true" aria-controls="match-prediction-list" data-match-tab="predictions">Pron&oacute;sticos</button>
+      <button class="dialog-tab" type="button" role="tab" aria-selected="false" aria-controls="match-simulator-panel" data-match-tab="simulator">Simulador</button>
+    </div>
+    <div class="recent-list dialog-panel" id="match-prediction-list" role="tabpanel"></div>
+    <div class="simulator-panel dialog-panel" id="match-simulator-panel" role="tabpanel" hidden></div>
   </dialog>
 
   <script src="app.js"></script>

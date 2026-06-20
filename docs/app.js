@@ -1072,6 +1072,9 @@ function openMatchDialog(match) {
   const dialog = document.getElementById("match-dialog");
   const title = document.getElementById("dialog-match-title");
   const list = document.getElementById("match-prediction-list");
+  const tabs = document.getElementById("match-dialog-tabs");
+  const simulatorPanel = document.getElementById("match-simulator-panel");
+  const canSimulate = canSimulateMatch(match);
   const predictions = leaderboardRows
     .map((player) => {
       const result = (player.all_results || []).find((item) => item.match_id === match.match_id);
@@ -1085,6 +1088,11 @@ function openMatchDialog(match) {
     <span>${escapeHtml(scoreLabel(match))}</span>
     ${flagMarkup(flagForTeam(match.away_team), match.away_team)}
   `;
+  tabs.hidden = true;
+  simulatorPanel.hidden = true;
+  list.hidden = false;
+  setMatchDialogTab("predictions");
+
   list.innerHTML = predictions.length
     ? `${matchImpactMarkup(predictions)}${predictions.map((prediction) => `
       <article class="prediction-card prediction-card--${prediction.result}">
@@ -1098,9 +1106,113 @@ function openMatchDialog(match) {
 
   if (match.status === "scheduled") {
     list.innerHTML = scheduledMatchPredictionsMarkup(match);
+    if (canSimulate) {
+      tabs.hidden = false;
+      renderMatchSimulator(match);
+    }
   }
 
   dialog.showModal();
+}
+
+function canSimulateMatch(match) {
+  if (match.status !== "scheduled" || hasLiveMatch(matchRows)) return false;
+  const nextMatch = nextScheduledMatch();
+  return Boolean(nextMatch) && Number(nextMatch.match_id) === Number(match.match_id);
+}
+
+function nextScheduledMatch() {
+  return matchRows
+    .filter((match) => match.status === "scheduled")
+    .sort((a, b) => matchSort("scheduled", a, b))[0];
+}
+
+function setMatchDialogTab(tabName) {
+  document.querySelectorAll("[data-match-tab]").forEach((button) => {
+    const isActive = button.dataset.matchTab === tabName;
+    button.classList.toggle("dialog-tab--active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+
+  document.getElementById("match-prediction-list").hidden = tabName !== "predictions";
+  document.getElementById("match-simulator-panel").hidden = tabName !== "simulator";
+}
+
+function renderMatchSimulator(match) {
+  const panel = document.getElementById("match-simulator-panel");
+  panel.innerHTML = `
+    <div class="simulator-card">
+      <div class="simulator-card__header">
+        <span>${flagMarkup(flagForTeam(match.home_team), match.home_team)} ${escapeHtml(match.home_team)}</span>
+        <div class="simulator-score">
+          <input type="number" min="0" max="20" step="1" value="0" aria-label="Goles de ${escapeHtml(match.home_team)}" data-sim-home>
+          <strong>-</strong>
+          <input type="number" min="0" max="20" step="1" value="0" aria-label="Goles de ${escapeHtml(match.away_team)}" data-sim-away>
+        </div>
+        <span>${flagMarkup(flagForTeam(match.away_team), match.away_team)} ${escapeHtml(match.away_team)}</span>
+      </div>
+      <p>Simulación del partido</p>
+    </div>
+    <div class="simulator-table-wrap">
+      <table class="simulator-table">
+        <colgroup>
+          <col class="sim-col-rank">
+          <col class="sim-col-player">
+          <col class="sim-col-points">
+          <col class="sim-col-move">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Puesto</th>
+            <th>Jugador</th>
+            <th>Puntos</th>
+            <th>Mov.</th>
+          </tr>
+        </thead>
+        <tbody data-sim-results></tbody>
+      </table>
+    </div>
+  `;
+
+  const update = () => updateMatchSimulation(match, panel);
+  panel.querySelectorAll("[data-sim-home], [data-sim-away]").forEach((input) => {
+    input.addEventListener("input", update);
+  });
+  update();
+}
+
+function updateMatchSimulation(match, panel) {
+  const homeScore = simulatorScoreValue(panel.querySelector("[data-sim-home]").value);
+  const awayScore = simulatorScoreValue(panel.querySelector("[data-sim-away]").value);
+  const tbody = panel.querySelector("[data-sim-results]");
+
+  const simulatedMatches = matchRows.map((row) => Number(row.match_id) === Number(match.match_id)
+    ? {
+      ...row,
+      status: "finished",
+      home_score: homeScore,
+      away_score: awayScore,
+    }
+    : row);
+  const rows = scoreLeaderboard(predictionRows, simulatedMatches);
+
+  tbody.innerHTML = rows.map((row, index) => {
+    const rank = row.rank || index + 1;
+    return `
+      <tr class="${rowClass(rank, rows.length, row.is_last)}">
+        <td><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
+        <td>${escapeHtml(participantLabel(row.participant))}</td>
+        <td><strong>${row.points}</strong></td>
+        <td><span class="movement ${movementClass(row.movement)}">${movementLabel(row.movement)}</span></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function simulatorScoreValue(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < 0) return 0;
+  return Math.min(20, Math.floor(number));
 }
 
 function matchImpactMarkup(predictions) {
@@ -1391,6 +1503,9 @@ document.querySelectorAll("[data-player-tab]").forEach((button) => {
 });
 document.querySelectorAll("[data-match-view]").forEach((button) => {
   button.addEventListener("click", () => setMatchView(button.dataset.matchView));
+});
+document.querySelectorAll("[data-match-tab]").forEach((button) => {
+  button.addEventListener("click", () => setMatchDialogTab(button.dataset.matchTab));
 });
 document.getElementById("match-dialog-close").addEventListener("click", () => {
   document.getElementById("match-dialog").close();

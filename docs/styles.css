@@ -1200,6 +1200,121 @@ tbody tr.row-updated {
   color: var(--muted);
 }
 
+.simulator-panel {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.simulator-card {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f4f8f2;
+}
+
+.simulator-card__header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.simulator-card__header > span:last-child {
+  text-align: right;
+}
+
+.simulator-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border-radius: 8px;
+  background: var(--grass-dark);
+}
+
+.simulator-score input {
+  width: 3rem;
+  height: 2.15rem;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  appearance: textfield;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-weight: 900;
+  line-height: 2.15rem;
+  text-align: center;
+}
+
+.simulator-score input::-webkit-outer-spin-button,
+.simulator-score input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.simulator-score strong {
+  color: white;
+}
+
+.simulator-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.simulator-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.simulator-table {
+  min-width: 390px;
+  font-size: 0.78rem;
+}
+
+.sim-col-rank {
+  width: 4.4rem;
+}
+
+.sim-col-player {
+  width: auto;
+}
+
+.sim-col-points {
+  width: 4.4rem;
+}
+
+.sim-col-move {
+  width: 4.4rem;
+}
+
+.simulator-table td,
+.simulator-table th {
+  padding: 0.28rem 0.5rem;
+}
+
+.simulator-table .rank-badge {
+  min-width: 1.55rem;
+  min-height: 1.55rem;
+  padding: 0 0.35rem;
+  font-size: 0.68rem;
+}
+
+.simulator-table .movement {
+  min-width: 1.35rem;
+  min-height: 1rem;
+  margin-left: 0;
+  padding: 0.05rem 0.22rem;
+  font-size: 0.62rem;
+}
+
 @media (max-width: 760px) {
   .hero {
     min-height: 420px;
@@ -1242,6 +1357,14 @@ tbody tr.row-updated {
 
   .match-impact__groups {
     grid-template-columns: 1fr;
+  }
+
+  .simulator-card__header {
+    grid-template-columns: 1fr;
+  }
+
+  .simulator-card__header > span:last-child {
+    text-align: left;
   }
 
   .recent-card__teams span:last-child,
