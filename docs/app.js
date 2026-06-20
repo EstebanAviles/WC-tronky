@@ -485,6 +485,7 @@ function renderHeroLive(matches) {
   document.getElementById("hero-live-score").textContent = scoreLabel(liveMatch);
   document.getElementById("hero-live-away").innerHTML = flagMarkup(flagForTeam(liveMatch.away_team), liveMatch.away_team);
   document.getElementById("hero-live-meta").textContent = `${liveMatch.home_team} vs ${liveMatch.away_team}`;
+  document.getElementById("hero-live-credit").textContent = `Gracias a: ${liveSourceLabel(liveMatch)}`;
   liveButton.onclick = () => openMatchDialog(liveMatch);
 }
 
@@ -588,7 +589,14 @@ function convertLiveGame(game, schedule) {
     source_match_id: numberOrNull(game.id),
     source_order: liveSourceOrder(game, scheduleMatch.match),
     played_at: game.local_date || scheduleMatch.match.played_at || "",
+    tronky_source: game.tronky_source || "worldcup26",
   };
+}
+
+function liveSourceLabel(match) {
+  return match.tronky_source === "football-data-backup" || match.backup_source === "football-data"
+    ? "No iraní"
+    : "Iraní";
 }
 
 function liveGameStatus(game) {
