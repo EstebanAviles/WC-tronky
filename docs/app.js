@@ -273,6 +273,8 @@ async function refreshLiveMatches() {
 
     const nextSignature = matchesSignature(liveRows);
     if (nextSignature === lastMatchSignature) {
+      matchRows = liveRows;
+      renderHeroLive(matchRows);
       updateFreshnessDisplay(liveLastUpdated || fallbackLastUpdated);
       return;
     }
@@ -289,8 +291,13 @@ async function refreshLiveMatches() {
 function startLiveRefreshLoop(delayMs = liveRefreshDelay()) {
   if (liveRefreshTimerId) clearTimeout(liveRefreshTimerId);
   liveRefreshTimerId = setTimeout(async () => {
-    await refreshLiveMatches();
-    startLiveRefreshLoop();
+    try {
+      await refreshLiveMatches();
+    } catch (error) {
+      console.warn("Live refresh failed; retrying soon.", error);
+    } finally {
+      startLiveRefreshLoop();
+    }
   }, delayMs);
 }
 
@@ -322,6 +329,8 @@ function matchesSignature(matches) {
     match.home_score,
     match.away_score,
     match.played_at,
+    match.live_elapsed,
+    match.football_data_status,
     Number(match.source_order || match.match_id),
   ]));
 }
@@ -445,6 +454,7 @@ function renderMatches(container) {
           <span title="${escapeHtml(match.away_team)}">${flagMarkup(flagForTeam(match.away_team), match.away_team, "flag-img--large")}</span>
         </div>
         <div class="match-card__date">${escapeHtml(matchDateLabel(match))}</div>
+        ${liveDebugMarkup(match)}
       </button>
     `;
     card.querySelector("button").addEventListener("click", () => openMatchDialog(match));
@@ -486,6 +496,7 @@ function renderHeroLive(matches) {
   document.getElementById("hero-live-away").innerHTML = flagMarkup(flagForTeam(liveMatch.away_team), liveMatch.away_team);
   document.getElementById("hero-live-meta").textContent = `${liveMatch.home_team} vs ${liveMatch.away_team}`;
   document.getElementById("hero-live-credit").textContent = `Gracias a: ${liveSourceLabel(liveMatch)}`;
+  document.getElementById("hero-live-debug").textContent = liveDebugLabel(liveMatch);
   liveButton.onclick = () => openMatchDialog(liveMatch);
 }
 
@@ -590,6 +601,8 @@ function convertLiveGame(game, schedule) {
     source_order: liveSourceOrder(game, scheduleMatch.match),
     played_at: game.local_date || scheduleMatch.match.played_at || "",
     tronky_source: game.tronky_source || "worldcup26",
+    live_elapsed: String(game.time_elapsed || ""),
+    football_data_status: game.football_data_status || "",
   };
 }
 
@@ -1353,6 +1366,29 @@ function statusLabel(status) {
 function scoreLabel(match) {
   if (match.home_score === null || match.away_score === null) return "-";
   return `${match.home_score} - ${match.away_score}`;
+}
+
+function liveDebugLabel(match) {
+  if (match.status !== "live") return "";
+  const minute = liveMinuteFromElapsed(match.live_elapsed);
+  if (minute) return `Min. ${minute}`;
+  return "";
+}
+
+function liveDebugMarkup(match) {
+  const label = liveDebugLabel(match);
+  return label ? `<div class="match-card__debug">${escapeHtml(label)}</div>` : "";
+}
+
+function liveMinuteFromElapsed(value) {
+  const text = String(value || "").trim();
+  const normalized = text.toLowerCase();
+  if (!text || ["live", "in_play", "in play", "none", "null"].includes(normalized)) return "";
+  const direct = text.match(/^(\d{1,3}(?:\s*\+\s*\d{1,2})?)$/);
+  if (direct) return `${direct[1].replace(/\s+/g, "")}'`;
+  const embedded = text.match(/(\d{1,3})(?:\s*\+\s*(\d{1,2}))?/);
+  if (!embedded) return "";
+  return `${embedded[1]}${embedded[2] ? `+${embedded[2]}` : ""}'`;
 }
 
 function movementLabel(value) {
