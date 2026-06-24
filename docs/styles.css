@@ -77,13 +77,19 @@ h2 {
 }
 
 .hero-live {
-  width: min(360px, 38vw);
+  width: min(390px, 40vw);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
   background: rgba(4, 25, 18, 0.68);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(8px);
   overflow: hidden;
+}
+
+.hero-live__list {
+  display: grid;
+  max-height: min(25rem, calc(100vh - 7rem));
+  overflow-y: auto;
 }
 
 .hero-live__button {
@@ -96,6 +102,10 @@ h2 {
   font: inherit;
   text-align: left;
   cursor: pointer;
+}
+
+.hero-live__button + .hero-live__button {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .hero-live__button:hover,
@@ -169,7 +179,7 @@ h2 {
   font-weight: 700;
 }
 
-.hero-live__footer small:last-child {
+.hero-live__debug {
   flex: 0 0 auto;
   color: #f7d46b;
   font-size: 0.8rem;

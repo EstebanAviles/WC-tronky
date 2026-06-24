@@ -479,25 +479,48 @@ function renderMatches(container) {
 
 function renderHeroLive(matches) {
   const livePanel = document.getElementById("hero-live");
-  const liveButton = document.getElementById("hero-live-button");
-  const liveMatch = matches
+  const liveMatchesList = matches
     .filter((match) => match.status === "live")
-    .sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id))[0];
+    .sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
 
-  if (!liveMatch) {
+  if (!liveMatchesList.length) {
     livePanel.hidden = true;
-    liveButton.onclick = null;
+    livePanel.innerHTML = "";
     return;
   }
 
   livePanel.hidden = false;
-  document.getElementById("hero-live-home").innerHTML = flagMarkup(flagForTeam(liveMatch.home_team), liveMatch.home_team);
-  document.getElementById("hero-live-score").textContent = scoreLabel(liveMatch);
-  document.getElementById("hero-live-away").innerHTML = flagMarkup(flagForTeam(liveMatch.away_team), liveMatch.away_team);
-  document.getElementById("hero-live-meta").textContent = `${liveMatch.home_team} vs ${liveMatch.away_team}`;
-  document.getElementById("hero-live-credit").textContent = `Gracias a: ${liveSourceLabel(liveMatch)}`;
-  document.getElementById("hero-live-debug").textContent = liveDebugLabel(liveMatch);
-  liveButton.onclick = () => openMatchDialog(liveMatch);
+  livePanel.innerHTML = `
+    <div class="hero-live__list">
+      ${liveMatchesList.map((match, index) => heroLiveButtonMarkup(match, index, liveMatchesList.length)).join("")}
+    </div>
+  `;
+  livePanel.querySelectorAll("[data-live-match-index]").forEach((button) => {
+    const liveMatch = liveMatchesList[Number(button.dataset.liveMatchIndex)];
+    button.addEventListener("click", () => openMatchDialog(liveMatch));
+  });
+}
+
+function heroLiveButtonMarkup(match, index, liveCount) {
+  const debug = liveDebugLabel(match);
+  const label = liveCount > 1 ? `En vivo ${index + 1}/${liveCount}` : "En vivo";
+  return `
+    <button class="hero-live__button" data-live-match-index="${index}" type="button">
+      <div class="hero-live__topline">
+        <span class="hero-live__label">${escapeHtml(label)}</span>
+        <span class="hero-live__credit">Gracias a: ${escapeHtml(liveSourceLabel(match))}</span>
+      </div>
+      <div class="hero-live__teams">
+        <span>${flagMarkup(flagForTeam(match.home_team), match.home_team)}</span>
+        <strong>${escapeHtml(scoreLabel(match))}</strong>
+        <span>${flagMarkup(flagForTeam(match.away_team), match.away_team)}</span>
+      </div>
+      <div class="hero-live__footer">
+        <small class="hero-live__meta">${escapeHtml(`${match.home_team} vs ${match.away_team}`)}</small>
+        ${debug ? `<small class="hero-live__debug">${escapeHtml(debug)}</small>` : ""}
+      </div>
+    </button>
+  `;
 }
 
 async function liveMatches(staticMatches) {
