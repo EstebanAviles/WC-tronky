@@ -30,6 +30,9 @@ const DISPLAY_TIME_ZONE = "America/Lima";
 const SCORING_STATUSES = new Set(["finished", "live"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
+const KNOCKOUT_EXACT_POINTS = 9;
+const KNOCKOUT_RESULT_POINTS = 6;
+const KNOCKOUT_QUALIFIER_POINTS = 3;
 const MATCH_COMPACT_LIMIT = 6;
 const COUNTER_FILTERS = {
   exact: "Marcador exacto",
@@ -775,7 +778,7 @@ function scoreRows(predictions, matches) {
       row.points += scored.points;
       row.exact_scores += scored.result === "exact" ? 1 : 0;
       row.goal_differences += scored.goalDifference ? 1 : 0;
-      row.correct_results += scored.result === "correct" ? 1 : 0;
+      row.correct_results += ["correct", "qualifier"].includes(scored.result) ? 1 : 0;
       row.missed_results += scored.result === "miss" ? 1 : 0;
       row.played_matches += 1;
       row.all_results.push(resultForPlayer(prediction, match, scored));
@@ -801,21 +804,25 @@ function scorePrediction(prediction, match) {
   const predictedAway = Number(prediction.predicted_away_score);
   const actualHome = Number(match.home_score);
   const actualAway = Number(match.away_score);
+  const goalDifference = predictedHome - predictedAway === actualHome - actualAway;
 
   if (predictedHome === actualHome && predictedAway === actualAway) {
-    return { points: EXACT_POINTS, result: "exact", goalDifference: true };
+    return { points: isKnockoutMatch(match) ? KNOCKOUT_EXACT_POINTS : EXACT_POINTS, result: "exact", goalDifference: true };
   }
   if (outcome(predictedHome, predictedAway) === outcome(actualHome, actualAway)) {
     return {
-      points: CORRECT_POINTS,
+      points: isKnockoutMatch(match) ? KNOCKOUT_RESULT_POINTS : CORRECT_POINTS,
       result: "correct",
-      goalDifference: predictedHome - predictedAway === actualHome - actualAway,
+      goalDifference,
     };
+  }
+  if (isKnockoutMatch(match) && normalizedTeamName(prediction.predicted_qualifier) && normalizedTeamName(prediction.predicted_qualifier) === actualQualifier(match)) {
+    return { points: KNOCKOUT_QUALIFIER_POINTS, result: "qualifier", goalDifference };
   }
   return {
     points: 0,
     result: "miss",
-    goalDifference: predictedHome - predictedAway === actualHome - actualAway,
+    goalDifference,
   };
 }
 
@@ -834,6 +841,8 @@ function resultForPlayer(prediction, match, scored) {
     away_flag: flagForTeam(match.away_team || prediction.away_team),
     predicted_home_score: Number(prediction.predicted_home_score),
     predicted_away_score: Number(prediction.predicted_away_score),
+    predicted_qualifier: normalizedTeamName(prediction.predicted_qualifier),
+    actual_qualifier: actualQualifier(match),
     actual_home_score: Number(match.home_score),
     actual_away_score: Number(match.away_score),
     points: scored.points,
@@ -846,6 +855,24 @@ function outcome(homeScore, awayScore) {
   if (homeScore > awayScore) return "H";
   if (homeScore < awayScore) return "A";
   return "D";
+}
+
+function isKnockoutMatch(match) {
+  return String(match.stage || "").toUpperCase() !== "GRUPOS";
+}
+
+function normalizedTeamName(value) {
+  return normalizeTeam(value);
+}
+
+function actualQualifier(match) {
+  const explicitWinner = normalizedTeamName(match.winner_team);
+  if (explicitWinner) return explicitWinner;
+  const homeScore = Number(match.home_score);
+  const awayScore = Number(match.away_score);
+  if (homeScore > awayScore) return normalizedTeamName(match.home_team);
+  if (homeScore < awayScore) return normalizedTeamName(match.away_team);
+  return "";
 }
 
 function pairKey(homeTeam, awayTeam) {
@@ -1114,7 +1141,7 @@ function counterButtonMarkup(filterName, value) {
 
 function matchMatchesCounterFilter(match, filterName) {
   if (filterName === "exact") return match.result === "exact";
-  if (filterName === "correct") return match.result === "correct";
+  if (filterName === "correct") return ["correct", "qualifier"].includes(match.result);
   if (filterName === "miss") return match.result === "miss";
   if (filterName === "goalDifference") return hasGoalDifference(match);
   return true;
@@ -1155,7 +1182,7 @@ function openMatchDialog(match) {
     ? `${matchImpactMarkup(predictions)}${predictions.map((prediction) => `
       <article class="prediction-card prediction-card--${prediction.result}">
         <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
-        <span>Pronóstico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}</span>
+        <span>Pronóstico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}${qualifierSuffix(prediction)}</span>
         <span>${resultLabel(prediction.result)}</span>
         <b>+${prediction.points}</b>
       </article>
@@ -1276,7 +1303,8 @@ function simulatorScoreValue(value) {
 function matchImpactMarkup(predictions) {
   const exact = predictions.filter((prediction) => prediction.result === "exact");
   const correct = predictions.filter((prediction) => prediction.result === "correct");
-  const scoring = exact.length + correct.length;
+  const qualifier = predictions.filter((prediction) => prediction.result === "qualifier");
+  const scoring = exact.length + correct.length + qualifier.length;
 
   return `
     <section class="match-impact">
@@ -1287,6 +1315,7 @@ function matchImpactMarkup(predictions) {
       <div class="match-impact__groups">
         ${impactGroupMarkup("Marcador exacto", exact, "exact")}
         ${impactGroupMarkup("Ganador correcto", correct, "correct")}
+        ${impactGroupMarkup("Clasificado correcto", qualifier, "qualifier")}
       </div>
     </section>
   `;
@@ -1352,9 +1381,14 @@ function scheduledPredictionCard(prediction) {
   return `
     <article class="prediction-card prediction-card--scheduled">
       <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
-      <span>Pron&oacute;stico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}</span>
+      <span>Pron&oacute;stico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}${qualifierSuffix(prediction)}</span>
     </article>
   `;
+}
+
+function qualifierSuffix(prediction) {
+  const qualifier = normalizedTeamName(prediction.predicted_qualifier);
+  return qualifier ? ` | Clasifica ${escapeHtml(qualifier)}` : "";
 }
 
 function predictionOutcome(prediction) {
@@ -1385,12 +1419,14 @@ function resultCard(match) {
 function resultWeight(result) {
   if (result === "exact") return 3;
   if (result === "correct") return 2;
+  if (result === "qualifier") return 1.5;
   return 1;
 }
 
 function resultLabel(result) {
   if (result === "exact") return "Marcador exacto";
   if (result === "correct") return "Ganador correcto";
+  if (result === "qualifier") return "Clasificado correcto";
   return "Fallo";
 }
 
@@ -1493,6 +1529,7 @@ function lastFiveMarkup(results) {
 function shortResultLabel(result) {
   if (result === "exact") return "E";
   if (result === "correct") return "G";
+  if (result === "qualifier") return "C";
   return "F";
 }
 

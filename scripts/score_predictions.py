@@ -11,6 +11,11 @@ PREDICTIONS_JSON_PATH = ROOT / "docs" / "data" / "predictions.json"
 MATCH_SCORES_PATH = ROOT / "docs" / "data" / "match_scores.json"
 LEADERBOARD_PATH = ROOT / "docs" / "data" / "leaderboard.json"
 SCORING_STATUSES = {"finished", "live"}
+GROUP_EXACT_POINTS = 6
+GROUP_CORRECT_POINTS = 3
+KNOCKOUT_EXACT_POINTS = 9
+KNOCKOUT_RESULT_POINTS = 6
+KNOCKOUT_QUALIFIER_POINTS = 3
 
 TEAM_FLAGS = {
     "ALEMANIA": "DE",
@@ -71,6 +76,30 @@ def outcome(home_score, away_score):
     return "D"
 
 
+def is_knockout_match(match):
+    return str(match.get("stage", "")).upper() != "GRUPOS"
+
+
+def normalized_team(value):
+    if pd.isna(value):
+        return ""
+    return str(value).strip().upper()
+
+
+def qualifier_from_match(match):
+    winner = normalized_team(match.get("winner_team", ""))
+    if winner:
+        return winner
+
+    actual_home = int(match["home_score"])
+    actual_away = int(match["away_score"])
+    if actual_home > actual_away:
+        return normalized_team(match.get("home_team", ""))
+    if actual_home < actual_away:
+        return normalized_team(match.get("away_team", ""))
+    return ""
+
+
 def points_for_prediction(prediction, match):
     predicted_home = int(prediction["predicted_home_score"])
     predicted_away = int(prediction["predicted_away_score"])
@@ -78,22 +107,36 @@ def points_for_prediction(prediction, match):
     actual_away = int(match["away_score"])
     goal_difference = predicted_home - predicted_away == actual_home - actual_away
 
+    if is_knockout_match(match):
+        predicted_qualifier = normalized_team(prediction.get("predicted_qualifier", ""))
+        actual_qualifier = qualifier_from_match(match)
+
+        if predicted_home == actual_home and predicted_away == actual_away:
+            return KNOCKOUT_EXACT_POINTS, True, False, goal_difference, False
+        if outcome(predicted_home, predicted_away) == outcome(actual_home, actual_away):
+            return KNOCKOUT_RESULT_POINTS, False, True, goal_difference, False
+        if predicted_qualifier and actual_qualifier and predicted_qualifier == actual_qualifier:
+            return KNOCKOUT_QUALIFIER_POINTS, False, False, goal_difference, True
+        return 0, False, False, goal_difference, False
+
     if predicted_home == actual_home and predicted_away == actual_away:
-        return 6, True, False, goal_difference
+        return GROUP_EXACT_POINTS, True, False, goal_difference, False
     if outcome(predicted_home, predicted_away) == outcome(actual_home, actual_away):
-        return 3, False, True, goal_difference
-    return 0, False, False, goal_difference
+        return GROUP_CORRECT_POINTS, False, True, goal_difference, False
+    return 0, False, False, goal_difference, False
 
 
-def result_type(exact, correct):
+def result_type(exact, correct, qualifier):
     if exact:
         return "exact"
     if correct:
         return "correct"
+    if qualifier:
+        return "qualifier"
     return "miss"
 
 
-def recent_result(prediction, match, points, exact, correct, goal_difference):
+def recent_result(prediction, match, points, exact, correct, goal_difference, qualifier):
     return {
         "match_id": int(prediction["match_id"]),
         "source_match_id": match.get("source_match_id"),
@@ -108,10 +151,12 @@ def recent_result(prediction, match, points, exact, correct, goal_difference):
         "away_flag": TEAM_FLAGS.get(match.get("away_team", prediction["away_team"]), ""),
         "predicted_home_score": int(prediction["predicted_home_score"]),
         "predicted_away_score": int(prediction["predicted_away_score"]),
+        "predicted_qualifier": normalized_team(prediction.get("predicted_qualifier", "")),
+        "actual_qualifier": qualifier_from_match(match),
         "actual_home_score": int(match["home_score"]),
         "actual_away_score": int(match["away_score"]),
         "points": points,
-        "result": result_type(exact, correct),
+        "result": result_type(exact, correct, qualifier),
         "goal_difference": goal_difference,
     }
 
@@ -218,17 +263,17 @@ def score_leaderboard(predictions, matches):
             if not match:
                 continue
 
-            points, exact, correct, goal_difference = points_for_prediction(prediction, match)
+            points, exact, correct, goal_difference, qualifier = points_for_prediction(prediction, match)
             status = str(match.get("status", "")).lower()
 
             if status in SCORING_STATUSES:
                 points_total += points
                 exact_scores += int(exact)
                 goal_differences += int(goal_difference)
-                correct_results += int(correct)
-                missed_results += int(not exact and not correct)
+                correct_results += int(correct or qualifier)
+                missed_results += int(not exact and not correct and not qualifier)
                 played_matches += 1
-                recent_results.append(recent_result(prediction, match, points, exact, correct, goal_difference))
+                recent_results.append(recent_result(prediction, match, points, exact, correct, goal_difference, qualifier))
 
         rows.append(
             {
@@ -277,6 +322,7 @@ def write_public_predictions(predictions):
                 "away_team": row["away_team"],
                 "predicted_home_score": int(row["predicted_home_score"]),
                 "predicted_away_score": int(row["predicted_away_score"]),
+                "predicted_qualifier": normalized_team(row.get("predicted_qualifier", "")),
             }
         )
 

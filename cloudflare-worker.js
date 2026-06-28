@@ -156,7 +156,7 @@ async function applyFootballDataBackup(env, data) {
   if (!env.FOOTBALL_DATA_TOKEN) return data;
 
   const games = Array.isArray(data) ? data : data.games || [];
-  const suspiciousGames = games.filter(isSuspiciousNotStartedGame);
+  const suspiciousGames = games.filter((game) => isSuspiciousNotStartedGame(game) || needsFootballDataWinner(game));
   if (!suspiciousGames.length) return data;
 
   const footballDataMatches = await readFootballDataMatches(env);
@@ -207,6 +207,27 @@ function isSuspiciousNotStartedGame(game) {
   return isNotStarted && isWithinAssumedLiveWindow(game);
 }
 
+function needsFootballDataWinner(game) {
+  if (game.winner_team) return false;
+  if (!isKnockoutGame(game)) return false;
+  const status = footballDataStatusFromWorldcup26(game);
+  if (status !== "finished") return false;
+  const homeScore = numberOrNull(game.home_score);
+  const awayScore = numberOrNull(game.away_score);
+  return homeScore !== null && awayScore !== null && homeScore === awayScore;
+}
+
+function isKnockoutGame(game) {
+  return String(game.type || "").toLowerCase() !== "group";
+}
+
+function footballDataStatusFromWorldcup26(game) {
+  if (String(game.finished || "").toUpperCase() === "TRUE") return "finished";
+  const elapsed = String(game.time_elapsed || "").toLowerCase();
+  if (elapsed && !["notstarted", "not started", "0", "none", "null"].includes(elapsed)) return "live";
+  return "scheduled";
+}
+
 function isWithinAssumedLiveWindow(game) {
   const kickoff = parseWorldCupDate(game.local_date || "", timeZoneForGame(game));
   if (Number.isNaN(kickoff)) return false;
@@ -235,6 +256,7 @@ function mergeFootballDataMatch(game, match) {
     tronky_source: "football-data-backup",
     football_data_match_id: match.id,
     football_data_status: match.status,
+    winner_team: footballDataWinner(match, game),
   };
 }
 
@@ -252,6 +274,13 @@ function currentFootballDataScore(match) {
     home: numberOrNull(fullTime.home ?? regularTime.home ?? halfTime.home),
     away: numberOrNull(fullTime.away ?? regularTime.away ?? halfTime.away),
   };
+}
+
+function footballDataWinner(match, game) {
+  const winner = match.score?.winner;
+  if (winner === "HOME_TEAM") return game.home_team_name_en || "";
+  if (winner === "AWAY_TEAM") return game.away_team_name_en || "";
+  return "";
 }
 
 function numberOrNull(value) {

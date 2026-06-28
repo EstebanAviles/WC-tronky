@@ -17,6 +17,7 @@ REQUIRED_COLUMNS = [
     "GolVisitante",
     "Visitante",
 ]
+QUALIFIER_COLUMNS = ["Clasifica", "Clasificado", "Ganador"]
 
 
 def normalize_text(value):
@@ -32,7 +33,8 @@ def load_workbook_predictions(path):
     if missing:
         raise ValueError(f"{path.name} is missing columns: {', '.join(missing)}")
 
-    frame = frame[REQUIRED_COLUMNS].copy()
+    qualifier_column = next((column for column in QUALIFIER_COLUMNS if column in frame.columns), None)
+    frame = frame[REQUIRED_COLUMNS + ([qualifier_column] if qualifier_column else [])].copy()
     frame = frame.dropna(subset=["Partido", "Local", "Visitante"])
 
     output = pd.DataFrame(
@@ -45,6 +47,7 @@ def load_workbook_predictions(path):
             "away_team": frame["Visitante"].map(normalize_text),
             "predicted_home_score": frame["GolLocal"].astype(int),
             "predicted_away_score": frame["GolVisitante"].astype(int),
+            "predicted_qualifier": frame[qualifier_column].map(normalize_text) if qualifier_column else "",
         }
     )
     return output
@@ -59,6 +62,16 @@ def main():
         [load_workbook_predictions(path) for path in excel_files],
         ignore_index=True,
     )
+    if OUTPUT_PATH.exists():
+        existing = pd.read_csv(OUTPUT_PATH)
+        if "predicted_qualifier" not in existing.columns:
+            existing["predicted_qualifier"] = ""
+        current_keys = set(zip(predictions["participant"], predictions["match_id"]))
+        preserved = existing[
+            ~existing.apply(lambda row: (row["participant"], row["match_id"]) in current_keys, axis=1)
+        ]
+        predictions = pd.concat([predictions, preserved], ignore_index=True)
+
     predictions = predictions.sort_values(["participant", "match_id"])
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     predictions.to_csv(OUTPUT_PATH, index=False)

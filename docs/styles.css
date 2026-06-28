@@ -523,6 +523,10 @@ tbody tr.row-updated {
   background: #f4c54a;
 }
 
+.form-dot--qualifier {
+  background: #3d78c8;
+}
+
 .form-dot--miss {
   background: #c84d3d;
 }
@@ -548,6 +552,10 @@ tbody tr.row-updated {
 
 .score-rule--correct {
   color: #946900;
+}
+
+.score-rule--qualifier {
+  color: #2f65a8;
 }
 
 .score-rule--miss {
@@ -999,6 +1007,11 @@ tbody tr.row-updated {
   background: linear-gradient(90deg, rgba(216, 162, 42, 0.16), white 38%);
 }
 
+.recent-card--qualifier {
+  border-left-color: #3d78c8;
+  background: linear-gradient(90deg, rgba(61, 120, 200, 0.14), white 38%);
+}
+
 .recent-card--miss {
   border-left-color: #c84d3d;
   background: linear-gradient(90deg, rgba(200, 77, 61, 0.14), white 38%);
@@ -1090,6 +1103,12 @@ tbody tr.row-updated {
   background: #f4c54a;
 }
 
+.recent-card--qualifier .recent-card__meta span:nth-child(2),
+.prediction-card--qualifier span:nth-of-type(2) {
+  color: white;
+  background: #3d78c8;
+}
+
 .recent-card--miss .recent-card__meta span:nth-child(2),
 .prediction-card--miss span:nth-of-type(2) {
   color: white;
@@ -1162,6 +1181,11 @@ tbody tr.row-updated {
   background: linear-gradient(90deg, rgba(216, 162, 42, 0.16), white 36%);
 }
 
+.prediction-card--qualifier {
+  border-left-color: #3d78c8;
+  background: linear-gradient(90deg, rgba(61, 120, 200, 0.14), white 36%);
+}
+
 .prediction-card--miss {
   border-left-color: #c84d3d;
   background: linear-gradient(90deg, rgba(200, 77, 61, 0.14), white 36%);
@@ -1205,7 +1229,7 @@ tbody tr.row-updated {
 
 .match-impact__groups {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
   gap: 0.75rem;
 }
@@ -1225,6 +1249,10 @@ tbody tr.row-updated {
 
 .match-impact__group--correct {
   border-left: 0.35rem solid var(--gold);
+}
+
+.match-impact__group--qualifier {
+  border-left: 0.35rem solid #3d78c8;
 }
 
 .match-impact__group div {

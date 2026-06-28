@@ -376,6 +376,7 @@ def convert_worldcup26_game(game, schedule):
         "source_order": worldcup26_source_order(game),
         "played_at_timezone": MATCH_TIME_ZONES.get(source_match_id, ""),
         "played_at": game.get("local_date", ""),
+        "winner_team": normalize_api_team(game.get("winner_team_name_en", "")) if game.get("winner_team_name_en") else "",
     }
 
 
@@ -436,7 +437,22 @@ def convert_football_data_match(match, schedule):
         "source_order": source_order * 1000,
         "played_at": utc_date or "",
         "backup_source": "football-data",
+        "winner_team": football_data_winner(match, schedule_row, reverse_score),
     }
+
+
+def football_data_winner(match, schedule_row, reverse_score):
+    winner = (match.get("score") or {}).get("winner")
+    if reverse_score:
+        if winner == "HOME_TEAM":
+            winner = "AWAY_TEAM"
+        elif winner == "AWAY_TEAM":
+            winner = "HOME_TEAM"
+    if winner == "HOME_TEAM":
+        return schedule_row["home_team"]
+    if winner == "AWAY_TEAM":
+        return schedule_row["away_team"]
+    return ""
 
 
 def apply_football_data_backup(matches, schedule):
@@ -446,7 +462,10 @@ def apply_football_data_backup(matches, schedule):
     suspicious_match_ids = {
         match["match_id"]
         for match in matches
-        if match and match["status"] == "scheduled" and is_within_assumed_live_window({"id": match["source_match_id"], "local_date": match["played_at"]})
+        if match and (
+            match["status"] == "scheduled" and is_within_assumed_live_window({"id": match["source_match_id"], "local_date": match["played_at"]})
+            or needs_football_data_winner(match)
+        )
     }
     if not suspicious_match_ids:
         return matches
@@ -467,6 +486,16 @@ def apply_football_data_backup(matches, schedule):
         backups.get(match["match_id"], match) if match else None
         for match in matches
     ]
+
+
+def needs_football_data_winner(match):
+    if match.get("winner_team"):
+        return False
+    if str(match.get("stage", "")).upper() == "GRUPOS":
+        return False
+    if str(match.get("status", "")).lower() != "finished":
+        return False
+    return match.get("home_score") is not None and match.get("home_score") == match.get("away_score")
 
 
 def fetch_matches(schedule):

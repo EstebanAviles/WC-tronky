@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-28T19:22:43+00:00",
+  "last_updated": "2026-06-28T19:41:11+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -14,7 +14,8 @@
       "source_match_id": 1,
       "source_order": 1781204400001,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/11/2026 13:00"
+      "played_at": "06/11/2026 13:00",
+      "winner_team": ""
     },
     {
       "match_id": 2,
@@ -28,7 +29,8 @@
       "source_match_id": 2,
       "source_order": 1781229600002,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/11/2026 20:00"
+      "played_at": "06/11/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 7,
@@ -42,7 +44,8 @@
       "source_match_id": 3,
       "source_order": 1781290800003,
       "played_at_timezone": "America/Toronto",
-      "played_at": "06/12/2026 15:00"
+      "played_at": "06/12/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 19,
@@ -56,7 +59,8 @@
       "source_match_id": 4,
       "source_order": 1781312400004,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/12/2026 18:00"
+      "played_at": "06/12/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 8,
@@ -70,7 +74,8 @@
       "source_match_id": 8,
       "source_order": 1781377200008,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/13/2026 12:00"
+      "played_at": "06/13/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 13,
@@ -84,7 +89,8 @@
       "source_match_id": 7,
       "source_order": 1781388000007,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/13/2026 18:00"
+      "played_at": "06/13/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 14,
@@ -98,7 +104,8 @@
       "source_match_id": 5,
       "source_order": 1781398800005,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/13/2026 21:00"
+      "played_at": "06/13/2026 21:00",
+      "winner_team": ""
     },
     {
       "match_id": 20,
@@ -112,7 +119,8 @@
       "source_match_id": 6,
       "source_order": 1781409600006,
       "played_at_timezone": "America/Vancouver",
-      "played_at": "06/13/2026 21:00"
+      "played_at": "06/13/2026 21:00",
+      "winner_team": ""
     },
     {
       "match_id": 25,
@@ -126,7 +134,8 @@
       "source_match_id": 10,
       "source_order": 1781456400010,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/14/2026 12:00"
+      "played_at": "06/14/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 31,
@@ -140,7 +149,8 @@
       "source_match_id": 11,
       "source_order": 1781467200011,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/14/2026 15:00"
+      "played_at": "06/14/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 26,
@@ -154,7 +164,8 @@
       "source_match_id": 9,
       "source_order": 1781478000009,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/14/2026 19:00"
+      "played_at": "06/14/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 32,
@@ -168,7 +179,8 @@
       "source_match_id": 12,
       "source_order": 1781488800012,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/14/2026 20:00"
+      "played_at": "06/14/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 43,
@@ -182,7 +194,8 @@
       "source_match_id": 14,
       "source_order": 1781539200014,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/15/2026 12:00"
+      "played_at": "06/15/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 37,
@@ -196,7 +209,8 @@
       "source_match_id": 15,
       "source_order": 1781550000015,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/15/2026 12:00"
+      "played_at": "06/15/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 44,
@@ -210,7 +224,8 @@
       "source_match_id": 16,
       "source_order": 1781560800016,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/15/2026 18:00"
+      "played_at": "06/15/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 38,
@@ -224,7 +239,8 @@
       "source_match_id": 13,
       "source_order": 1781571600013,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/15/2026 18:00"
+      "played_at": "06/15/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 49,
@@ -238,7 +254,8 @@
       "source_match_id": 17,
       "source_order": 1781636400017,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/16/2026 15:00"
+      "played_at": "06/16/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 50,
@@ -252,7 +269,8 @@
       "source_match_id": 18,
       "source_order": 1781647200018,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/16/2026 18:00"
+      "played_at": "06/16/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 55,
@@ -266,7 +284,8 @@
       "source_match_id": 19,
       "source_order": 1781658000019,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/16/2026 20:00"
+      "played_at": "06/16/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 56,
@@ -280,7 +299,8 @@
       "source_match_id": 20,
       "source_order": 1781668800020,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/16/2026 21:00"
+      "played_at": "06/16/2026 21:00",
+      "winner_team": ""
     },
     {
       "match_id": 61,
@@ -294,7 +314,8 @@
       "source_match_id": 21,
       "source_order": 1781715600021,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/17/2026 12:00"
+      "played_at": "06/17/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 67,
@@ -308,7 +329,8 @@
       "source_match_id": 22,
       "source_order": 1781726400022,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/17/2026 15:00"
+      "played_at": "06/17/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 68,
@@ -322,7 +344,8 @@
       "source_match_id": 24,
       "source_order": 1781737200024,
       "played_at_timezone": "America/Toronto",
-      "played_at": "06/17/2026 19:00"
+      "played_at": "06/17/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 62,
@@ -336,7 +359,8 @@
       "source_match_id": 23,
       "source_order": 1781748000023,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/17/2026 20:00"
+      "played_at": "06/17/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 3,
@@ -350,7 +374,8 @@
       "source_match_id": 28,
       "source_order": 1781798400028,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/18/2026 12:00"
+      "played_at": "06/18/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 9,
@@ -364,7 +389,8 @@
       "source_match_id": 26,
       "source_order": 1781809200026,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/18/2026 12:00"
+      "played_at": "06/18/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 10,
@@ -378,7 +404,8 @@
       "source_match_id": 27,
       "source_order": 1781820000027,
       "played_at_timezone": "America/Vancouver",
-      "played_at": "06/18/2026 15:00"
+      "played_at": "06/18/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 4,
@@ -392,7 +419,8 @@
       "source_match_id": 25,
       "source_order": 1781830800025,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/18/2026 19:00"
+      "played_at": "06/18/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 21,
@@ -406,7 +434,8 @@
       "source_match_id": 31,
       "source_order": 1781895600031,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/19/2026 12:00"
+      "played_at": "06/19/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 15,
@@ -420,7 +449,8 @@
       "source_match_id": 30,
       "source_order": 1781906400030,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/19/2026 18:00"
+      "played_at": "06/19/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 16,
@@ -434,7 +464,8 @@
       "source_match_id": 29,
       "source_order": 1781917200029,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/19/2026 21:00"
+      "played_at": "06/19/2026 21:00",
+      "winner_team": ""
     },
     {
       "match_id": 22,
@@ -448,7 +479,8 @@
       "source_match_id": 32,
       "source_order": 1781924400032,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/19/2026 20:00"
+      "played_at": "06/19/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 33,
@@ -462,7 +494,8 @@
       "source_match_id": 35,
       "source_order": 1781974800035,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/20/2026 12:00"
+      "played_at": "06/20/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 27,
@@ -476,7 +509,8 @@
       "source_match_id": 33,
       "source_order": 1781985600033,
       "played_at_timezone": "America/Toronto",
-      "played_at": "06/20/2026 16:00"
+      "played_at": "06/20/2026 16:00",
+      "winner_team": ""
     },
     {
       "match_id": 28,
@@ -490,7 +524,8 @@
       "source_match_id": 34,
       "source_order": 1782000000034,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/20/2026 19:00"
+      "played_at": "06/20/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 34,
@@ -504,7 +539,8 @@
       "source_match_id": 36,
       "source_order": 1782014400036,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/20/2026 22:00"
+      "played_at": "06/20/2026 22:00",
+      "winner_team": ""
     },
     {
       "match_id": 45,
@@ -518,7 +554,8 @@
       "source_match_id": 39,
       "source_order": 1782057600039,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/21/2026 12:00"
+      "played_at": "06/21/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 39,
@@ -532,7 +569,8 @@
       "source_match_id": 37,
       "source_order": 1782068400037,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/21/2026 12:00"
+      "played_at": "06/21/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 46,
@@ -546,7 +584,8 @@
       "source_match_id": 40,
       "source_order": 1782079200040,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/21/2026 18:00"
+      "played_at": "06/21/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 40,
@@ -560,7 +599,8 @@
       "source_match_id": 38,
       "source_order": 1782090000038,
       "played_at_timezone": "America/Vancouver",
-      "played_at": "06/21/2026 18:00"
+      "played_at": "06/21/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 57,
@@ -574,7 +614,8 @@
       "source_match_id": 43,
       "source_order": 1782147600043,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/22/2026 12:00"
+      "played_at": "06/22/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 51,
@@ -588,7 +629,8 @@
       "source_match_id": 41,
       "source_order": 1782162000041,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/22/2026 17:00"
+      "played_at": "06/22/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 52,
@@ -602,7 +644,8 @@
       "source_match_id": 42,
       "source_order": 1782172800042,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/22/2026 20:00"
+      "played_at": "06/22/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 58,
@@ -616,7 +659,8 @@
       "source_match_id": 44,
       "source_order": 1782183600044,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/22/2026 20:00"
+      "played_at": "06/22/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 63,
@@ -630,7 +674,8 @@
       "source_match_id": 45,
       "source_order": 1782234000045,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/23/2026 12:00"
+      "played_at": "06/23/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 69,
@@ -644,7 +689,8 @@
       "source_match_id": 48,
       "source_order": 1782244800048,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/23/2026 16:00"
+      "played_at": "06/23/2026 16:00",
+      "winner_team": ""
     },
     {
       "match_id": 70,
@@ -658,7 +704,8 @@
       "source_match_id": 46,
       "source_order": 1782255600046,
       "played_at_timezone": "America/Toronto",
-      "played_at": "06/23/2026 19:00"
+      "played_at": "06/23/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 64,
@@ -672,7 +719,8 @@
       "source_match_id": 47,
       "source_order": 1782266400047,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/23/2026 20:00"
+      "played_at": "06/23/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 11,
@@ -686,7 +734,8 @@
       "source_match_id": 53,
       "source_order": 1782327600053,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/24/2026 12:00"
+      "played_at": "06/24/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 12,
@@ -700,7 +749,8 @@
       "source_match_id": 54,
       "source_order": 1782327600054,
       "played_at_timezone": "America/Vancouver",
-      "played_at": "06/24/2026 12:00"
+      "played_at": "06/24/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 17,
@@ -714,7 +764,8 @@
       "source_match_id": 49,
       "source_order": 1782338400049,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/24/2026 18:00"
+      "played_at": "06/24/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 18,
@@ -728,7 +779,8 @@
       "source_match_id": 50,
       "source_order": 1782338400050,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/24/2026 18:00"
+      "played_at": "06/24/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 5,
@@ -742,7 +794,8 @@
       "source_match_id": 51,
       "source_order": 1782349200051,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/24/2026 19:00"
+      "played_at": "06/24/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 6,
@@ -756,7 +809,8 @@
       "source_match_id": 52,
       "source_order": 1782349200052,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/24/2026 19:00"
+      "played_at": "06/24/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 29,
@@ -770,7 +824,8 @@
       "source_match_id": 55,
       "source_order": 1782417600055,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/25/2026 16:00"
+      "played_at": "06/25/2026 16:00",
+      "winner_team": ""
     },
     {
       "match_id": 30,
@@ -784,7 +839,8 @@
       "source_match_id": 56,
       "source_order": 1782417600056,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/25/2026 16:00"
+      "played_at": "06/25/2026 16:00",
+      "winner_team": ""
     },
     {
       "match_id": 35,
@@ -798,7 +854,8 @@
       "source_match_id": 59,
       "source_order": 1782428400059,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/25/2026 18:00"
+      "played_at": "06/25/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 36,
@@ -812,7 +869,8 @@
       "source_match_id": 60,
       "source_order": 1782428400060,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/25/2026 18:00"
+      "played_at": "06/25/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 23,
@@ -826,7 +884,8 @@
       "source_match_id": 57,
       "source_order": 1782439200057,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/25/2026 19:00"
+      "played_at": "06/25/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 24,
@@ -840,7 +899,8 @@
       "source_match_id": 58,
       "source_order": 1782439200058,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/25/2026 19:00"
+      "played_at": "06/25/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 53,
@@ -854,7 +914,8 @@
       "source_match_id": 61,
       "source_order": 1782500400061,
       "played_at_timezone": "America/Toronto",
-      "played_at": "06/26/2026 15:00"
+      "played_at": "06/26/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 54,
@@ -868,7 +929,8 @@
       "source_match_id": 62,
       "source_order": 1782500400062,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/26/2026 15:00"
+      "played_at": "06/26/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 47,
@@ -882,7 +944,8 @@
       "source_match_id": 65,
       "source_order": 1782518400065,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/26/2026 19:00"
+      "played_at": "06/26/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 48,
@@ -896,7 +959,8 @@
       "source_match_id": 66,
       "source_order": 1782518400066,
       "played_at_timezone": "America/Mexico_City",
-      "played_at": "06/26/2026 18:00"
+      "played_at": "06/26/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 42,
@@ -910,7 +974,8 @@
       "source_match_id": 63,
       "source_order": 1782529200063,
       "played_at_timezone": "America/Los_Angeles",
-      "played_at": "06/26/2026 20:00"
+      "played_at": "06/26/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 41,
@@ -924,7 +989,8 @@
       "source_match_id": 64,
       "source_order": 1782529200064,
       "played_at_timezone": "America/Vancouver",
-      "played_at": "06/26/2026 20:00"
+      "played_at": "06/26/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 72,
@@ -938,7 +1004,8 @@
       "source_match_id": 67,
       "source_order": 1782594000067,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/27/2026 17:00"
+      "played_at": "06/27/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 71,
@@ -952,7 +1019,8 @@
       "source_match_id": 68,
       "source_order": 1782594000068,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/27/2026 17:00"
+      "played_at": "06/27/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 66,
@@ -966,7 +1034,8 @@
       "source_match_id": 71,
       "source_order": 1782603000071,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/27/2026 19:30"
+      "played_at": "06/27/2026 19:30",
+      "winner_team": ""
     },
     {
       "match_id": 65,
@@ -980,7 +1049,8 @@
       "source_match_id": 72,
       "source_order": 1782603000072,
       "played_at_timezone": "America/New_York",
-      "played_at": "06/27/2026 19:30"
+      "played_at": "06/27/2026 19:30",
+      "winner_team": ""
     },
     {
       "match_id": 59,
@@ -994,7 +1064,8 @@
       "source_match_id": 69,
       "source_order": 1782612000069,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/27/2026 21:00"
+      "played_at": "06/27/2026 21:00",
+      "winner_team": ""
     },
     {
       "match_id": 60,
@@ -1008,7 +1079,8 @@
       "source_match_id": 70,
       "source_order": 1782612000070,
       "played_at_timezone": "America/Chicago",
-      "played_at": "06/27/2026 21:00"
+      "played_at": "06/27/2026 21:00",
+      "winner_team": ""
     },
     {
       "match_id": 73,
@@ -1022,7 +1094,8 @@
       "source_match_id": 73,
       "source_order": 1782666000073,
       "played_at_timezone": "",
-      "played_at": "06/28/2026 12:00"
+      "played_at": "06/28/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 76,
@@ -1036,7 +1109,8 @@
       "source_match_id": 76,
       "source_order": 1782752400076,
       "played_at_timezone": "",
-      "played_at": "06/29/2026 12:00"
+      "played_at": "06/29/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 74,
@@ -1050,7 +1124,8 @@
       "source_match_id": 74,
       "source_order": 1782768600074,
       "played_at_timezone": "",
-      "played_at": "06/29/2026 16:30"
+      "played_at": "06/29/2026 16:30",
+      "winner_team": ""
     },
     {
       "match_id": 75,
@@ -1064,7 +1139,8 @@
       "source_match_id": 75,
       "source_order": 1782777600075,
       "played_at_timezone": "",
-      "played_at": "06/29/2026 19:00"
+      "played_at": "06/29/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 78,
@@ -1078,7 +1154,8 @@
       "source_match_id": 78,
       "source_order": 1782838800078,
       "played_at_timezone": "",
-      "played_at": "06/30/2026 12:00"
+      "played_at": "06/30/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 77,
@@ -1092,7 +1169,8 @@
       "source_match_id": 77,
       "source_order": 1782856800077,
       "played_at_timezone": "",
-      "played_at": "06/30/2026 17:00"
+      "played_at": "06/30/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 79,
@@ -1106,7 +1184,8 @@
       "source_match_id": 79,
       "source_order": 1782864000079,
       "played_at_timezone": "",
-      "played_at": "06/30/2026 19:00"
+      "played_at": "06/30/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 80,
@@ -1120,7 +1199,8 @@
       "source_match_id": 80,
       "source_order": 1782925200080,
       "played_at_timezone": "",
-      "played_at": "07/01/2026 12:00"
+      "played_at": "07/01/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 82,
@@ -1134,7 +1214,8 @@
       "source_match_id": 82,
       "source_order": 1782928800082,
       "played_at_timezone": "",
-      "played_at": "07/01/2026 13:00"
+      "played_at": "07/01/2026 13:00",
+      "winner_team": ""
     },
     {
       "match_id": 81,
@@ -1148,7 +1229,8 @@
       "source_match_id": 81,
       "source_order": 1782943200081,
       "played_at_timezone": "",
-      "played_at": "07/01/2026 17:00"
+      "played_at": "07/01/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 84,
@@ -1162,7 +1244,8 @@
       "source_match_id": 84,
       "source_order": 1783011600084,
       "played_at_timezone": "",
-      "played_at": "07/02/2026 12:00"
+      "played_at": "07/02/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 83,
@@ -1176,7 +1259,8 @@
       "source_match_id": 83,
       "source_order": 1783036800083,
       "played_at_timezone": "",
-      "played_at": "07/02/2026 19:00"
+      "played_at": "07/02/2026 19:00",
+      "winner_team": ""
     },
     {
       "match_id": 85,
@@ -1190,7 +1274,8 @@
       "source_match_id": 85,
       "source_order": 1783040400085,
       "played_at_timezone": "",
-      "played_at": "07/02/2026 20:00"
+      "played_at": "07/02/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 88,
@@ -1204,7 +1289,8 @@
       "source_match_id": 88,
       "source_order": 1783101600088,
       "played_at_timezone": "",
-      "played_at": "07/03/2026 13:00"
+      "played_at": "07/03/2026 13:00",
+      "winner_team": ""
     },
     {
       "match_id": 86,
@@ -1218,7 +1304,8 @@
       "source_match_id": 86,
       "source_order": 1783119600086,
       "played_at_timezone": "",
-      "played_at": "07/03/2026 18:00"
+      "played_at": "07/03/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 87,
@@ -1232,7 +1319,8 @@
       "source_match_id": 87,
       "source_order": 1783128600087,
       "played_at_timezone": "",
-      "played_at": "07/03/2026 20:30"
+      "played_at": "07/03/2026 20:30",
+      "winner_team": ""
     },
     {
       "match_id": 90,
@@ -1246,7 +1334,8 @@
       "source_match_id": 90,
       "source_order": 1783184400090,
       "played_at_timezone": "",
-      "played_at": "07/04/2026 12:00"
+      "played_at": "07/04/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 89,
@@ -1260,7 +1349,8 @@
       "source_match_id": 89,
       "source_order": 1783202400089,
       "played_at_timezone": "",
-      "played_at": "07/04/2026 17:00"
+      "played_at": "07/04/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 91,
@@ -1274,7 +1364,8 @@
       "source_match_id": 91,
       "source_order": 1783285200091,
       "played_at_timezone": "",
-      "played_at": "07/05/2026 16:00"
+      "played_at": "07/05/2026 16:00",
+      "winner_team": ""
     },
     {
       "match_id": 92,
@@ -1288,7 +1379,8 @@
       "source_match_id": 92,
       "source_order": 1783292400092,
       "played_at_timezone": "",
-      "played_at": "07/05/2026 18:00"
+      "played_at": "07/05/2026 18:00",
+      "winner_team": ""
     },
     {
       "match_id": 93,
@@ -1302,7 +1394,8 @@
       "source_match_id": 93,
       "source_order": 1783364400093,
       "played_at_timezone": "",
-      "played_at": "07/06/2026 14:00"
+      "played_at": "07/06/2026 14:00",
+      "winner_team": ""
     },
     {
       "match_id": 94,
@@ -1316,7 +1409,8 @@
       "source_match_id": 94,
       "source_order": 1783375200094,
       "played_at_timezone": "",
-      "played_at": "07/06/2026 17:00"
+      "played_at": "07/06/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 95,
@@ -1330,7 +1424,8 @@
       "source_match_id": 95,
       "source_order": 1783443600095,
       "played_at_timezone": "",
-      "played_at": "07/07/2026 12:00"
+      "played_at": "07/07/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 96,
@@ -1344,7 +1439,8 @@
       "source_match_id": 96,
       "source_order": 1783447200096,
       "played_at_timezone": "",
-      "played_at": "07/07/2026 13:00"
+      "played_at": "07/07/2026 13:00",
+      "winner_team": ""
     },
     {
       "match_id": 97,
@@ -1358,7 +1454,8 @@
       "source_match_id": 97,
       "source_order": 1783630800097,
       "played_at_timezone": "",
-      "played_at": "07/09/2026 16:00"
+      "played_at": "07/09/2026 16:00",
+      "winner_team": ""
     },
     {
       "match_id": 98,
@@ -1372,7 +1469,8 @@
       "source_match_id": 98,
       "source_order": 1783702800098,
       "played_at_timezone": "",
-      "played_at": "07/10/2026 12:00"
+      "played_at": "07/10/2026 12:00",
+      "winner_team": ""
     },
     {
       "match_id": 99,
@@ -1386,7 +1484,8 @@
       "source_match_id": 99,
       "source_order": 1783807200099,
       "played_at_timezone": "",
-      "played_at": "07/11/2026 17:00"
+      "played_at": "07/11/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 100,
@@ -1400,7 +1499,8 @@
       "source_match_id": 100,
       "source_order": 1783818000100,
       "played_at_timezone": "",
-      "played_at": "07/11/2026 20:00"
+      "played_at": "07/11/2026 20:00",
+      "winner_team": ""
     },
     {
       "match_id": 101,
@@ -1414,7 +1514,8 @@
       "source_match_id": 101,
       "source_order": 1784055600101,
       "played_at_timezone": "",
-      "played_at": "07/14/2026 14:00"
+      "played_at": "07/14/2026 14:00",
+      "winner_team": ""
     },
     {
       "match_id": 102,
@@ -1428,7 +1529,8 @@
       "source_match_id": 102,
       "source_order": 1784145600102,
       "played_at_timezone": "",
-      "played_at": "07/15/2026 15:00"
+      "played_at": "07/15/2026 15:00",
+      "winner_team": ""
     },
     {
       "match_id": 103,
@@ -1442,7 +1544,8 @@
       "source_match_id": 103,
       "source_order": 1784412000103,
       "played_at_timezone": "",
-      "played_at": "07/18/2026 17:00"
+      "played_at": "07/18/2026 17:00",
+      "winner_team": ""
     },
     {
       "match_id": 104,
@@ -1456,7 +1559,8 @@
       "source_match_id": 104,
       "source_order": 1784491200104,
       "played_at_timezone": "",
-      "played_at": "07/19/2026 15:00"
+      "played_at": "07/19/2026 15:00",
+      "winner_team": ""
     }
   ]
 }
