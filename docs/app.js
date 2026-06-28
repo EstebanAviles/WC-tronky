@@ -445,7 +445,7 @@ function renderMatches(container) {
     card.innerHTML = `
       <button class="match-card__button" type="button">
         <div class="match-card__meta">
-          <span>${match.group ? `Grupo ${match.group}` : match.stage}</span>
+          <span>${escapeHtml(matchStageLabel(match))}</span>
           <strong>${statusLabel(match.status)}</strong>
         </div>
         <div class="match-card__score">
@@ -537,7 +537,7 @@ async function liveMatches(staticMatches) {
     liveLastUpdated = response.headers.get("x-tronky-cache-updated-at") || new Date().toISOString();
     const payload = await response.json();
     const games = Array.isArray(payload) ? payload : payload.games || [];
-    const schedule = scheduleByPair(staticMatches);
+    const schedule = liveSchedule(staticMatches);
     const byMatchId = new Map(staticMatches.map((match) => [Number(match.match_id), { ...match }]));
 
     games.forEach((game) => {
@@ -592,19 +592,25 @@ function formatPeruDateTime(timestamp) {
   return `${values.day}/${values.month}/${values.year} ${values.hour}:${values.minute}`;
 }
 
-function scheduleByPair(matches) {
-  const schedule = new Map();
+function liveSchedule(matches) {
+  const byPair = new Map();
+  const bySourceId = new Map();
   matches.forEach((match) => {
-    schedule.set(pairKey(match.home_team, match.away_team), { match, reverse: false });
-    schedule.set(pairKey(match.away_team, match.home_team), { match, reverse: true });
+    byPair.set(pairKey(match.home_team, match.away_team), { match, reverse: false });
+    byPair.set(pairKey(match.away_team, match.home_team), { match, reverse: true });
+    if (match.source_match_id !== null && match.source_match_id !== undefined) {
+      bySourceId.set(Number(match.source_match_id), { match, reverse: false });
+    }
   });
-  return schedule;
+  return { byPair, bySourceId };
 }
 
 function convertLiveGame(game, schedule) {
   const homeTeam = normalizeTeam(game.home_team_name_en || "");
   const awayTeam = normalizeTeam(game.away_team_name_en || "");
-  const scheduleMatch = schedule.get(pairKey(homeTeam, awayTeam));
+  const sourceMatchId = numberOrNull(game.id);
+  const scheduleMatch = schedule.bySourceId.get(Number(sourceMatchId))
+    || schedule.byPair.get(pairKey(homeTeam, awayTeam));
   if (!scheduleMatch) return null;
 
   const status = liveGameStatus(game);
@@ -617,10 +623,12 @@ function convertLiveGame(game, schedule) {
 
   return {
     ...scheduleMatch.match,
+    home_team: homeTeam || scheduleMatch.match.home_team,
+    away_team: awayTeam || scheduleMatch.match.away_team,
     home_score: status === "scheduled" ? null : scoreHome,
     away_score: status === "scheduled" ? null : scoreAway,
     status,
-    source_match_id: numberOrNull(game.id),
+    source_match_id: sourceMatchId,
     source_order: liveSourceOrder(game, scheduleMatch.match),
     played_at: game.local_date || scheduleMatch.match.played_at || "",
     tronky_source: game.tronky_source || "worldcup26",
@@ -866,6 +874,12 @@ function numberOrNull(value) {
 function groupClass(group) {
   const normalized = String(group || "").trim().toLowerCase();
   return /^[a-h]$/.test(normalized) ? `match-card--group-${normalized}` : "";
+}
+
+function matchStageLabel(match) {
+  const group = String(match.group || "").trim();
+  if (/^[A-L]$/i.test(group)) return `Grupo ${group.toUpperCase()}`;
+  return match.stage || group || "Partido";
 }
 
 function participantLabel(name) {

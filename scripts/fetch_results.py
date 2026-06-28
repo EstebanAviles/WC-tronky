@@ -24,6 +24,18 @@ FOOTBALL_DATA_LIVE_STATUSES = {"IN_PLAY", "PAUSED"}
 FOOTBALL_DATA_FINISHED_STATUSES = {"FINISHED"}
 ASSUMED_LIVE_WINDOW_SECONDS = 165 * 60
 
+TBD_TEAM = "TBD"
+
+STAGE_LABELS = {
+    "group": "GRUPOS",
+    "r32": "16AVOS",
+    "r16": "OCTAVOS",
+    "qf": "CUARTOS",
+    "sf": "SEMIFINALES",
+    "third": "TERCER PUESTO",
+    "final": "FINAL",
+}
+
 MATCH_TIME_ZONES = {
     1: "America/Mexico_City",
     2: "America/Mexico_City",
@@ -163,6 +175,10 @@ def normalize_team(value):
     text = text.upper().replace(".", "").replace("-", " ").strip()
     text = " ".join(text.split())
     return TEAM_ALIASES.get(text, text)
+
+
+def normalize_api_team(value):
+    return normalize_team(value) if value else TBD_TEAM
 
 
 def load_schedule():
@@ -324,14 +340,21 @@ def worldcup26_source_order(game):
 
 
 def convert_worldcup26_game(game, schedule):
-    home_team = normalize_team(game.get("home_team_name_en", ""))
-    away_team = normalize_team(game.get("away_team_name_en", ""))
+    source_match_id = int(game["id"])
+    home_team = normalize_api_team(game.get("home_team_name_en", ""))
+    away_team = normalize_api_team(game.get("away_team_name_en", ""))
     schedule_row, reverse_score = find_schedule_match(schedule, home_team, away_team)
     if not schedule_row:
-        return None
+        schedule_row = {
+            "match_id": source_match_id,
+            "stage": STAGE_LABELS.get(str(game.get("type", "")).lower(), str(game.get("type", "")).upper() or "PARTIDO"),
+            "group": str(game.get("group", "")).upper() or "",
+            "home_team": home_team,
+            "away_team": away_team,
+        }
+        reverse_score = False
 
     match_id = int(schedule_row["match_id"])
-    source_match_id = int(game["id"])
     game_status = worldcup26_status(game)
     home_score = game.get("home_score")
     away_score = game.get("away_score")
