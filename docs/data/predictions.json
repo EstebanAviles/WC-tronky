@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-28T19:41:19+00:00",
+  "last_updated": "2026-06-29T22:22:28+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -805,6 +805,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Alen",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Alen",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Angel",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -1608,6 +1630,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Angel",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Angel",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "JAPON"
+    },
+    {
       "participant": "Arana",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -2409,6 +2453,28 @@
       "predicted_home_score": 1,
       "predicted_away_score": 2,
       "predicted_qualifier": "CANADA"
+    },
+    {
+      "participant": "Arana",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Arana",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
     },
     {
       "participant": "Artola",
@@ -3214,6 +3280,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Artola",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Artola",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 4,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Biankits",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -4017,6 +4105,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Biankits",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Dcas",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -4820,6 +4930,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Dcas",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Djunza",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -5621,6 +5753,28 @@
       "predicted_home_score": 1,
       "predicted_away_score": 2,
       "predicted_qualifier": "CANADA"
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
     },
     {
       "participant": "Gus",
@@ -6426,6 +6580,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Gus",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 3,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Gus",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Jogy",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -7229,6 +7405,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Jogy",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Kratos",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -8030,6 +8228,28 @@
       "predicted_home_score": 1,
       "predicted_away_score": 2,
       "predicted_qualifier": "CANADA"
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
     },
     {
       "participant": "Luismi",
@@ -8835,6 +9055,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Luismi",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Masaru",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -9636,6 +9878,28 @@
       "predicted_home_score": 1,
       "predicted_away_score": 2,
       "predicted_qualifier": "CANADA"
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "JAPON"
     },
     {
       "participant": "Trucha",
@@ -10441,6 +10705,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Trucha",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Trucha",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Wonky",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -11242,6 +11528,28 @@
       "predicted_home_score": 0,
       "predicted_away_score": 2,
       "predicted_qualifier": "CANADA"
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "BRASIL"
     },
     {
       "participant": "Zhoko",
@@ -12047,6 +12355,28 @@
       "predicted_qualifier": "CANADA"
     },
     {
+      "participant": "Zhoko",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Zhoko",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 3,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "BRASIL"
+    },
+    {
       "participant": "Ñeño",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -12848,6 +13178,28 @@
       "predicted_home_score": 1,
       "predicted_away_score": 1,
       "predicted_qualifier": "CANADA"
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 74,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "ALEMANIA",
+      "away_team": "PARAGUAY",
+      "predicted_home_score": 3,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 76,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "BRASIL",
+      "away_team": "JAPON",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BRASIL"
     }
   ]
 }
