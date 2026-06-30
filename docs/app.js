@@ -17,6 +17,7 @@ let previousLeaderboardSnapshot = new Map();
 let hasRenderedLeaderboard = false;
 let enableLeaderboardAnimations = false;
 const expandedMatchViews = new Set();
+const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32"]);
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -258,8 +259,9 @@ async function loadPageData() {
 }
 
 function renderPageState() {
+  const leaderboardMatches = filteredLeaderboardMatches(matchRows);
   leaderboardRows = predictionRows.length
-    ? scoreLeaderboard(predictionRows, matchRows)
+    ? scoreLeaderboard(predictionRows, leaderboardMatches)
     : fallbackLeaderboardRows;
   renderLeaderboard(leaderboardRows, liveLastUpdated || fallbackLastUpdated);
   renderHeroLive(matchRows);
@@ -362,7 +364,7 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   leaderName.textContent = leaderLabel(rows);
   leaderSummary.textContent = leaderSummaryLabel(rows);
   updateFreshnessDisplay(lastUpdatedValue);
-  tableMessage.textContent = rows.length ? "" : "Todavía no hay pronósticos puntuados.";
+  tableMessage.textContent = rows.length ? leaderboardFilterSummary() : "Todavía no hay pronósticos puntuados.";
   tbody.innerHTML = "";
 
   rows.forEach((row, index) => {
@@ -401,6 +403,38 @@ function renderLeaderboard(rows, lastUpdatedValue) {
     },
   ]));
   hasRenderedLeaderboard = true;
+}
+
+function setLeaderboardFilter(filterName, isEnabled) {
+  if (isEnabled) selectedLeaderboardFilters.add(filterName);
+  else selectedLeaderboardFilters.delete(filterName);
+  previousLeaderboardSnapshot = new Map();
+  hasRenderedLeaderboard = false;
+  renderPageState();
+}
+
+function filteredLeaderboardMatches(matches) {
+  return matches.filter((match) => matchesLeaderboardFilter(match));
+}
+
+function matchesLeaderboardFilter(match) {
+  if (!selectedLeaderboardFilters.size) return false;
+  if (String(match.stage || "").toUpperCase() === "GRUPOS") {
+    return selectedLeaderboardFilters.has(`group-${Number(match.matchday)}`);
+  }
+  if (String(match.stage || "").toUpperCase() === "16AVOS" || String(match.group || "").toUpperCase() === "R32") {
+    return selectedLeaderboardFilters.has("r32");
+  }
+  return false;
+}
+
+function leaderboardFilterSummary() {
+  const labels = [];
+  if (selectedLeaderboardFilters.has("group-1")) labels.push("Fecha 1");
+  if (selectedLeaderboardFilters.has("group-2")) labels.push("Fecha 2");
+  if (selectedLeaderboardFilters.has("group-3")) labels.push("Fecha 3");
+  if (selectedLeaderboardFilters.has("r32")) labels.push("16vos");
+  return labels.length ? `Mostrando: ${labels.join(", ")}.` : "No hay fechas seleccionadas.";
 }
 
 function setLoadError(error) {
@@ -1634,6 +1668,9 @@ document.querySelectorAll("[data-player-tab]").forEach((button) => {
 });
 document.querySelectorAll("[data-match-view]").forEach((button) => {
   button.addEventListener("click", () => setMatchView(button.dataset.matchView));
+});
+document.querySelectorAll("[data-leaderboard-filter]").forEach((input) => {
+  input.addEventListener("change", () => setLeaderboardFilter(input.value, input.checked));
 });
 document.querySelectorAll("[data-match-tab]").forEach((button) => {
   button.addEventListener("click", () => setMatchDialogTab(button.dataset.matchTab));

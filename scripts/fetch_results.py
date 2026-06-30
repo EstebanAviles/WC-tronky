@@ -301,6 +301,7 @@ def convert_fixture(fixture, schedule):
         "source_match_id": fixture.get("fixture", {}).get("id"),
         "source_order": fixture.get("fixture", {}).get("timestamp", int(schedule_row["match_id"])),
         "played_at": fixture.get("fixture", {}).get("date"),
+        "matchday": None,
     }
 
 
@@ -379,6 +380,7 @@ def convert_worldcup26_game(game, schedule):
         "source_order": worldcup26_source_order(game),
         "played_at_timezone": MATCH_TIME_ZONES.get(source_match_id, ""),
         "played_at": game.get("local_date", ""),
+        "matchday": int_or_none(game.get("matchday")),
         "home_penalty_score": int_or_none(home_penalty_score),
         "away_penalty_score": int_or_none(away_penalty_score),
         "winner_team": worldcup26_winner_team(game, schedule_row, reverse_score),
@@ -469,6 +471,7 @@ def convert_football_data_match(match, schedule):
         "source_order": source_order * 1000,
         "played_at": utc_date or "",
         "backup_source": "football-data",
+        "matchday": schedule_row.get("matchday"),
         "winner_team": football_data_winner(match, schedule_row, reverse_score),
     }
 
@@ -515,7 +518,7 @@ def apply_football_data_backup(matches, schedule):
             backups[converted["match_id"]] = converted
 
     return [
-        backups.get(match["match_id"], match) if match else None
+        {**match, **backups[match["match_id"]]} if match and match["match_id"] in backups else match
         for match in matches
     ]
 

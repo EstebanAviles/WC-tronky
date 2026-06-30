@@ -250,6 +250,32 @@ main {
   color: var(--grass);
 }
 
+.leaderboard-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0 0 0.85rem;
+}
+
+.leaderboard-filters label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #b9dbc2;
+  border-radius: 999px;
+  color: var(--grass-dark);
+  background: #edf8ef;
+  font-size: 0.8rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.leaderboard-filters input {
+  accent-color: var(--grass);
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
