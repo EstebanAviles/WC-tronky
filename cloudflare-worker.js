@@ -143,7 +143,7 @@ async function refreshScores(env) {
   }
 
   const data = await response.json();
-  const enhancedData = await applyFootballDataBackup(env, data);
+  const enhancedData = await applyFootballDataBackup(env, applyWorldcup26DerivedFields(data));
   const payload = {
     updatedAt: new Date().toISOString(),
     data: enhancedData,
@@ -168,6 +168,15 @@ async function applyFootballDataBackup(env, data) {
     return backup ? mergeFootballDataMatch(game, backup) : game;
   });
 
+  return Array.isArray(data) ? enhancedGames : { ...data, games: enhancedGames };
+}
+
+function applyWorldcup26DerivedFields(data) {
+  const games = Array.isArray(data) ? data : data.games || [];
+  const enhancedGames = games.map((game) => {
+    const winner = worldcup26PenaltyWinner(game);
+    return winner ? { ...game, winner_team: winner } : game;
+  });
   return Array.isArray(data) ? enhancedGames : { ...data, games: enhancedGames };
 }
 
@@ -209,6 +218,7 @@ function isSuspiciousNotStartedGame(game) {
 
 function needsFootballDataWinner(game) {
   if (game.winner_team) return false;
+  if (worldcup26PenaltyWinner(game)) return false;
   if (!isKnockoutGame(game)) return false;
   const status = footballDataStatusFromWorldcup26(game);
   if (status !== "finished") return false;
@@ -246,17 +256,18 @@ function mergeFootballDataMatch(game, match) {
   const status = footballDataStatus(match.status);
   const score = currentFootballDataScore(match);
   if (status === "scheduled" || score.home === null || score.away === null) return game;
+  const penaltyWinner = worldcup26PenaltyWinner(game);
 
   return {
     ...game,
-    home_score: String(score.home),
-    away_score: String(score.away),
+    home_score: penaltyWinner ? game.home_score : String(score.home),
+    away_score: penaltyWinner ? game.away_score : String(score.away),
     finished: status === "finished" ? "TRUE" : "FALSE",
     time_elapsed: status === "finished" ? "finished" : "live",
     tronky_source: "football-data-backup",
     football_data_match_id: match.id,
     football_data_status: match.status,
-    winner_team: footballDataWinner(match, game),
+    winner_team: penaltyWinner || footballDataWinner(match, game),
   };
 }
 
@@ -281,6 +292,13 @@ function footballDataWinner(match, game) {
   if (winner === "HOME_TEAM") return game.home_team_name_en || "";
   if (winner === "AWAY_TEAM") return game.away_team_name_en || "";
   return "";
+}
+
+function worldcup26PenaltyWinner(game) {
+  const homePenalty = numberOrNull(game.home_penalty_score);
+  const awayPenalty = numberOrNull(game.away_penalty_score);
+  if (homePenalty === null || awayPenalty === null || homePenalty === awayPenalty) return "";
+  return homePenalty > awayPenalty ? game.home_team_name_en || "" : game.away_team_name_en || "";
 }
 
 function numberOrNull(value) {

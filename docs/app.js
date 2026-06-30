@@ -621,6 +621,8 @@ function convertLiveGame(game, schedule) {
   const awayScore = numberOrNull(game.away_score);
   const scoreHome = scheduleMatch.reverse ? awayScore : homeScore;
   const scoreAway = scheduleMatch.reverse ? homeScore : awayScore;
+  const homePenalty = numberOrNull(game.home_penalty_score);
+  const awayPenalty = numberOrNull(game.away_penalty_score);
 
   if (status !== "scheduled" && (scoreHome === null || scoreAway === null)) return null;
 
@@ -637,6 +639,9 @@ function convertLiveGame(game, schedule) {
     tronky_source: game.tronky_source || "worldcup26",
     live_elapsed: String(game.time_elapsed || ""),
     football_data_status: game.football_data_status || "",
+    home_penalty_score: scheduleMatch.reverse ? awayPenalty : homePenalty,
+    away_penalty_score: scheduleMatch.reverse ? homePenalty : awayPenalty,
+    winner_team: normalizeTeam(game.winner_team || penaltyWinnerTeam(game, scheduleMatch.reverse)),
   };
 }
 
@@ -873,6 +878,14 @@ function actualQualifier(match) {
   if (homeScore > awayScore) return normalizedTeamName(match.home_team);
   if (homeScore < awayScore) return normalizedTeamName(match.away_team);
   return "";
+}
+
+function penaltyWinnerTeam(game, reverseScore = false) {
+  const homePenalty = numberOrNull(game.home_penalty_score);
+  const awayPenalty = numberOrNull(game.away_penalty_score);
+  if (homePenalty === null || awayPenalty === null || homePenalty === awayPenalty) return "";
+  const homeWon = reverseScore ? homePenalty < awayPenalty : homePenalty > awayPenalty;
+  return homeWon ? game.home_team_name_en || "" : game.away_team_name_en || "";
 }
 
 function pairKey(homeTeam, awayTeam) {

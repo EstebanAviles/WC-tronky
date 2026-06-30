@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-30T03:45:49+00:00",
+  "last_updated": "2026-06-30T04:02:04+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -15,6 +15,8 @@
       "source_order": 1781204400001,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/11/2026 13:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -30,6 +32,8 @@
       "source_order": 1781229600002,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/11/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -45,6 +49,8 @@
       "source_order": 1781290800003,
       "played_at_timezone": "America/Toronto",
       "played_at": "06/12/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -60,6 +66,8 @@
       "source_order": 1781312400004,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/12/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -75,6 +83,8 @@
       "source_order": 1781377200008,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/13/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -90,6 +100,8 @@
       "source_order": 1781388000007,
       "played_at_timezone": "America/New_York",
       "played_at": "06/13/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -105,6 +117,8 @@
       "source_order": 1781398800005,
       "played_at_timezone": "America/New_York",
       "played_at": "06/13/2026 21:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -120,6 +134,8 @@
       "source_order": 1781409600006,
       "played_at_timezone": "America/Vancouver",
       "played_at": "06/13/2026 21:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -135,6 +151,8 @@
       "source_order": 1781456400010,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/14/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -150,6 +168,8 @@
       "source_order": 1781467200011,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/14/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -165,6 +185,8 @@
       "source_order": 1781478000009,
       "played_at_timezone": "America/New_York",
       "played_at": "06/14/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -180,6 +202,8 @@
       "source_order": 1781488800012,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/14/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -195,6 +219,8 @@
       "source_order": 1781539200014,
       "played_at_timezone": "America/New_York",
       "played_at": "06/15/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -210,6 +236,8 @@
       "source_order": 1781550000015,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/15/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -225,6 +253,8 @@
       "source_order": 1781560800016,
       "played_at_timezone": "America/New_York",
       "played_at": "06/15/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -240,6 +270,8 @@
       "source_order": 1781571600013,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/15/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -255,6 +287,8 @@
       "source_order": 1781636400017,
       "played_at_timezone": "America/New_York",
       "played_at": "06/16/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -270,6 +304,8 @@
       "source_order": 1781647200018,
       "played_at_timezone": "America/New_York",
       "played_at": "06/16/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -285,6 +321,8 @@
       "source_order": 1781658000019,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/16/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -300,6 +338,8 @@
       "source_order": 1781668800020,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/16/2026 21:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -315,6 +355,8 @@
       "source_order": 1781715600021,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/17/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -330,6 +372,8 @@
       "source_order": 1781726400022,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/17/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -345,6 +389,8 @@
       "source_order": 1781737200024,
       "played_at_timezone": "America/Toronto",
       "played_at": "06/17/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -360,6 +406,8 @@
       "source_order": 1781748000023,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/17/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -375,6 +423,8 @@
       "source_order": 1781798400028,
       "played_at_timezone": "America/New_York",
       "played_at": "06/18/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -390,6 +440,8 @@
       "source_order": 1781809200026,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/18/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -405,6 +457,8 @@
       "source_order": 1781820000027,
       "played_at_timezone": "America/Vancouver",
       "played_at": "06/18/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -420,6 +474,8 @@
       "source_order": 1781830800025,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/18/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -435,6 +491,8 @@
       "source_order": 1781895600031,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/19/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -450,6 +508,8 @@
       "source_order": 1781906400030,
       "played_at_timezone": "America/New_York",
       "played_at": "06/19/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -465,6 +525,8 @@
       "source_order": 1781917200029,
       "played_at_timezone": "America/New_York",
       "played_at": "06/19/2026 21:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -480,6 +542,8 @@
       "source_order": 1781924400032,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/19/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -495,6 +559,8 @@
       "source_order": 1781974800035,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/20/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -510,6 +576,8 @@
       "source_order": 1781985600033,
       "played_at_timezone": "America/Toronto",
       "played_at": "06/20/2026 16:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -525,6 +593,8 @@
       "source_order": 1782000000034,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/20/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -540,6 +610,8 @@
       "source_order": 1782014400036,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/20/2026 22:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -555,6 +627,8 @@
       "source_order": 1782057600039,
       "played_at_timezone": "America/New_York",
       "played_at": "06/21/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -570,6 +644,8 @@
       "source_order": 1782068400037,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/21/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -585,6 +661,8 @@
       "source_order": 1782079200040,
       "played_at_timezone": "America/New_York",
       "played_at": "06/21/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -600,6 +678,8 @@
       "source_order": 1782090000038,
       "played_at_timezone": "America/Vancouver",
       "played_at": "06/21/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -615,6 +695,8 @@
       "source_order": 1782147600043,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/22/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -630,6 +712,8 @@
       "source_order": 1782162000041,
       "played_at_timezone": "America/New_York",
       "played_at": "06/22/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -645,6 +729,8 @@
       "source_order": 1782172800042,
       "played_at_timezone": "America/New_York",
       "played_at": "06/22/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -660,6 +746,8 @@
       "source_order": 1782183600044,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/22/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -675,6 +763,8 @@
       "source_order": 1782234000045,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/23/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -690,6 +780,8 @@
       "source_order": 1782244800048,
       "played_at_timezone": "America/New_York",
       "played_at": "06/23/2026 16:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -705,6 +797,8 @@
       "source_order": 1782255600046,
       "played_at_timezone": "America/Toronto",
       "played_at": "06/23/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -720,6 +814,8 @@
       "source_order": 1782266400047,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/23/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -735,6 +831,8 @@
       "source_order": 1782327600053,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/24/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -750,6 +848,8 @@
       "source_order": 1782327600054,
       "played_at_timezone": "America/Vancouver",
       "played_at": "06/24/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -765,6 +865,8 @@
       "source_order": 1782338400049,
       "played_at_timezone": "America/New_York",
       "played_at": "06/24/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -780,6 +882,8 @@
       "source_order": 1782338400050,
       "played_at_timezone": "America/New_York",
       "played_at": "06/24/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -795,6 +899,8 @@
       "source_order": 1782349200051,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/24/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -810,6 +916,8 @@
       "source_order": 1782349200052,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/24/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -825,6 +933,8 @@
       "source_order": 1782417600055,
       "played_at_timezone": "America/New_York",
       "played_at": "06/25/2026 16:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -840,6 +950,8 @@
       "source_order": 1782417600056,
       "played_at_timezone": "America/New_York",
       "played_at": "06/25/2026 16:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -855,6 +967,8 @@
       "source_order": 1782428400059,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/25/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -870,6 +984,8 @@
       "source_order": 1782428400060,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/25/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -885,6 +1001,8 @@
       "source_order": 1782439200057,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/25/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -900,6 +1018,8 @@
       "source_order": 1782439200058,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/25/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -915,6 +1035,8 @@
       "source_order": 1782500400061,
       "played_at_timezone": "America/Toronto",
       "played_at": "06/26/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -930,6 +1052,8 @@
       "source_order": 1782500400062,
       "played_at_timezone": "America/New_York",
       "played_at": "06/26/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -945,6 +1069,8 @@
       "source_order": 1782518400065,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/26/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -960,6 +1086,8 @@
       "source_order": 1782518400066,
       "played_at_timezone": "America/Mexico_City",
       "played_at": "06/26/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -975,6 +1103,8 @@
       "source_order": 1782529200063,
       "played_at_timezone": "America/Los_Angeles",
       "played_at": "06/26/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -990,6 +1120,8 @@
       "source_order": 1782529200064,
       "played_at_timezone": "America/Vancouver",
       "played_at": "06/26/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1005,6 +1137,8 @@
       "source_order": 1782594000067,
       "played_at_timezone": "America/New_York",
       "played_at": "06/27/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1020,6 +1154,8 @@
       "source_order": 1782594000068,
       "played_at_timezone": "America/New_York",
       "played_at": "06/27/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1035,6 +1171,8 @@
       "source_order": 1782603000071,
       "played_at_timezone": "America/New_York",
       "played_at": "06/27/2026 19:30",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1050,6 +1188,8 @@
       "source_order": 1782603000072,
       "played_at_timezone": "America/New_York",
       "played_at": "06/27/2026 19:30",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1065,6 +1205,8 @@
       "source_order": 1782612000069,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/27/2026 21:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1080,6 +1222,8 @@
       "source_order": 1782612000070,
       "played_at_timezone": "America/Chicago",
       "played_at": "06/27/2026 21:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1095,6 +1239,8 @@
       "source_order": 1782666000073,
       "played_at_timezone": "",
       "played_at": "06/28/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1110,6 +1256,8 @@
       "source_order": 1782752400076,
       "played_at_timezone": "",
       "played_at": "06/29/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1125,7 +1273,9 @@
       "source_order": 1782768600074,
       "played_at_timezone": "",
       "played_at": "06/29/2026 16:30",
-      "winner_team": ""
+      "home_penalty_score": 3,
+      "away_penalty_score": 4,
+      "winner_team": "PARAGUAY"
     },
     {
       "match_id": 75,
@@ -1135,12 +1285,14 @@
       "away_team": "MARRUECOS",
       "home_score": 1,
       "away_score": 1,
-      "status": "live",
+      "status": "finished",
       "source_match_id": 75,
       "source_order": 1782777600075,
       "played_at_timezone": "",
       "played_at": "06/29/2026 19:00",
-      "winner_team": ""
+      "home_penalty_score": 2,
+      "away_penalty_score": 3,
+      "winner_team": "MARRUECOS"
     },
     {
       "match_id": 78,
@@ -1155,6 +1307,8 @@
       "source_order": 1782838800078,
       "played_at_timezone": "",
       "played_at": "06/30/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1170,6 +1324,8 @@
       "source_order": 1782856800077,
       "played_at_timezone": "",
       "played_at": "06/30/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1185,6 +1341,8 @@
       "source_order": 1782864000079,
       "played_at_timezone": "",
       "played_at": "06/30/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1200,6 +1358,8 @@
       "source_order": 1782925200080,
       "played_at_timezone": "",
       "played_at": "07/01/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1215,6 +1375,8 @@
       "source_order": 1782928800082,
       "played_at_timezone": "",
       "played_at": "07/01/2026 13:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1230,6 +1392,8 @@
       "source_order": 1782943200081,
       "played_at_timezone": "",
       "played_at": "07/01/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1245,6 +1409,8 @@
       "source_order": 1783011600084,
       "played_at_timezone": "",
       "played_at": "07/02/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1260,6 +1426,8 @@
       "source_order": 1783036800083,
       "played_at_timezone": "",
       "played_at": "07/02/2026 19:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1275,6 +1443,8 @@
       "source_order": 1783040400085,
       "played_at_timezone": "",
       "played_at": "07/02/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1290,6 +1460,8 @@
       "source_order": 1783101600088,
       "played_at_timezone": "",
       "played_at": "07/03/2026 13:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1305,6 +1477,8 @@
       "source_order": 1783119600086,
       "played_at_timezone": "",
       "played_at": "07/03/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1320,6 +1494,8 @@
       "source_order": 1783128600087,
       "played_at_timezone": "",
       "played_at": "07/03/2026 20:30",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1327,7 +1503,7 @@
       "stage": "OCTAVOS",
       "group": "R16",
       "home_team": "CANADA",
-      "away_team": "TBD",
+      "away_team": "MARRUECOS",
       "home_score": null,
       "away_score": null,
       "status": "scheduled",
@@ -1335,6 +1511,8 @@
       "source_order": 1783184400090,
       "played_at_timezone": "",
       "played_at": "07/04/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1350,6 +1528,8 @@
       "source_order": 1783202400089,
       "played_at_timezone": "",
       "played_at": "07/04/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1365,6 +1545,8 @@
       "source_order": 1783285200091,
       "played_at_timezone": "",
       "played_at": "07/05/2026 16:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1380,6 +1562,8 @@
       "source_order": 1783292400092,
       "played_at_timezone": "",
       "played_at": "07/05/2026 18:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1395,6 +1579,8 @@
       "source_order": 1783364400093,
       "played_at_timezone": "",
       "played_at": "07/06/2026 14:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1410,6 +1596,8 @@
       "source_order": 1783375200094,
       "played_at_timezone": "",
       "played_at": "07/06/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1425,6 +1613,8 @@
       "source_order": 1783443600095,
       "played_at_timezone": "",
       "played_at": "07/07/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1440,6 +1630,8 @@
       "source_order": 1783447200096,
       "played_at_timezone": "",
       "played_at": "07/07/2026 13:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1455,6 +1647,8 @@
       "source_order": 1783630800097,
       "played_at_timezone": "",
       "played_at": "07/09/2026 16:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1470,6 +1664,8 @@
       "source_order": 1783702800098,
       "played_at_timezone": "",
       "played_at": "07/10/2026 12:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1485,6 +1681,8 @@
       "source_order": 1783807200099,
       "played_at_timezone": "",
       "played_at": "07/11/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1500,6 +1698,8 @@
       "source_order": 1783818000100,
       "played_at_timezone": "",
       "played_at": "07/11/2026 20:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1515,6 +1715,8 @@
       "source_order": 1784055600101,
       "played_at_timezone": "",
       "played_at": "07/14/2026 14:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1530,6 +1732,8 @@
       "source_order": 1784145600102,
       "played_at_timezone": "",
       "played_at": "07/15/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1545,6 +1749,8 @@
       "source_order": 1784412000103,
       "played_at_timezone": "",
       "played_at": "07/18/2026 17:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     },
     {
@@ -1560,6 +1766,8 @@
       "source_order": 1784491200104,
       "played_at_timezone": "",
       "played_at": "07/19/2026 15:00",
+      "home_penalty_score": null,
+      "away_penalty_score": null,
       "winner_team": ""
     }
   ]

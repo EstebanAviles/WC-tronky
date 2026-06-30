@@ -358,10 +358,13 @@ def convert_worldcup26_game(game, schedule):
     game_status = worldcup26_status(game)
     home_score = game.get("home_score")
     away_score = game.get("away_score")
+    home_penalty_score = game.get("home_penalty_score")
+    away_penalty_score = game.get("away_penalty_score")
     if game_status in {"finished", "live"} and (home_score is None or away_score is None):
         return None
     if reverse_score:
         home_score, away_score = away_score, home_score
+        home_penalty_score, away_penalty_score = away_penalty_score, home_penalty_score
 
     return {
         "match_id": match_id,
@@ -376,8 +379,37 @@ def convert_worldcup26_game(game, schedule):
         "source_order": worldcup26_source_order(game),
         "played_at_timezone": MATCH_TIME_ZONES.get(source_match_id, ""),
         "played_at": game.get("local_date", ""),
-        "winner_team": normalize_api_team(game.get("winner_team_name_en", "")) if game.get("winner_team_name_en") else "",
+        "home_penalty_score": int_or_none(home_penalty_score),
+        "away_penalty_score": int_or_none(away_penalty_score),
+        "winner_team": worldcup26_winner_team(game, schedule_row, reverse_score),
     }
+
+
+def int_or_none(value):
+    if value in {None, "", "null"}:
+        return None
+    return int(value)
+
+
+def worldcup26_winner_team(game, schedule_row, reverse_score):
+    explicit_winner = game.get("winner_team_name_en", "")
+    if explicit_winner:
+        return normalize_api_team(explicit_winner)
+
+    home_penalty_score = game.get("home_penalty_score")
+    away_penalty_score = game.get("away_penalty_score")
+    if int_or_none(home_penalty_score) is None or int_or_none(away_penalty_score) is None:
+        return ""
+
+    home_penalty_score = int_or_none(home_penalty_score)
+    away_penalty_score = int_or_none(away_penalty_score)
+    if home_penalty_score == away_penalty_score:
+        return ""
+
+    home_won = home_penalty_score > away_penalty_score
+    if reverse_score:
+        home_won = not home_won
+    return schedule_row["home_team"] if home_won else schedule_row["away_team"]
 
 
 def football_data_status(status):
