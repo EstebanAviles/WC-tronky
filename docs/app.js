@@ -2,6 +2,7 @@ let leaderboardRows = [];
 let matchRows = [];
 let staticMatchRows = [];
 let predictionRows = [];
+let championRows = [];
 let fallbackLeaderboardRows = [];
 let fallbackLastUpdated = "";
 let liveLastUpdated = "";
@@ -137,6 +138,7 @@ const TEAM_FLAGS = {
   ECUADOR: "EC",
   EGIPTO: "EG",
   ESCOCIA: "GB-SCT",
+  ESPANA: "ES",
   ESPAÑA: "ES",
   "ESTADOS UNIDOS": "US",
   FRANCIA: "FR",
@@ -236,13 +238,15 @@ async function loadPageData() {
   isLoadingPageData = true;
 
   try {
-    const [leaderboardData, matchData, predictionData] = await Promise.all([
+    const [leaderboardData, matchData, predictionData, championData] = await Promise.all([
       fetchJson("./data/leaderboard.json"),
       fetchJson("./data/match_scores.json"),
       fetchJson("./data/predictions.json"),
+      fetchJson("./data/champions.json"),
     ]);
 
     predictionRows = predictionData.predictions || [];
+    championRows = championData.champions || [];
     staticMatchRows = matchData.matches || [];
     fallbackLeaderboardRows = leaderboardData.leaderboard || [];
     fallbackLastUpdated = matchData.last_updated || leaderboardData.last_updated;
@@ -450,6 +454,11 @@ function renderMatches(container) {
   const matchStatus = document.getElementById("matches-status");
   const matchMessage = document.getElementById("match-message");
   const matchesTitle = document.getElementById("matches-title");
+  if (selectedMatchView === "champions") {
+    renderChampionDistribution(container, matchStatus, matchMessage, matchesTitle);
+    return;
+  }
+
   const isScheduledView = selectedMatchView === "scheduled";
   const allMatches = matchRows
     .filter((match) => isScheduledView ? match.status === "scheduled" : match.status === "finished")
@@ -512,6 +521,81 @@ function renderMatches(container) {
     });
     container.appendChild(toggle);
   }
+}
+
+function renderChampionDistribution(container, matchStatus, matchMessage, matchesTitle) {
+  const distribution = championDistribution();
+  const total = championRows.length;
+
+  matchesTitle.textContent = "Campe\u00f3n";
+  matchStatus.textContent = `${total} jugadores`;
+  matchStatus.className = "status-pill status-pill--ok";
+  matchMessage.textContent = total ? "" : "Todav\u00eda no hay pron\u00f3sticos de campe\u00f3n.";
+  container.innerHTML = "";
+
+  if (!total) return;
+
+  container.innerHTML = `
+    <section class="champion-view" aria-label="Distribuci\u00f3n de campeones">
+      <div class="champion-card">
+        <div class="champion-card__header">
+          <div>
+            <p class="eyebrow">Distribuci\u00f3n</p>
+            <h3>Campe\u00f3n elegido</h3>
+          </div>
+          <strong>${total}</strong>
+        </div>
+        <div class="champion-distribution">
+          ${distribution.map((item, index) => championDistributionRow(item, total, index)).join("")}
+        </div>
+      </div>
+      <div class="champion-picks">
+        <div class="champion-picks__header">
+          <span>Jugador</span>
+          <span>Predicci\u00f3n</span>
+        </div>
+        ${championRows
+          .slice()
+          .sort((a, b) => participantLabel(a.participant).localeCompare(participantLabel(b.participant), "es"))
+          .map((row) => `
+            <article class="champion-pick">
+              <strong>${escapeHtml(participantLabel(row.participant))}</strong>
+              <span>${flagMarkup(flagForTeam(row.champion), row.champion)} ${escapeHtml(row.champion)}</span>
+            </article>
+          `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function championDistribution() {
+  const byTeam = new Map();
+  championRows.forEach((row) => {
+    const team = normalizedTeamName(row.champion);
+    if (!team) return;
+    const item = byTeam.get(team) || { team, participants: [] };
+    item.participants.push(row.participant);
+    byTeam.set(team, item);
+  });
+
+  return [...byTeam.values()]
+    .map((item) => ({ ...item, count: item.participants.length }))
+    .sort((a, b) => b.count - a.count || a.team.localeCompare(b.team, "es"));
+}
+
+function championDistributionRow(item, total, index) {
+  const percentage = Math.round((item.count / total) * 100);
+  return `
+    <article class="champion-distribution__row champion-distribution__row--${(index % 5) + 1}">
+      <div class="champion-distribution__top">
+        <strong>${flagMarkup(flagForTeam(item.team), item.team)} ${escapeHtml(item.team)}</strong>
+        <span>${item.count} · ${percentage}%</span>
+      </div>
+      <div class="champion-bar" aria-hidden="true">
+        <span style="width: ${percentage}%"></span>
+      </div>
+    </article>
+  `;
 }
 
 function renderHeroLive(matches) {

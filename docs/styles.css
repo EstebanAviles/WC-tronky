@@ -590,7 +590,7 @@ tbody tr.row-updated {
 
 .match-tabs {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.8rem;
   margin-bottom: 1rem;
 }
@@ -624,6 +624,137 @@ tbody tr.row-updated {
 .match-list {
   display: grid;
   gap: 1rem;
+}
+
+.champion-view {
+  display: grid;
+  gap: 1rem;
+}
+
+.champion-card,
+.champion-picks {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 24px rgba(15, 40, 25, 0.06);
+}
+
+.champion-card {
+  padding: 1rem;
+}
+
+.champion-card__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.champion-card__header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.champion-card__header strong {
+  color: var(--grass-dark);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.champion-distribution {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.champion-distribution__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.champion-distribution__top strong,
+.champion-pick span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.champion-distribution__top strong {
+  font-size: 1.05rem;
+}
+
+.champion-distribution__top span {
+  color: var(--muted);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.champion-bar {
+  overflow: hidden;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: #edf1ec;
+}
+
+.champion-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--champion-color, var(--grass));
+}
+
+.champion-distribution__row--1 {
+  --champion-color: var(--grass);
+}
+
+.champion-distribution__row--2 {
+  --champion-color: var(--gold);
+}
+
+.champion-distribution__row--3 {
+  --champion-color: #7b5cc8;
+}
+
+.champion-distribution__row--4 {
+  --champion-color: #9ba2a8;
+}
+
+.champion-distribution__row--5 {
+  --champion-color: #c84d3d;
+}
+
+.champion-picks {
+  overflow: hidden;
+}
+
+.champion-picks__header,
+.champion-pick {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.champion-picks__header {
+  padding: 0.7rem 1rem;
+  color: var(--muted);
+  background: #f4f8f2;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.champion-pick {
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.champion-pick span {
+  justify-self: end;
+  font-weight: 900;
 }
 
 .match-toggle {
@@ -1449,6 +1580,16 @@ tbody tr.row-updated {
 
   .match-grid {
     grid-template-columns: 1fr;
+  }
+
+  .match-tabs,
+  .champion-picks__header,
+  .champion-pick {
+    grid-template-columns: 1fr;
+  }
+
+  .champion-pick span {
+    justify-self: start;
   }
 
   .prediction-card,

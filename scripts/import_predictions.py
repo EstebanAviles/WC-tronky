@@ -1,6 +1,7 @@
 import argparse
 import json
 import unicodedata
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -9,8 +10,10 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "raw"
 OUTPUT_PATH = ROOT / "data" / "predictions.csv"
+CHAMPIONS_JSON_PATH = ROOT / "docs" / "data" / "champions.json"
 MATCH_SCORES_PATH = ROOT / "docs" / "data" / "match_scores.json"
 SHEET_NAME = "PRONOSTICOS"
+CHAMPION_SHEET_NAME = "CAMPEON"
 
 REQUIRED_COLUMNS = [
     "Partido",
@@ -81,6 +84,14 @@ def prediction_sheet(path):
     if len(workbook.sheet_names) > 1:
         return workbook.sheet_names[1]
     return workbook.sheet_names[0]
+
+
+def champion_sheet(path):
+    workbook = pd.ExcelFile(path)
+    for sheet in workbook.sheet_names:
+        if normalize_text(sheet) == CHAMPION_SHEET_NAME:
+            return sheet
+    return ""
 
 
 def load_canonical_matches():
@@ -181,6 +192,38 @@ def load_workbook_predictions(path, matches):
     )
 
 
+def load_workbook_champion(path):
+    sheet = champion_sheet(path)
+    if not sheet:
+        return None
+
+    frame = pd.read_excel(path, sheet_name=sheet, header=None)
+    values = [
+        value
+        for value in frame.to_numpy().ravel().tolist()
+        if not pd.isna(value) and normalize_text(value)
+    ]
+    if not values:
+        return None
+
+    return {
+        "participant": participant_name(path),
+        "champion": normalize_team(values[-1]),
+    }
+
+
+def write_public_champions(champions):
+    records = sorted(champions, key=lambda row: row["participant"])
+    output = {
+        "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "champions": records,
+    }
+    CHAMPIONS_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with CHAMPIONS_JSON_PATH.open("w", encoding="utf-8") as file:
+        json.dump(output, file, indent=2, ensure_ascii=False)
+        file.write("\n")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("inputs", nargs="*", help="Excel files or directories. Defaults to data/raw.")
@@ -195,6 +238,11 @@ def main():
         [load_workbook_predictions(path, matches) for path in excel_files],
         ignore_index=True,
     )
+    champions = [
+        champion
+        for champion in (load_workbook_champion(path) for path in excel_files)
+        if champion
+    ]
     if OUTPUT_PATH.exists():
         existing = pd.read_csv(OUTPUT_PATH)
         if "predicted_qualifier" not in existing.columns:
@@ -208,7 +256,9 @@ def main():
     predictions = predictions.sort_values(["participant", "match_id"])
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     predictions.to_csv(OUTPUT_PATH, index=False)
+    write_public_champions(champions)
     print(f"Wrote {len(predictions)} predictions to {OUTPUT_PATH}")
+    print(f"Wrote {len(champions)} champion predictions to {CHAMPIONS_JSON_PATH}")
 
 
 if __name__ == "__main__":
