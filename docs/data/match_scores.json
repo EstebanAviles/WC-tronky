@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T22:22:10+00:00",
+  "last_updated": "2026-06-30T03:45:49+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1120,7 +1120,7 @@
       "away_team": "PARAGUAY",
       "home_score": 1,
       "away_score": 1,
-      "status": "live",
+      "status": "finished",
       "source_match_id": 74,
       "source_order": 1782768600074,
       "played_at_timezone": "",
@@ -1133,9 +1133,9 @@
       "group": "R32",
       "home_team": "PAISES BAJOS",
       "away_team": "MARRUECOS",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 1,
+      "away_score": 1,
+      "status": "live",
       "source_match_id": 75,
       "source_order": 1782777600075,
       "played_at_timezone": "",
@@ -1341,7 +1341,7 @@
       "match_id": 89,
       "stage": "OCTAVOS",
       "group": "R16",
-      "home_team": "TBD",
+      "home_team": "PARAGUAY",
       "away_team": "TBD",
       "home_score": null,
       "away_score": null,

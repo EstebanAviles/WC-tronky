@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T22:22:28+00:00",
+  "last_updated": "2026-06-30T03:45:59+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -814,6 +814,17 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Alen",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "PAISES BAJOS"
     },
     {
       "participant": "Alen",
@@ -1642,6 +1653,17 @@
     },
     {
       "participant": "Angel",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "MARRUECOS"
+    },
+    {
+      "participant": "Angel",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -2467,6 +2489,17 @@
     },
     {
       "participant": "Arana",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "PAISES BAJOS"
+    },
+    {
+      "participant": "Arana",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -3289,6 +3322,17 @@
       "predicted_home_score": 3,
       "predicted_away_score": 1,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Artola",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 3,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "PAISES BAJOS"
     },
     {
       "participant": "Artola",
@@ -4117,6 +4161,17 @@
     },
     {
       "participant": "Biankits",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "PAISES BAJOS"
+    },
+    {
+      "participant": "Biankits",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -4942,6 +4997,17 @@
     },
     {
       "participant": "Dcas",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 3,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "PAISES BAJOS"
+    },
+    {
+      "participant": "Dcas",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -5764,6 +5830,17 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "MARRUECOS"
     },
     {
       "participant": "Djunza",
@@ -6592,6 +6669,17 @@
     },
     {
       "participant": "Gus",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "PAISES BAJOS"
+    },
+    {
+      "participant": "Gus",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -7417,6 +7505,17 @@
     },
     {
       "participant": "Jogy",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "MARRUECOS"
+    },
+    {
+      "participant": "Jogy",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -8239,6 +8338,17 @@
       "predicted_home_score": 2,
       "predicted_away_score": 0,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "MARRUECOS"
     },
     {
       "participant": "Kratos",
@@ -9067,6 +9177,17 @@
     },
     {
       "participant": "Luismi",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "MARRUECOS"
+    },
+    {
+      "participant": "Luismi",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -9889,6 +10010,17 @@
       "predicted_home_score": 2,
       "predicted_away_score": 0,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "PAISES BAJOS"
     },
     {
       "participant": "Masaru",
@@ -10717,6 +10849,17 @@
     },
     {
       "participant": "Trucha",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "MARRUECOS"
+    },
+    {
+      "participant": "Trucha",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -11539,6 +11682,17 @@
       "predicted_home_score": 2,
       "predicted_away_score": 0,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "PAISES BAJOS"
     },
     {
       "participant": "Wonky",
@@ -12367,6 +12521,17 @@
     },
     {
       "participant": "Zhoko",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "PAISES BAJOS"
+    },
+    {
+      "participant": "Zhoko",
       "match_id": 76,
       "stage": "16AVOS",
       "group": "R32",
@@ -13189,6 +13354,17 @@
       "predicted_home_score": 3,
       "predicted_away_score": 0,
       "predicted_qualifier": "ALEMANIA"
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 75,
+      "stage": "16AVOS",
+      "group": "R32",
+      "home_team": "PAISES BAJOS",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "PAISES BAJOS"
     },
     {
       "participant": "Ñeño",
