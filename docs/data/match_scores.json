@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-01T20:58:33+00:00",
+  "last_updated": "2026-07-01T22:21:03+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1448,8 +1448,8 @@
       "group": "R32",
       "home_team": "BELGICA",
       "away_team": "SENEGAL",
-      "home_score": 0,
-      "away_score": 1,
+      "home_score": 2,
+      "away_score": 2,
       "status": "live",
       "source_match_id": 82,
       "source_order": 1782928800082,
