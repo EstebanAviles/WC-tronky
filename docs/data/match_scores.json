@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-01T15:32:25+00:00",
+  "last_updated": "2026-07-01T17:31:57+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1430,9 +1430,9 @@
       "group": "R32",
       "home_team": "INGLATERRA",
       "away_team": "RD CONGO",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 0,
+      "away_score": 1,
+      "status": "live",
       "source_match_id": 80,
       "source_order": 1782925200080,
       "played_at_timezone": "",
