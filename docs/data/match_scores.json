@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-01T01:36:24+00:00",
+  "last_updated": "2026-07-01T06:09:33+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1412,9 +1412,9 @@
       "group": "R32",
       "home_team": "MEXICO",
       "away_team": "ECUADOR",
-      "home_score": 0,
+      "home_score": 2,
       "away_score": 0,
-      "status": "live",
+      "status": "finished",
       "source_match_id": 79,
       "source_order": 1782864000079,
       "played_at_timezone": "",
@@ -1644,7 +1644,7 @@
       "match_id": 92,
       "stage": "OCTAVOS",
       "group": "R16",
-      "home_team": "TBD",
+      "home_team": "MEXICO",
       "away_team": "TBD",
       "home_score": null,
       "away_score": null,
