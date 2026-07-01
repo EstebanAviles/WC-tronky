@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-01T22:21:03+00:00",
+  "last_updated": "2026-07-01T23:49:31+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1448,9 +1448,9 @@
       "group": "R32",
       "home_team": "BELGICA",
       "away_team": "SENEGAL",
-      "home_score": 2,
+      "home_score": 3,
       "away_score": 2,
-      "status": "live",
+      "status": "finished",
       "source_match_id": 82,
       "source_order": 1782928800082,
       "played_at_timezone": "",
@@ -1681,7 +1681,7 @@
       "stage": "OCTAVOS",
       "group": "R16",
       "home_team": "TBD",
-      "away_team": "TBD",
+      "away_team": "BELGICA",
       "home_score": null,
       "away_score": null,
       "status": "scheduled",
