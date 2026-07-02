@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-02T01:52:52+00:00",
+  "last_updated": "2026-07-02T05:47:47+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1468,7 +1468,7 @@
       "away_team": "BOSNIA",
       "home_score": 2,
       "away_score": 0,
-      "status": "live",
+      "status": "finished",
       "source_match_id": 81,
       "source_order": 1782943200081,
       "played_at_timezone": "",
@@ -1680,7 +1680,7 @@
       "match_id": 94,
       "stage": "OCTAVOS",
       "group": "R16",
-      "home_team": "TBD",
+      "home_team": "ESTADOS UNIDOS",
       "away_team": "BELGICA",
       "home_score": null,
       "away_score": null,
