@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-04T20:07:38+00:00",
+  "last_updated": "2026-07-04T21:56:10+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -3380,10 +3380,10 @@
       "group": "R16",
       "home_team": "CANADA",
       "away_team": "MARRUECOS",
-      "predicted_home_score": 1,
-      "predicted_away_score": 2,
-      "predicted_qualifier": "MARRUECOS",
-      "did_not_predict": false
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
     },
     {
       "participant": "Arana",
@@ -5672,10 +5672,10 @@
       "group": "R16",
       "home_team": "PARAGUAY",
       "away_team": "FRANCIA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 0,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -5696,10 +5696,10 @@
       "group": "R16",
       "home_team": "PORTUGAL",
       "away_team": "ESPANA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -5708,10 +5708,10 @@
       "group": "R16",
       "home_team": "ESTADOS UNIDOS",
       "away_team": "BELGICA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "BELGICA",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -5720,10 +5720,10 @@
       "group": "R16",
       "home_team": "BRASIL",
       "away_team": "NORUEGA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "NORUEGA",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -5732,10 +5732,10 @@
       "group": "R16",
       "home_team": "MEXICO",
       "away_team": "INGLATERRA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "MEXICO",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -5744,10 +5744,10 @@
       "group": "R16",
       "home_team": "ARGENTINA",
       "away_team": "EGIPTO",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -5756,10 +5756,10 @@
       "group": "R16",
       "home_team": "SUIZA",
       "away_team": "COLOMBIA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 0,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
     },
     {
       "participant": "Dcas",
@@ -9128,10 +9128,10 @@
       "group": "R16",
       "home_team": "PARAGUAY",
       "away_team": "FRANCIA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 0,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
     },
     {
       "participant": "Gus",
@@ -9152,10 +9152,10 @@
       "group": "R16",
       "home_team": "PORTUGAL",
       "away_team": "ESPANA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
     },
     {
       "participant": "Gus",
@@ -9164,10 +9164,10 @@
       "group": "R16",
       "home_team": "ESTADOS UNIDOS",
       "away_team": "BELGICA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESTADOS UNIDOS",
+      "did_not_predict": false
     },
     {
       "participant": "Gus",
@@ -9176,10 +9176,10 @@
       "group": "R16",
       "home_team": "BRASIL",
       "away_team": "NORUEGA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "BRASIL",
+      "did_not_predict": false
     },
     {
       "participant": "Gus",
@@ -9188,10 +9188,10 @@
       "group": "R16",
       "home_team": "MEXICO",
       "away_team": "INGLATERRA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
     },
     {
       "participant": "Gus",
@@ -9200,10 +9200,10 @@
       "group": "R16",
       "home_team": "ARGENTINA",
       "away_team": "EGIPTO",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
     },
     {
       "participant": "Gus",
@@ -9212,10 +9212,10 @@
       "group": "R16",
       "home_team": "SUIZA",
       "away_team": "COLOMBIA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
     },
     {
       "participant": "Jogy",
@@ -11444,10 +11444,10 @@
       "group": "R16",
       "home_team": "CANADA",
       "away_team": "MARRUECOS",
-      "predicted_home_score": 1,
-      "predicted_away_score": 2,
-      "predicted_qualifier": "MARRUECOS",
-      "did_not_predict": false
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
     },
     {
       "participant": "Kratos",
@@ -14900,10 +14900,10 @@
       "group": "R16",
       "home_team": "CANADA",
       "away_team": "MARRUECOS",
-      "predicted_home_score": 1,
-      "predicted_away_score": 2,
-      "predicted_qualifier": "MARRUECOS",
-      "did_not_predict": false
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
     },
     {
       "participant": "Trucha",
