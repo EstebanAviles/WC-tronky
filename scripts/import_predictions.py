@@ -34,6 +34,7 @@ TEAM_ALIASES = {
 }
 STAGE_ALIASES = {
     "16VOS": "16AVOS",
+    "8VOS": "OCTAVOS",
 }
 
 
@@ -165,6 +166,7 @@ def prediction_record(row, participant, qualifier_column, matches):
         "predicted_home_score": home_score,
         "predicted_away_score": away_score,
         "predicted_qualifier": predicted_qualifier(row, qualifier_column),
+        "did_not_predict": False,
     }
 
 
@@ -224,9 +226,38 @@ def write_public_champions(champions):
         file.write("\n")
 
 
+def missing_prediction_records(predictions, existing):
+    participants = sorted(existing["participant"].dropna().unique())
+    current_keys = set(zip(predictions["participant"], predictions["match_id"]))
+    matches = predictions.drop_duplicates("match_id").set_index("match_id")
+    records = []
+
+    for participant in participants:
+        for match_id, match in matches.iterrows():
+            if (participant, match_id) in current_keys:
+                continue
+            records.append(
+                {
+                    "participant": participant,
+                    "match_id": int(match_id),
+                    "stage": match["stage"],
+                    "group": match["group"],
+                    "home_team": match["home_team"],
+                    "away_team": match["away_team"],
+                    "predicted_home_score": pd.NA,
+                    "predicted_away_score": pd.NA,
+                    "predicted_qualifier": "",
+                    "did_not_predict": True,
+                }
+            )
+
+    return pd.DataFrame(records)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("inputs", nargs="*", help="Excel files or directories. Defaults to data/raw.")
+    parser.add_argument("--fill-missing", action="store_true", help="Add explicit no-prediction rows for missing participants.")
     args = parser.parse_args()
 
     excel_files = prediction_files(args.inputs)
@@ -247,6 +278,11 @@ def main():
         existing = pd.read_csv(OUTPUT_PATH)
         if "predicted_qualifier" not in existing.columns:
             existing["predicted_qualifier"] = ""
+        if "did_not_predict" not in existing.columns:
+            existing["did_not_predict"] = False
+        if args.fill_missing:
+            missing = missing_prediction_records(predictions, existing)
+            predictions = pd.concat([predictions, missing], ignore_index=True)
         current_keys = set(zip(predictions["participant"], predictions["match_id"]))
         preserved = existing[
             ~existing.apply(lambda row: (row["participant"], row["match_id"]) in current_keys, axis=1)
@@ -256,9 +292,11 @@ def main():
     predictions = predictions.sort_values(["participant", "match_id"])
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     predictions.to_csv(OUTPUT_PATH, index=False)
-    write_public_champions(champions)
+    if champions:
+        write_public_champions(champions)
     print(f"Wrote {len(predictions)} predictions to {OUTPUT_PATH}")
-    print(f"Wrote {len(champions)} champion predictions to {CHAMPIONS_JSON_PATH}")
+    if champions:
+        print(f"Wrote {len(champions)} champion predictions to {CHAMPIONS_JSON_PATH}")
 
 
 if __name__ == "__main__":

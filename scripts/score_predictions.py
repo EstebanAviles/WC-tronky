@@ -86,6 +86,16 @@ def normalized_team(value):
     return str(value).strip().upper()
 
 
+def optional_int(value):
+    if pd.isna(value) or value == "":
+        return None
+    return int(value)
+
+
+def did_not_predict(prediction):
+    return str(prediction.get("did_not_predict", "")).strip().lower() in {"true", "1", "yes"}
+
+
 def qualifier_from_match(match):
     winner = normalized_team(match.get("winner_team", ""))
     if winner:
@@ -101,6 +111,9 @@ def qualifier_from_match(match):
 
 
 def points_for_prediction(prediction, match):
+    if did_not_predict(prediction):
+        return 0, False, False, False, False
+
     predicted_home = int(prediction["predicted_home_score"])
     predicted_away = int(prediction["predicted_away_score"])
     actual_home = int(match["home_score"])
@@ -126,7 +139,9 @@ def points_for_prediction(prediction, match):
     return 0, False, False, goal_difference, False
 
 
-def result_type(exact, correct, qualifier):
+def result_type(exact, correct, qualifier, no_prediction=False):
+    if no_prediction:
+        return "no_prediction"
     if exact:
         return "exact"
     if correct:
@@ -136,7 +151,7 @@ def result_type(exact, correct, qualifier):
     return "miss"
 
 
-def recent_result(prediction, match, points, exact, correct, goal_difference, qualifier):
+def recent_result(prediction, match, points, exact, correct, goal_difference, qualifier, no_prediction):
     return {
         "match_id": int(prediction["match_id"]),
         "source_match_id": match.get("source_match_id"),
@@ -149,14 +164,15 @@ def recent_result(prediction, match, points, exact, correct, goal_difference, qu
         "away_team": match.get("away_team", prediction["away_team"]),
         "home_flag": TEAM_FLAGS.get(match.get("home_team", prediction["home_team"]), ""),
         "away_flag": TEAM_FLAGS.get(match.get("away_team", prediction["away_team"]), ""),
-        "predicted_home_score": int(prediction["predicted_home_score"]),
-        "predicted_away_score": int(prediction["predicted_away_score"]),
+        "predicted_home_score": optional_int(prediction["predicted_home_score"]),
+        "predicted_away_score": optional_int(prediction["predicted_away_score"]),
         "predicted_qualifier": normalized_team(prediction.get("predicted_qualifier", "")),
+        "did_not_predict": bool(no_prediction),
         "actual_qualifier": qualifier_from_match(match),
         "actual_home_score": int(match["home_score"]),
         "actual_away_score": int(match["away_score"]),
         "points": points,
-        "result": result_type(exact, correct, qualifier),
+        "result": result_type(exact, correct, qualifier, no_prediction),
         "goal_difference": goal_difference,
     }
 
@@ -264,6 +280,7 @@ def score_leaderboard(predictions, matches):
                 continue
 
             points, exact, correct, goal_difference, qualifier = points_for_prediction(prediction, match)
+            no_prediction = did_not_predict(prediction)
             status = str(match.get("status", "")).lower()
 
             if status in SCORING_STATUSES:
@@ -271,9 +288,9 @@ def score_leaderboard(predictions, matches):
                 exact_scores += int(exact)
                 goal_differences += int(goal_difference)
                 correct_results += int(correct or qualifier)
-                missed_results += int(not exact and not correct and not qualifier)
+                missed_results += int(no_prediction or (not exact and not correct and not qualifier))
                 played_matches += 1
-                recent_results.append(recent_result(prediction, match, points, exact, correct, goal_difference, qualifier))
+                recent_results.append(recent_result(prediction, match, points, exact, correct, goal_difference, qualifier, no_prediction))
 
         rows.append(
             {
@@ -320,9 +337,10 @@ def write_public_predictions(predictions):
                 "group": row["group"],
                 "home_team": row["home_team"],
                 "away_team": row["away_team"],
-                "predicted_home_score": int(row["predicted_home_score"]),
-                "predicted_away_score": int(row["predicted_away_score"]),
+                "predicted_home_score": optional_int(row["predicted_home_score"]),
+                "predicted_away_score": optional_int(row["predicted_away_score"]),
                 "predicted_qualifier": normalized_team(row.get("predicted_qualifier", "")),
+                "did_not_predict": did_not_predict(row),
             }
         )
 

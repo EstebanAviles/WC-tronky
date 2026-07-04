@@ -557,6 +557,10 @@ tbody tr.row-updated {
   background: #c84d3d;
 }
 
+.form-dot--no_prediction {
+  background: #7c8580;
+}
+
 .table-message {
   min-height: 1.5rem;
   margin: 0.9rem 0 0;
@@ -1174,6 +1178,11 @@ tbody tr.row-updated {
   background: linear-gradient(90deg, rgba(200, 77, 61, 0.14), white 38%);
 }
 
+.recent-card--no_prediction {
+  border-left-color: #7c8580;
+  background: linear-gradient(90deg, rgba(124, 133, 128, 0.14), white 38%);
+}
+
 .recent-card__teams,
 .recent-card__meta {
   display: grid;
@@ -1270,6 +1279,12 @@ tbody tr.row-updated {
 .prediction-card--miss span:nth-of-type(2) {
   color: white;
   background: #c84d3d;
+}
+
+.recent-card--no_prediction .recent-card__meta span:nth-child(2),
+.prediction-card--no_prediction span:nth-of-type(2) {
+  color: white;
+  background: #7c8580;
 }
 
 .prediction-card {

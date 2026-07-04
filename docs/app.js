@@ -18,7 +18,7 @@ let previousLeaderboardSnapshot = new Map();
 let hasRenderedLeaderboard = false;
 let enableLeaderboardAnimations = false;
 const expandedMatchViews = new Set();
-const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32"]);
+const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16"]);
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -429,6 +429,9 @@ function matchesLeaderboardFilter(match) {
   if (String(match.stage || "").toUpperCase() === "16AVOS" || String(match.group || "").toUpperCase() === "R32") {
     return selectedLeaderboardFilters.has("r32");
   }
+  if (String(match.stage || "").toUpperCase() === "OCTAVOS" || String(match.group || "").toUpperCase() === "R16") {
+    return selectedLeaderboardFilters.has("r16");
+  }
   return false;
 }
 
@@ -438,6 +441,7 @@ function leaderboardFilterSummary() {
   if (selectedLeaderboardFilters.has("group-2")) labels.push("Fecha 2");
   if (selectedLeaderboardFilters.has("group-3")) labels.push("Fecha 3");
   if (selectedLeaderboardFilters.has("r32")) labels.push("16vos");
+  if (selectedLeaderboardFilters.has("r16")) labels.push("8vos");
   return labels.length ? `Mostrando: ${labels.join(", ")}.` : "No hay fechas seleccionadas.";
 }
 
@@ -730,9 +734,11 @@ function convertLiveGame(game, schedule) {
   const homeTeam = normalizeTeam(game.home_team_name_en || "");
   const awayTeam = normalizeTeam(game.away_team_name_en || "");
   const sourceMatchId = numberOrNull(game.id);
-  const scheduleMatch = schedule.bySourceId.get(Number(sourceMatchId))
-    || schedule.byPair.get(pairKey(homeTeam, awayTeam));
+  const pairMatch = homeTeam && awayTeam ? schedule.byPair.get(pairKey(homeTeam, awayTeam)) : null;
+  const idMatch = sourceMatchId !== null ? schedule.bySourceId.get(Number(sourceMatchId)) : null;
+  const scheduleMatch = pairMatch || idMatch;
   if (!scheduleMatch) return null;
+  if (!pairMatch && !sourceMatchCanUseLiveTeams(scheduleMatch.match, homeTeam, awayTeam)) return null;
 
   const status = liveGameStatus(game);
   const homeScore = numberOrNull(game.home_score);
@@ -746,12 +752,12 @@ function convertLiveGame(game, schedule) {
 
   return {
     ...scheduleMatch.match,
-    home_team: homeTeam || scheduleMatch.match.home_team,
-    away_team: awayTeam || scheduleMatch.match.away_team,
+    home_team: displayTeamForLiveMatch(scheduleMatch, homeTeam, awayTeam, "home"),
+    away_team: displayTeamForLiveMatch(scheduleMatch, homeTeam, awayTeam, "away"),
     home_score: status === "scheduled" ? null : scoreHome,
     away_score: status === "scheduled" ? null : scoreAway,
     status,
-    source_match_id: sourceMatchId,
+    source_match_id: pairMatch ? scheduleMatch.match.source_match_id : sourceMatchId,
     source_order: liveSourceOrder(game, scheduleMatch.match),
     played_at: game.local_date || scheduleMatch.match.played_at || "",
     tronky_source: game.tronky_source || "worldcup26",
@@ -761,6 +767,23 @@ function convertLiveGame(game, schedule) {
     away_penalty_score: scheduleMatch.reverse ? homePenalty : awayPenalty,
     winner_team: normalizeTeam(game.winner_team || penaltyWinnerTeam(game, scheduleMatch.reverse)),
   };
+}
+
+function sourceMatchCanUseLiveTeams(match, homeTeam, awayTeam) {
+  if (!homeTeam || !awayTeam) return true;
+  return isPlaceholderTeam(match.home_team) || isPlaceholderTeam(match.away_team);
+}
+
+function displayTeamForLiveMatch(scheduleMatch, liveHomeTeam, liveAwayTeam, side) {
+  const match = scheduleMatch.match;
+  const staticTeam = side === "home" ? match.home_team : match.away_team;
+  if (!isPlaceholderTeam(staticTeam)) return staticTeam;
+  if (side === "home") return scheduleMatch.reverse ? liveAwayTeam : liveHomeTeam;
+  return scheduleMatch.reverse ? liveHomeTeam : liveAwayTeam;
+}
+
+function isPlaceholderTeam(team) {
+  return ["", "TBD", "POR DEFINIR"].includes(normalizedTeamName(team));
 }
 
 function liveSourceLabel(match) {
@@ -902,7 +925,7 @@ function scoreRows(predictions, matches) {
       row.exact_scores += scored.result === "exact" ? 1 : 0;
       row.goal_differences += scored.goalDifference ? 1 : 0;
       row.correct_results += ["correct", "qualifier"].includes(scored.result) ? 1 : 0;
-      row.missed_results += scored.result === "miss" ? 1 : 0;
+      row.missed_results += ["miss", "no_prediction"].includes(scored.result) ? 1 : 0;
       row.played_matches += 1;
       row.all_results.push(resultForPlayer(prediction, match, scored));
     }
@@ -923,6 +946,10 @@ function scoreRows(predictions, matches) {
 }
 
 function scorePrediction(prediction, match) {
+  if (isNoPrediction(prediction)) {
+    return { points: 0, result: "no_prediction", goalDifference: false };
+  }
+
   const predictedHome = Number(prediction.predicted_home_score);
   const predictedAway = Number(prediction.predicted_away_score);
   const actualHome = Number(match.home_score);
@@ -962,9 +989,10 @@ function resultForPlayer(prediction, match, scored) {
     away_team: match.away_team || prediction.away_team,
     home_flag: flagForTeam(match.home_team || prediction.home_team),
     away_flag: flagForTeam(match.away_team || prediction.away_team),
-    predicted_home_score: Number(prediction.predicted_home_score),
-    predicted_away_score: Number(prediction.predicted_away_score),
+    predicted_home_score: nullableNumber(prediction.predicted_home_score),
+    predicted_away_score: nullableNumber(prediction.predicted_away_score),
     predicted_qualifier: normalizedTeamName(prediction.predicted_qualifier),
+    did_not_predict: isNoPrediction(prediction),
     actual_qualifier: actualQualifier(match),
     actual_home_score: Number(match.home_score),
     actual_away_score: Number(match.away_score),
@@ -986,6 +1014,16 @@ function isKnockoutMatch(match) {
 
 function normalizedTeamName(value) {
   return normalizeTeam(value);
+}
+
+function isNoPrediction(prediction) {
+  return String(prediction.did_not_predict || "").toLowerCase() === "true";
+}
+
+function nullableNumber(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
 }
 
 function actualQualifier(match) {
@@ -1273,12 +1311,13 @@ function counterButtonMarkup(filterName, value) {
 function matchMatchesCounterFilter(match, filterName) {
   if (filterName === "exact") return match.result === "exact";
   if (filterName === "correct") return ["correct", "qualifier"].includes(match.result);
-  if (filterName === "miss") return match.result === "miss";
+  if (filterName === "miss") return ["miss", "no_prediction"].includes(match.result);
   if (filterName === "goalDifference") return hasGoalDifference(match);
   return true;
 }
 
 function hasGoalDifference(match) {
+  if (isNoPrediction(match)) return false;
   if (typeof match.goal_difference === "boolean") return match.goal_difference;
   return Number(match.predicted_home_score) - Number(match.predicted_away_score)
     === Number(match.actual_home_score) - Number(match.actual_away_score);
@@ -1313,7 +1352,7 @@ function openMatchDialog(match) {
     ? `${matchImpactMarkup(predictions)}${predictions.map((prediction) => `
       <article class="prediction-card prediction-card--${prediction.result}">
         <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
-        <span>Pronóstico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}${qualifierSuffix(prediction)}</span>
+        <span>${predictionScoreLabel(prediction)}${qualifierSuffix(prediction)}</span>
         <span>${resultLabel(prediction.result)}</span>
         <b>+${prediction.points}</b>
       </article>
@@ -1490,6 +1529,11 @@ function scheduledMatchPredictionsMarkup(match) {
       title: "Empate",
       predictions: predictions.filter((prediction) => predictionOutcome(prediction) === "D"),
     },
+    {
+      outcome: "N",
+      title: "Sin pronóstico",
+      predictions: predictions.filter((prediction) => predictionOutcome(prediction) === "N"),
+    },
   ];
 
   return groups.map((group) => predictionGroupMarkup(group)).join("");
@@ -1512,17 +1556,30 @@ function scheduledPredictionCard(prediction) {
   return `
     <article class="prediction-card prediction-card--scheduled">
       <strong>${escapeHtml(participantLabel(prediction.participant))}</strong>
-      <span>Pron&oacute;stico: ${prediction.predicted_home_score} - ${prediction.predicted_away_score}${qualifierSuffix(prediction)}</span>
+      <span>${predictionScoreLabel(prediction)}${qualifierSuffix(prediction)}</span>
     </article>
   `;
 }
 
+function predictionScoreLabel(prediction) {
+  if (isNoPrediction(prediction)) return "No puntuó";
+  return `Pronóstico: ${predictionScoreShortLabel(prediction)}`;
+}
+
+function predictionScoreShortLabel(prediction) {
+  if (isNoPrediction(prediction)) return "No puntuó";
+  if (prediction.predicted_home_score === null || prediction.predicted_away_score === null) return "-";
+  return `${prediction.predicted_home_score} - ${prediction.predicted_away_score}`;
+}
+
 function qualifierSuffix(prediction) {
+  if (isNoPrediction(prediction)) return "";
   const qualifier = normalizedTeamName(prediction.predicted_qualifier);
   return qualifier ? ` | Clasifica ${escapeHtml(qualifier)}` : "";
 }
 
 function predictionOutcome(prediction) {
+  if (isNoPrediction(prediction)) return "N";
   return outcome(Number(prediction.predicted_home_score), Number(prediction.predicted_away_score));
 }
 
@@ -1535,7 +1592,7 @@ function resultCard(match) {
     <article class="recent-card recent-card--${match.result}">
       <div class="recent-card__teams">
         <span>${flagMarkup(match.home_flag, match.home_team)} ${escapeHtml(match.home_team)}</span>
-        <strong title="Pronóstico">${match.predicted_home_score} - ${match.predicted_away_score}</strong>
+        <strong title="Pronóstico">${predictionScoreShortLabel(match)}</strong>
         <span>${flagMarkup(match.away_flag, match.away_team)} ${escapeHtml(match.away_team)}</span>
       </div>
       <div class="recent-card__meta">
@@ -1551,6 +1608,7 @@ function resultWeight(result) {
   if (result === "exact") return 3;
   if (result === "correct") return 2;
   if (result === "qualifier") return 1.5;
+  if (result === "no_prediction") return 0;
   return 1;
 }
 
@@ -1558,6 +1616,7 @@ function resultLabel(result) {
   if (result === "exact") return "Marcador exacto";
   if (result === "correct") return "Ganador correcto";
   if (result === "qualifier") return "Clasificado correcto";
+  if (result === "no_prediction") return "No puntuó";
   return "Fallo";
 }
 
@@ -1661,6 +1720,7 @@ function shortResultLabel(result) {
   if (result === "exact") return "E";
   if (result === "correct") return "G";
   if (result === "qualifier") return "C";
+  if (result === "no_prediction") return "N";
   return "F";
 }
 
