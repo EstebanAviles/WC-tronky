@@ -756,9 +756,31 @@ tbody tr.row-updated {
   border-top: 1px solid var(--line);
 }
 
+.champion-distribution__row--eliminated,
+.champion-pick--eliminated {
+  background: linear-gradient(90deg, rgba(255, 111, 96, 0.42) 0%, rgba(255, 214, 207, 0.58) 34%, rgba(255, 255, 255, 0.95) 100%);
+  box-shadow: inset 5px 0 0 #ff786d;
+}
+
+.champion-distribution__row--eliminated {
+  margin: -0.35rem -0.45rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 8px;
+}
+
 .champion-pick span {
   justify-self: end;
   font-weight: 900;
+}
+
+.champion-pick span em {
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+  color: #8d1c16;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.7rem;
+  font-style: normal;
+  text-transform: uppercase;
 }
 
 .match-toggle {

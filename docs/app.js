@@ -36,6 +36,7 @@ const KNOCKOUT_EXACT_POINTS = 9;
 const KNOCKOUT_RESULT_POINTS = 6;
 const KNOCKOUT_QUALIFIER_POINTS = 3;
 const MATCH_COMPACT_LIMIT = 6;
+const ELIMINATED_CHAMPIONS = new Set(["BRASIL"]);
 const COUNTER_FILTERS = {
   exact: "Marcador exacto",
   goalDifference: "Diferencia de goles",
@@ -561,15 +562,22 @@ function renderChampionDistribution(container, matchStatus, matchMessage, matche
         ${championRows
           .slice()
           .sort((a, b) => participantLabel(a.participant).localeCompare(participantLabel(b.participant), "es"))
-          .map((row) => `
-            <article class="champion-pick">
+          .map((row) => {
+            const eliminated = isEliminatedChampion(row.champion);
+            return `
+            <article class="champion-pick ${eliminated ? "champion-pick--eliminated" : ""}">
               <strong>${escapeHtml(participantLabel(row.participant))}</strong>
-              <span>${flagMarkup(flagForTeam(row.champion), row.champion)} ${escapeHtml(row.champion)}</span>
+              <span>${flagMarkup(flagForTeam(row.champion), row.champion)} ${escapeHtml(row.champion)}${eliminated ? "<em>Eliminado</em>" : ""}</span>
             </article>
-          `).join("")}
+          `;
+          }).join("")}
       </div>
     </section>
   `;
+}
+
+function isEliminatedChampion(team) {
+  return ELIMINATED_CHAMPIONS.has(normalizedTeamName(team));
 }
 
 function championDistribution() {
@@ -589,11 +597,12 @@ function championDistribution() {
 
 function championDistributionRow(item, total, index) {
   const percentage = Math.round((item.count / total) * 100);
+  const eliminated = isEliminatedChampion(item.team);
   return `
-    <article class="champion-distribution__row champion-distribution__row--${(index % 5) + 1}">
+    <article class="champion-distribution__row champion-distribution__row--${(index % 5) + 1} ${eliminated ? "champion-distribution__row--eliminated" : ""}">
       <div class="champion-distribution__top">
         <strong>${flagMarkup(flagForTeam(item.team), item.team)} ${escapeHtml(item.team)}</strong>
-        <span>${item.count} · ${percentage}%</span>
+        <span>${item.count} · ${percentage}%${eliminated ? " · Eliminado" : ""}</span>
       </div>
       <div class="champion-bar" aria-hidden="true">
         <span style="width: ${percentage}%"></span>
