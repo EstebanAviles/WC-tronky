@@ -18,7 +18,7 @@ let previousLeaderboardSnapshot = new Map();
 let hasRenderedLeaderboard = false;
 let enableLeaderboardAnimations = false;
 const expandedMatchViews = new Set();
-const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16"]);
+const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16", "qf"]);
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -433,6 +433,9 @@ function matchesLeaderboardFilter(match) {
   if (String(match.stage || "").toUpperCase() === "OCTAVOS" || String(match.group || "").toUpperCase() === "R16") {
     return selectedLeaderboardFilters.has("r16");
   }
+  if (String(match.stage || "").toUpperCase() === "CUARTOS" || String(match.group || "").toUpperCase() === "QF") {
+    return selectedLeaderboardFilters.has("qf");
+  }
   return false;
 }
 
@@ -443,6 +446,7 @@ function leaderboardFilterSummary() {
   if (selectedLeaderboardFilters.has("group-3")) labels.push("Fecha 3");
   if (selectedLeaderboardFilters.has("r32")) labels.push("16vos");
   if (selectedLeaderboardFilters.has("r16")) labels.push("8vos");
+  if (selectedLeaderboardFilters.has("qf")) labels.push("4tos");
   return labels.length ? `Mostrando: ${labels.join(", ")}.` : "No hay fechas seleccionadas.";
 }
 
