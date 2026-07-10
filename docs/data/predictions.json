@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-10T01:11:12+00:00",
+  "last_updated": "2026-07-10T03:16:35+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -4760,10 +4760,10 @@
       "group": "QF",
       "home_team": "FRANCIA",
       "away_team": "MARRUECOS",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
     },
     {
       "participant": "Artola",
@@ -4772,10 +4772,10 @@
       "group": "QF",
       "home_team": "ESPANA",
       "away_team": "BELGICA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
     },
     {
       "participant": "Artola",
@@ -4784,10 +4784,10 @@
       "group": "QF",
       "home_team": "NORUEGA",
       "away_team": "INGLATERRA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
     },
     {
       "participant": "Artola",
@@ -4796,10 +4796,10 @@
       "group": "QF",
       "home_team": "ARGENTINA",
       "away_team": "SUIZA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
     },
     {
       "participant": "Biankits",
@@ -7160,10 +7160,10 @@
       "group": "QF",
       "home_team": "FRANCIA",
       "away_team": "MARRUECOS",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
     },
     {
       "participant": "Dcas",
@@ -14372,10 +14372,10 @@
       "group": "QF",
       "home_team": "ESPANA",
       "away_team": "BELGICA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
     },
     {
       "participant": "Masaru",
@@ -14384,10 +14384,10 @@
       "group": "QF",
       "home_team": "NORUEGA",
       "away_team": "INGLATERRA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "NORUEGA",
+      "did_not_predict": false
     },
     {
       "participant": "Masaru",
@@ -14396,10 +14396,10 @@
       "group": "QF",
       "home_team": "ARGENTINA",
       "away_team": "SUIZA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
     },
     {
       "participant": "Trucha",
