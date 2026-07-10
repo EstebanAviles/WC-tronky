@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-04T21:56:10+00:00",
+  "last_updated": "2026-07-10T01:11:12+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -1151,6 +1151,54 @@
       "predicted_home_score": 0,
       "predicted_away_score": 1,
       "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Alen",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Alen",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Alen",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Alen",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
     {
@@ -2306,6 +2354,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Angel",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Angel",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Angel",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 3,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "NORUEGA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Angel",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Arana",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -3458,6 +3554,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Arana",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Arana",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Arana",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Arana",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Artola",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -4594,7 +4738,7 @@
       "away_team": "EGIPTO",
       "predicted_home_score": 3,
       "predicted_away_score": 0,
-      "predicted_qualifier": "EGIPTO",
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
     {
@@ -4608,6 +4752,54 @@
       "predicted_away_score": 2,
       "predicted_qualifier": "COLOMBIA",
       "did_not_predict": false
+    },
+    {
+      "participant": "Artola",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Artola",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Artola",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Artola",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
     },
     {
       "participant": "Biankits",
@@ -5760,6 +5952,54 @@
       "predicted_away_score": 1,
       "predicted_qualifier": "COLOMBIA",
       "did_not_predict": false
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
     },
     {
       "participant": "Dcas",
@@ -6911,6 +7151,54 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "SUIZA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
     {
@@ -8066,6 +8354,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Djunza",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Gus",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -9218,6 +9554,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Gus",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Gus",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Gus",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "NORUEGA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Gus",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Jogy",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -10367,6 +10751,54 @@
       "predicted_home_score": 0,
       "predicted_away_score": 1,
       "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 3,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
     {
@@ -11522,6 +11954,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Kratos",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "NORUEGA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Luismi",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -12671,6 +13151,54 @@
       "predicted_home_score": 0,
       "predicted_away_score": 1,
       "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
     {
@@ -13826,6 +14354,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Masaru",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
       "participant": "Trucha",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -14978,6 +15554,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Trucha",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "MARRUECOS",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Trucha",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Trucha",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Trucha",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Wonky",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -16127,6 +16751,54 @@
       "predicted_home_score": 1,
       "predicted_away_score": 2,
       "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
     {
@@ -17282,6 +17954,54 @@
       "did_not_predict": false
     },
     {
+      "participant": "Zhoko",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Zhoko",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Zhoko",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Zhoko",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Ñeño",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -18431,6 +19151,54 @@
       "predicted_home_score": 1,
       "predicted_away_score": 2,
       "predicted_qualifier": "COLOMBIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 97,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "FRANCIA",
+      "away_team": "MARRUECOS",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 98,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ESPANA",
+      "away_team": "BELGICA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "BELGICA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 99,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "NORUEGA",
+      "away_team": "INGLATERRA",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "NORUEGA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 100,
+      "stage": "CUARTOS",
+      "group": "QF",
+      "home_team": "ARGENTINA",
+      "away_team": "SUIZA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     }
   ]

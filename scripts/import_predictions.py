@@ -138,23 +138,27 @@ def canonical_match(row, matches):
 
 
 def predicted_qualifier(row, qualifier_column):
-    if qualifier_column:
-        return normalize_team(row[qualifier_column])
     if normalize_stage(row["Fase"]) == "GRUPOS":
         return ""
+
     home_score = int(row["GolLocal"])
     away_score = int(row["GolVisitante"])
     if home_score > away_score:
         return normalize_team(row["Local"])
     if away_score > home_score:
         return normalize_team(row["Visitante"])
-    return ""
+    return normalize_team(row[qualifier_column]) if qualifier_column else ""
+
+
+def has_complete_prediction(row):
+    return not pd.isna(row["GolLocal"]) and not pd.isna(row["GolVisitante"])
 
 
 def prediction_record(row, participant, qualifier_column, matches):
     match, reverse = canonical_match(row, matches)
-    home_score = int(row["GolVisitante"] if reverse else row["GolLocal"])
-    away_score = int(row["GolLocal"] if reverse else row["GolVisitante"])
+    complete_prediction = has_complete_prediction(row)
+    home_score = int(row["GolVisitante"] if reverse else row["GolLocal"]) if complete_prediction else pd.NA
+    away_score = int(row["GolLocal"] if reverse else row["GolVisitante"]) if complete_prediction else pd.NA
 
     return {
         "participant": participant,
@@ -165,8 +169,8 @@ def prediction_record(row, participant, qualifier_column, matches):
         "away_team": match["away_team"] if match else normalize_team(row["Visitante"]),
         "predicted_home_score": home_score,
         "predicted_away_score": away_score,
-        "predicted_qualifier": predicted_qualifier(row, qualifier_column),
-        "did_not_predict": False,
+        "predicted_qualifier": predicted_qualifier(row, qualifier_column) if complete_prediction else "",
+        "did_not_predict": not complete_prediction,
     }
 
 
