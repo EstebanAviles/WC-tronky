@@ -24,6 +24,10 @@ FOOTBALL_DATA_LIVE_STATUSES = {"IN_PLAY", "PAUSED"}
 FOOTBALL_DATA_FINISHED_STATUSES = {"FINISHED"}
 ASSUMED_LIVE_WINDOW_SECONDS = 165 * 60
 
+CONFIRMED_RESULT_OVERRIDES = {
+    100: {"home_score": 3, "away_score": 1, "status": "finished", "winner_team": "ARGENTINA"},
+}
+
 TBD_TEAM = "TBD"
 
 STAGE_LABELS = {
@@ -545,7 +549,13 @@ def fetch_matches(schedule):
         convert_worldcup26_game(game, schedule)
         for game in fetch_worldcup26_games()
     ]
-    return apply_football_data_backup(matches, schedule), "worldcup26"
+    matches = apply_football_data_backup(matches, schedule)
+    return [
+        {**match, **CONFIRMED_RESULT_OVERRIDES[match["match_id"]]}
+        if match and match["status"] == "scheduled" and match["match_id"] in CONFIRMED_RESULT_OVERRIDES
+        else match
+        for match in matches
+    ], "worldcup26"
 
 
 def main():
