@@ -680,7 +680,12 @@ async function liveMatches(staticMatches) {
 
     games.forEach((game) => {
       const converted = convertLiveGame(game, schedule);
-      if (converted) byMatchId.set(Number(converted.match_id), converted);
+      if (!converted) return;
+
+      const staticMatch = byMatchId.get(Number(converted.match_id));
+      if (staticMatch?.status === "finished" && converted.status === "scheduled") return;
+
+      byMatchId.set(Number(converted.match_id), converted);
     });
 
     return [...byMatchId.values()].sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
