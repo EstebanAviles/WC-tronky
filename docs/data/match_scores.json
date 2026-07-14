@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-12T04:04:41+00:00",
+  "last_updated": "2026-07-14T23:46:46+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1800,7 +1800,7 @@
       "matchday": 6,
       "home_penalty_score": null,
       "away_penalty_score": null,
-      "winner_team": "ARGENTINA"
+      "winner_team": ""
     },
     {
       "match_id": 101,
@@ -1808,9 +1808,9 @@
       "group": "SF",
       "home_team": "FRANCIA",
       "away_team": "ESPANA",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 0,
+      "away_score": 2,
+      "status": "finished",
       "source_match_id": 101,
       "source_order": 1784055600101,
       "played_at_timezone": "",
@@ -1825,7 +1825,7 @@
       "stage": "SEMIFINALES",
       "group": "SF",
       "home_team": "INGLATERRA",
-      "away_team": "TBD",
+      "away_team": "ARGENTINA",
       "home_score": null,
       "away_score": null,
       "status": "scheduled",

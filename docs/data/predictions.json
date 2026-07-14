@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-12T04:04:41+00:00",
+  "last_updated": "2026-07-14T23:47:22+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -1198,6 +1198,30 @@
       "away_team": "SUIZA",
       "predicted_home_score": 2,
       "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Alen",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Alen",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
       "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
@@ -2402,6 +2426,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Angel",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Angel",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Arana",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -3599,6 +3647,30 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Arana",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Arana",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
       "did_not_predict": false
     },
     {
@@ -4802,6 +4874,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Artola",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Artola",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Biankits",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -5996,6 +6092,30 @@
       "group": "QF",
       "home_team": "ARGENTINA",
       "away_team": "SUIZA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": null,
+      "predicted_away_score": null,
+      "predicted_qualifier": "",
+      "did_not_predict": true
+    },
+    {
+      "participant": "Biankits",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
       "predicted_home_score": null,
       "predicted_away_score": null,
       "predicted_qualifier": "",
@@ -7199,6 +7319,30 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Dcas",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
       "did_not_predict": false
     },
     {
@@ -8402,6 +8546,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Djunza",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Djunza",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Gus",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -9602,6 +9770,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Gus",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Gus",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Jogy",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -10799,6 +10991,30 @@
       "predicted_home_score": 3,
       "predicted_away_score": 2,
       "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Jogy",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
       "did_not_predict": false
     },
     {
@@ -12002,6 +12218,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Kratos",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Kratos",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 3,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Luismi",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -13199,6 +13439,30 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Luismi",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "INGLATERRA",
       "did_not_predict": false
     },
     {
@@ -14402,6 +14666,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Masaru",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Masaru",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Trucha",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -15602,6 +15890,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Trucha",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Trucha",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Wonky",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -16798,6 +17110,30 @@
       "away_team": "SUIZA",
       "predicted_home_score": 2,
       "predicted_away_score": 0,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "ESPANA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Wonky",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 1,
+      "predicted_away_score": 2,
       "predicted_qualifier": "ARGENTINA",
       "did_not_predict": false
     },
@@ -18002,6 +18338,30 @@
       "did_not_predict": false
     },
     {
+      "participant": "Zhoko",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Zhoko",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
       "participant": "Ñeño",
       "match_id": 1,
       "stage": "GRUPOS",
@@ -19199,6 +19559,30 @@
       "predicted_home_score": 2,
       "predicted_away_score": 1,
       "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 101,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "FRANCIA",
+      "away_team": "ESPANA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 1,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
+    },
+    {
+      "participant": "Ñeño",
+      "match_id": 102,
+      "stage": "SEMIFINALES",
+      "group": "SF",
+      "home_team": "INGLATERRA",
+      "away_team": "ARGENTINA",
+      "predicted_home_score": 2,
+      "predicted_away_score": 2,
+      "predicted_qualifier": "INGLATERRA",
       "did_not_predict": false
     }
   ]

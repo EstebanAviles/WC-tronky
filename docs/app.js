@@ -18,7 +18,7 @@ let previousLeaderboardSnapshot = new Map();
 let hasRenderedLeaderboard = false;
 let enableLeaderboardAnimations = false;
 const expandedMatchViews = new Set();
-const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16", "qf"]);
+const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16", "qf", "sf"]);
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -36,7 +36,7 @@ const KNOCKOUT_EXACT_POINTS = 9;
 const KNOCKOUT_RESULT_POINTS = 6;
 const KNOCKOUT_QUALIFIER_POINTS = 3;
 const MATCH_COMPACT_LIMIT = 6;
-const ELIMINATED_CHAMPIONS = new Set(["BRASIL"]);
+const ELIMINATED_CHAMPIONS = new Set(["BRASIL", "FRANCIA"]);
 const COUNTER_FILTERS = {
   exact: "Marcador exacto",
   goalDifference: "Diferencia de goles",
@@ -436,6 +436,9 @@ function matchesLeaderboardFilter(match) {
   if (String(match.stage || "").toUpperCase() === "CUARTOS" || String(match.group || "").toUpperCase() === "QF") {
     return selectedLeaderboardFilters.has("qf");
   }
+  if (String(match.stage || "").toUpperCase() === "SEMIFINALES" || String(match.group || "").toUpperCase() === "SF") {
+    return selectedLeaderboardFilters.has("sf");
+  }
   return false;
 }
 
@@ -447,6 +450,7 @@ function leaderboardFilterSummary() {
   if (selectedLeaderboardFilters.has("r32")) labels.push("16vos");
   if (selectedLeaderboardFilters.has("r16")) labels.push("8vos");
   if (selectedLeaderboardFilters.has("qf")) labels.push("4tos");
+  if (selectedLeaderboardFilters.has("sf")) labels.push("Semis");
   return labels.length ? `Mostrando: ${labels.join(", ")}.` : "No hay fechas seleccionadas.";
 }
 
