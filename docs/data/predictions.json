@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-19T16:22:17+00:00",
+  "last_updated": "2026-07-19T20:21:56+00:00",
   "predictions": [
     {
       "participant": "Alen",
@@ -18704,10 +18704,10 @@
       "group": "",
       "home_team": "FRANCIA",
       "away_team": "INGLATERRA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 0,
+      "predicted_qualifier": "FRANCIA",
+      "did_not_predict": false
     },
     {
       "participant": "Ñeño",
@@ -18716,10 +18716,10 @@
       "group": "",
       "home_team": "ESPANA",
       "away_team": "ARGENTINA",
-      "predicted_home_score": null,
-      "predicted_away_score": null,
-      "predicted_qualifier": "",
-      "did_not_predict": true
+      "predicted_home_score": 2,
+      "predicted_away_score": 3,
+      "predicted_qualifier": "ARGENTINA",
+      "did_not_predict": false
     }
   ]
 }
