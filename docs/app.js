@@ -269,6 +269,16 @@ function renderPageState() {
   leaderboardRows = predictionRows.length
     ? scoreLeaderboard(predictionRows, leaderboardMatches)
     : fallbackLeaderboardRows;
+
+  if (selectedMatchView === "scheduled" && tournamentChampion()) {
+    selectedMatchView = "recent";
+    document.querySelectorAll("[data-match-view]").forEach((button) => {
+      const isActive = button.dataset.matchView === selectedMatchView;
+      button.classList.toggle("match-tab--active", isActive);
+      button.setAttribute("aria-selected", String(isActive));
+    });
+  }
+
   renderLeaderboard(leaderboardRows, liveLastUpdated || fallbackLastUpdated);
   renderHeroLive(matchRows);
   renderMatches(document.getElementById("match-list"));
@@ -361,14 +371,25 @@ async function fetchJson(path) {
 
 function renderLeaderboard(rows, lastUpdatedValue) {
   const playerCount = document.getElementById("player-count");
+  const leaderboardEyebrow = document.getElementById("leaderboard-eyebrow");
   const leaderName = document.getElementById("leader-name");
+  const leaderTitle = document.getElementById("leader-label");
   const leaderSummary = document.getElementById("leader-summary");
+  const heroSummary = document.getElementById("hero-summary");
   const tbody = document.getElementById("leaderboard-body");
   const tableMessage = document.getElementById("table-message");
+  const tournamentFinished = Boolean(tournamentChampion());
 
   playerCount.textContent = rows.length;
+  leaderboardEyebrow.textContent = tournamentFinished ? "Tabla final" : "Tabla en vivo";
   leaderName.textContent = leaderLabel(rows);
-  leaderSummary.textContent = leaderSummaryLabel(rows);
+  leaderTitle.textContent = tournamentFinished ? "Ganador" : "Líder";
+  leaderSummary.textContent = tournamentFinished && rows.length
+    ? `Ganó con ${rows[0].points} puntos.`
+    : leaderSummaryLabel(rows);
+  heroSummary.textContent = rows.length
+    ? `${leaderLabel(rows)} ${tournamentFinished ? "gana" : "va ganando"}, pierden TODOS`
+    : "Calculando posiciones...";
   updateFreshnessDisplay(lastUpdatedValue);
   tableMessage.textContent = rows.length ? leaderboardFilterSummary() : "Todavía no hay pronósticos puntuados.";
   tbody.innerHTML = "";
@@ -544,9 +565,11 @@ function renderMatches(container) {
 function renderChampionDistribution(container, matchStatus, matchMessage, matchesTitle) {
   const distribution = championDistribution();
   const total = championRows.length;
+  const champion = tournamentChampion();
+  const winnerCount = championRows.filter((row) => normalizedTeamName(row.champion) === champion).length;
 
-  matchesTitle.textContent = "Campe\u00f3n";
-  matchStatus.textContent = `${total} jugadores`;
+  matchesTitle.textContent = champion ? "Campe\u00f3n del Mundial" : "Campe\u00f3n";
+  matchStatus.textContent = champion ? `${winnerCount} ${winnerCount === 1 ? "acierto" : "aciertos"}` : `${total} jugadores`;
   matchStatus.className = "status-pill status-pill--ok";
   matchMessage.textContent = total ? "" : "Todav\u00eda no hay pron\u00f3sticos de campe\u00f3n.";
   container.innerHTML = "";
@@ -555,6 +578,18 @@ function renderChampionDistribution(container, matchStatus, matchMessage, matche
 
   container.innerHTML = `
     <section class="champion-view" aria-label="Distribuci\u00f3n de campeones">
+      ${champion ? `
+        <div class="champion-result">
+          <div>
+            <p class="eyebrow">Campe\u00f3n del Mundial</p>
+            <h3>${flagMarkup(flagForTeam(champion), champion)} ${escapeHtml(champion)}</h3>
+          </div>
+          <div class="champion-result__points">
+            <strong>${winnerCount}</strong>
+            <span>${winnerCount === 1 ? "acert\u00f3" : "acertaron"} · +${CHAMPION_POINTS} puntos</span>
+          </div>
+        </div>
+      ` : ""}
       <div class="champion-card">
         <div class="champion-card__header">
           <div>
@@ -576,11 +611,13 @@ function renderChampionDistribution(container, matchStatus, matchMessage, matche
           .slice()
           .sort((a, b) => participantLabel(a.participant).localeCompare(participantLabel(b.participant), "es"))
           .map((row) => {
-            const eliminated = isEliminatedChampion(row.champion);
+            const status = championPickStatus(row.champion);
+            const winner = status === "winner";
+            const eliminated = status === "eliminated";
             return `
-            <article class="champion-pick ${eliminated ? "champion-pick--eliminated" : ""}">
+            <article class="champion-pick ${winner ? "champion-pick--winner" : ""} ${eliminated ? "champion-pick--eliminated" : ""}">
               <strong>${escapeHtml(participantLabel(row.participant))}</strong>
-              <span>${flagMarkup(flagForTeam(row.champion), row.champion)} ${escapeHtml(row.champion)}${eliminated ? "<em>Eliminado</em>" : ""}</span>
+              <span>${flagMarkup(flagForTeam(row.champion), row.champion)} ${escapeHtml(row.champion)}${winner ? `<em>+${CHAMPION_POINTS} puntos</em>` : ""}${eliminated ? "<em>No acert\u00f3</em>" : ""}</span>
             </article>
           `;
           }).join("")}
@@ -589,11 +626,14 @@ function renderChampionDistribution(container, matchStatus, matchMessage, matche
   `;
 }
 
-function isEliminatedChampion(team) {
-  return ELIMINATED_CHAMPIONS.has(normalizedTeamName(team));
+function championPickStatus(team) {
+  const champion = tournamentChampion();
+  if (champion) return normalizedTeamName(team) === champion ? "winner" : "eliminated";
+  return ELIMINATED_CHAMPIONS.has(normalizedTeamName(team)) ? "eliminated" : "";
 }
 
 function championDistribution() {
+  const champion = tournamentChampion();
   const byTeam = new Map();
   championRows.forEach((row) => {
     const team = normalizedTeamName(row.champion);
@@ -605,17 +645,19 @@ function championDistribution() {
 
   return [...byTeam.values()]
     .map((item) => ({ ...item, count: item.participants.length }))
-    .sort((a, b) => b.count - a.count || a.team.localeCompare(b.team, "es"));
+    .sort((a, b) => Number(b.team === champion) - Number(a.team === champion) || b.count - a.count || a.team.localeCompare(b.team, "es"));
 }
 
 function championDistributionRow(item, total, index) {
   const percentage = Math.round((item.count / total) * 100);
-  const eliminated = isEliminatedChampion(item.team);
+  const status = championPickStatus(item.team);
+  const winner = status === "winner";
+  const eliminated = status === "eliminated";
   return `
-    <article class="champion-distribution__row champion-distribution__row--${(index % 5) + 1} ${eliminated ? "champion-distribution__row--eliminated" : ""}">
+    <article class="champion-distribution__row champion-distribution__row--${(index % 5) + 1} ${winner ? "champion-distribution__row--winner" : ""} ${eliminated ? "champion-distribution__row--eliminated" : ""}">
       <div class="champion-distribution__top">
         <strong>${flagMarkup(flagForTeam(item.team), item.team)} ${escapeHtml(item.team)}</strong>
-        <span>${item.count} · ${percentage}%${eliminated ? " · Eliminado" : ""}</span>
+        <span>${item.count} · ${percentage}%${winner ? " · Campe\u00f3n" : ""}${eliminated ? " · No fue campe\u00f3n" : ""}</span>
       </div>
       <div class="champion-bar" aria-hidden="true">
         <span style="width: ${percentage}%"></span>
@@ -978,8 +1020,17 @@ function scoreRows(predictions, matches) {
 }
 
 function finalWinner(matches) {
-  const finalMatch = matches.find((match) => String(match.stage || "").toUpperCase() === "FINAL" || String(match.group || "").toUpperCase() === "FINAL");
-  return finalMatch ? actualQualifier(finalMatch) : "";
+  const match = worldCupFinal(matches);
+  return match ? actualQualifier(match) : "";
+}
+
+function tournamentChampion() {
+  const match = worldCupFinal(matchRows);
+  return match?.status === "finished" ? actualQualifier(match) : "";
+}
+
+function worldCupFinal(matches) {
+  return matches.find((match) => String(match.stage || "").toUpperCase() === "FINAL" || String(match.group || "").toUpperCase() === "FINAL");
 }
 
 function scorePrediction(prediction, match) {
@@ -1783,6 +1834,12 @@ function updateFreshnessDisplay(value) {
   if (hasLiveMatch(matchRows) && isStaleTimestamp(value)) {
     statusPill.textContent = "Datos con demora";
     statusPill.className = "status-pill status-pill--warning";
+    return;
+  }
+
+  if (tournamentChampion()) {
+    statusPill.textContent = "Finalizado";
+    statusPill.className = "status-pill status-pill--ok";
     return;
   }
 

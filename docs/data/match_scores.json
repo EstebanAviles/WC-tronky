@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-19T16:16:24+00:00",
+  "last_updated": "2026-07-19T23:06:24+00:00",
   "source": "worldcup26",
   "matches": [
     {
@@ -1862,9 +1862,9 @@
       "group": "",
       "home_team": "ESPANA",
       "away_team": "ARGENTINA",
-      "home_score": null,
-      "away_score": null,
-      "status": "scheduled",
+      "home_score": 1,
+      "away_score": 0,
+      "status": "finished",
       "source_match_id": 104,
       "source_order": 1784491200104,
       "played_at_timezone": "",

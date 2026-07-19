@@ -635,6 +635,38 @@ tbody tr.row-updated {
   gap: 1rem;
 }
 
+.champion-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #d7b33d;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #fff7cf, #eef8f1 72%);
+  box-shadow: inset 5px 0 0 var(--gold), 0 10px 24px rgba(15, 40, 25, 0.06);
+}
+
+.champion-result h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.15rem 0 0;
+  font-size: 1.55rem;
+}
+
+.champion-result__points {
+  display: grid;
+  justify-items: end;
+  color: var(--grass-dark);
+  font-weight: 900;
+}
+
+.champion-result__points strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
 .champion-card,
 .champion-picks {
   border: 1px solid var(--line);
@@ -762,6 +794,18 @@ tbody tr.row-updated {
   box-shadow: inset 5px 0 0 #ff786d;
 }
 
+.champion-distribution__row--winner,
+.champion-pick--winner {
+  background: linear-gradient(90deg, rgba(244, 197, 74, 0.34), rgba(223, 243, 228, 0.68) 72%, white);
+  box-shadow: inset 5px 0 0 var(--gold);
+}
+
+.champion-distribution__row--winner {
+  margin: -0.35rem -0.45rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 8px;
+}
+
 .champion-distribution__row--eliminated {
   margin: -0.35rem -0.45rem;
   padding: 0.35rem 0.45rem;
@@ -781,6 +825,11 @@ tbody tr.row-updated {
   font-size: 0.7rem;
   font-style: normal;
   text-transform: uppercase;
+}
+
+.champion-pick--winner span em {
+  color: var(--grass-dark);
+  background: #fff7cf;
 }
 
 .match-toggle {
@@ -1623,6 +1672,15 @@ tbody tr.row-updated {
   .champion-picks__header,
   .champion-pick {
     grid-template-columns: 1fr;
+  }
+
+  .champion-result {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .champion-result__points {
+    justify-items: start;
   }
 
   .champion-pick span {
