@@ -10,12 +10,14 @@ PREDICTIONS_PATH = ROOT / "data" / "predictions.csv"
 PREDICTIONS_JSON_PATH = ROOT / "docs" / "data" / "predictions.json"
 MATCH_SCORES_PATH = ROOT / "docs" / "data" / "match_scores.json"
 LEADERBOARD_PATH = ROOT / "docs" / "data" / "leaderboard.json"
+CHAMPIONS_PATH = ROOT / "docs" / "data" / "champions.json"
 SCORING_STATUSES = {"finished", "live"}
 GROUP_EXACT_POINTS = 6
 GROUP_CORRECT_POINTS = 3
 KNOCKOUT_EXACT_POINTS = 9
 KNOCKOUT_RESULT_POINTS = 6
 KNOCKOUT_QUALIFIER_POINTS = 3
+CHAMPION_POINTS = 15
 
 TEAM_FLAGS = {
     "ALEMANIA": "DE",
@@ -189,6 +191,28 @@ def load_matches():
     return matches
 
 
+def load_champions():
+    with CHAMPIONS_PATH.open(encoding="utf-8") as file:
+        data = json.load(file)
+    return {
+        row["participant"]: normalized_team(row.get("champion", ""))
+        for row in data.get("champions", [])
+    }
+
+
+def final_winner(matches):
+    final_match = next(
+        (
+            match
+            for match in matches.values()
+            if normalized_team(match.get("stage", "")) == "FINAL"
+            or normalized_team(match.get("group", "")) == "FINAL"
+        ),
+        None,
+    )
+    return qualifier_from_match(final_match) if final_match else ""
+
+
 def source_order(match):
     return int(match.get("source_order", match["match_id"]))
 
@@ -263,8 +287,9 @@ def add_competition_ranks(rows):
     return ranked_rows
 
 
-def score_leaderboard(predictions, matches):
+def score_leaderboard(predictions, matches, champions):
     rows = []
+    champion = final_winner(matches)
     for participant, group in predictions.groupby("participant"):
         points_total = 0
         exact_scores = 0
@@ -292,10 +317,16 @@ def score_leaderboard(predictions, matches):
                 played_matches += 1
                 recent_results.append(recent_result(prediction, match, points, exact, correct, goal_difference, qualifier, no_prediction))
 
+        champion_points = (
+            CHAMPION_POINTS
+            if champion and champions.get(participant) == champion
+            else 0
+        )
         rows.append(
             {
                 "participant": participant,
-                "points": points_total,
+                "points": points_total + champion_points,
+                "champion_points": champion_points,
                 "exact_scores": exact_scores,
                 "goal_differences": goal_differences,
                 "correct_results": correct_results,
@@ -334,7 +365,7 @@ def write_public_predictions(predictions):
                 "participant": row["participant"],
                 "match_id": int(row["match_id"]),
                 "stage": row["stage"],
-                "group": row["group"],
+                "group": normalized_team(row["group"]),
                 "home_team": row["home_team"],
                 "away_team": row["away_team"],
                 "predicted_home_score": optional_int(row["predicted_home_score"]),
@@ -358,10 +389,11 @@ def main():
     predictions = pd.read_csv(PREDICTIONS_PATH)
     write_public_predictions(predictions)
     matches = current_scoring_matches(load_matches())
+    champions = load_champions()
     previous_ranks = rank_map(
-        score_leaderboard(predictions, previous_scoring_matches(matches))
+        score_leaderboard(predictions, previous_scoring_matches(matches), champions)
     )
-    leaderboard = score_leaderboard(predictions, matches)
+    leaderboard = score_leaderboard(predictions, matches, champions)
 
     for row in leaderboard:
         current_rank = row["rank"]

@@ -196,6 +196,7 @@ def load_schedule():
             "away_team",
         ]
     ].drop_duplicates("match_id")
+    schedule["group"] = schedule["group"].fillna("")
 
     by_pair = {}
     for row in schedule.to_dict("records"):
@@ -579,7 +580,7 @@ def main():
         "matches": matches,
     }
     with MATCH_SCORES_PATH.open("w", encoding="utf-8") as file:
-        json.dump(output, file, indent=2, ensure_ascii=False)
+        json.dump(output, file, indent=2, ensure_ascii=False, allow_nan=False)
         file.write("\n")
 
     print(f"Fetched {len(fetched_matches)} matches from {source}.")

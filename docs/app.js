@@ -18,7 +18,7 @@ let previousLeaderboardSnapshot = new Map();
 let hasRenderedLeaderboard = false;
 let enableLeaderboardAnimations = false;
 const expandedMatchViews = new Set();
-const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16", "qf", "sf"]);
+const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16", "qf", "sf", "finals"]);
 
 const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
 const LIVE_REFRESH_ACTIVE_MS = 5000;
@@ -35,6 +35,7 @@ const CORRECT_POINTS = 3;
 const KNOCKOUT_EXACT_POINTS = 9;
 const KNOCKOUT_RESULT_POINTS = 6;
 const KNOCKOUT_QUALIFIER_POINTS = 3;
+const CHAMPION_POINTS = 15;
 const MATCH_COMPACT_LIMIT = 6;
 const ELIMINATED_CHAMPIONS = new Set(["BRASIL", "FRANCIA"]);
 const COUNTER_FILTERS = {
@@ -439,6 +440,9 @@ function matchesLeaderboardFilter(match) {
   if (String(match.stage || "").toUpperCase() === "SEMIFINALES" || String(match.group || "").toUpperCase() === "SF") {
     return selectedLeaderboardFilters.has("sf");
   }
+  if (["TERCER PUESTO", "3PUESTO", "FINAL"].includes(String(match.stage || "").toUpperCase()) || ["3RD", "FINAL"].includes(String(match.group || "").toUpperCase())) {
+    return selectedLeaderboardFilters.has("finals");
+  }
   return false;
 }
 
@@ -451,6 +455,7 @@ function leaderboardFilterSummary() {
   if (selectedLeaderboardFilters.has("r16")) labels.push("8vos");
   if (selectedLeaderboardFilters.has("qf")) labels.push("4tos");
   if (selectedLeaderboardFilters.has("sf")) labels.push("Semis");
+  if (selectedLeaderboardFilters.has("finals")) labels.push("Finales");
   return labels.length ? `Mostrando: ${labels.join(", ")}.` : "No hay fechas seleccionadas.";
 }
 
@@ -924,6 +929,8 @@ function assignCompetitionRanks(rows) {
 
 function scoreRows(predictions, matches) {
   const matchesById = new Map(matches.map((match) => [Number(match.match_id), match]));
+  const championByPlayer = new Map(championRows.map((row) => [row.participant, normalizedTeamName(row.champion)]));
+  const champion = finalWinner(matches);
   const rowsByPlayer = new Map();
 
   predictions.forEach((prediction) => {
@@ -958,13 +965,21 @@ function scoreRows(predictions, matches) {
   return [...rowsByPlayer.values()]
     .map((row) => {
       const allResults = row.all_results.sort((a, b) => Number(b.source_order || b.match_id) - Number(a.source_order || a.match_id));
+      const championPoints = champion && championByPlayer.get(row.participant) === champion ? CHAMPION_POINTS : 0;
       return {
         ...row,
+        points: row.points + championPoints,
+        champion_points: championPoints,
         recent_results: allResults.slice(0, 5),
         all_results: allResults,
       };
     })
     .sort((a, b) => b.points - a.points || b.exact_scores - a.exact_scores || b.goal_differences - a.goal_differences || b.correct_results - a.correct_results);
+}
+
+function finalWinner(matches) {
+  const finalMatch = matches.find((match) => String(match.stage || "").toUpperCase() === "FINAL" || String(match.group || "").toUpperCase() === "FINAL");
+  return finalMatch ? actualQualifier(finalMatch) : "";
 }
 
 function scorePrediction(prediction, match) {

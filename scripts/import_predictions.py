@@ -35,7 +35,9 @@ TEAM_ALIASES = {
 STAGE_ALIASES = {
     "16VOS": "16AVOS",
     "8VOS": "OCTAVOS",
+    "3PUESTO": "TERCER PUESTO",
 }
+RETIRED_PARTICIPANTS = {"Biankits"}
 
 
 def normalize_text(value):
@@ -276,10 +278,16 @@ def main():
     champions = [
         champion
         for champion in (load_workbook_champion(path) for path in excel_files)
-        if champion
+        if champion and champion["participant"] not in RETIRED_PARTICIPANTS
+    ]
+    predictions = predictions[
+        ~predictions["participant"].isin(RETIRED_PARTICIPANTS)
     ]
     if OUTPUT_PATH.exists():
         existing = pd.read_csv(OUTPUT_PATH)
+        existing = existing[
+            ~existing["participant"].isin(RETIRED_PARTICIPANTS)
+        ]
         if "predicted_qualifier" not in existing.columns:
             existing["predicted_qualifier"] = ""
         if "did_not_predict" not in existing.columns:

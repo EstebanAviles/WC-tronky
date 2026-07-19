@@ -52,6 +52,7 @@ cloudflare-worker.js       # cache live para /scores
 - Marcador exacto: `+6`
 - Ganador correcto: `+3`
 - Fallo: `+0`
+- Campeon acertado: `+15`; durante la final en vivo se aplica segun el equipo que vaya ganando.
 
 Criterios de desempate:
 
