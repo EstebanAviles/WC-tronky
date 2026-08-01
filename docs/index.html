@@ -12,7 +12,6 @@
       <h1>La Polla Tronky</h1>
       <p class="hero__summary" id="hero-summary">Calculando ganador...</p>
     </div>
-    <aside class="hero-live" id="hero-live" hidden aria-live="polite"></aside>
   </header>
 
   <main>
@@ -27,7 +26,7 @@
         <small class="summary__detail" id="leader-summary">Calculando ventaja...</small>
       </div>
       <div>
-        <span class="summary__label">Última actualización</span>
+        <span class="summary__label">Cierre del torneo</span>
         <strong id="last-updated">Cargando...</strong>
       </div>
     </section>
@@ -35,8 +34,8 @@
     <section class="leaderboard" aria-labelledby="leaderboard-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow" id="leaderboard-eyebrow">Tabla de posiciones</p>
-          <h2 id="leaderboard-title">Clasificación</h2>
+          <p class="eyebrow" id="leaderboard-eyebrow">Tabla final</p>
+          <h2 id="leaderboard-title">Clasificación final</h2>
         </div>
         <span class="status-pill" id="status-pill">Cargando</span>
       </div>
@@ -90,14 +89,13 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">Partidos</p>
-          <h2 id="matches-title">Próximos partidos</h2>
+          <h2 id="matches-title">Resultados recientes</h2>
         </div>
         <span class="status-pill" id="matches-status">Cargando</span>
       </div>
 
       <div class="match-tabs" role="tablist" aria-label="Vista de partidos">
-        <button class="match-tab match-tab--active" type="button" role="tab" aria-selected="true" data-match-view="scheduled">Próximos partidos</button>
-        <button class="match-tab" type="button" role="tab" aria-selected="false" data-match-view="recent">Resultados recientes</button>
+        <button class="match-tab match-tab--active" type="button" role="tab" aria-selected="true" data-match-view="recent">Resultados recientes</button>
         <button class="match-tab" type="button" role="tab" aria-selected="false" data-match-view="champions">Campe&oacute;n</button>
       </div>
       <div class="match-list" id="match-list"></div>

@@ -1,35 +1,18 @@
 let leaderboardRows = [];
 let matchRows = [];
-let staticMatchRows = [];
 let predictionRows = [];
 let championRows = [];
 let fallbackLeaderboardRows = [];
 let fallbackLastUpdated = "";
-let liveLastUpdated = "";
 let selectedPlayer = null;
 let isLoadingPageData = false;
-let isRefreshingLive = false;
-let liveRefreshTimerId = null;
-let freshnessTimerId = null;
-let lastMatchSignature = "";
 let selectedResultFilter = null;
-let selectedMatchView = "scheduled";
-let previousLeaderboardSnapshot = new Map();
-let hasRenderedLeaderboard = false;
-let enableLeaderboardAnimations = false;
+let selectedMatchView = "recent";
 const expandedMatchViews = new Set();
 const selectedLeaderboardFilters = new Set(["group-1", "group-2", "group-3", "r32", "r16", "qf", "sf", "finals"]);
 
-const LIVE_API_URL = "https://worldcup-tronky-live.eavileslino.workers.dev/scores";
-const LIVE_REFRESH_ACTIVE_MS = 5000;
-const LIVE_REFRESH_WATCH_MS = 10000;
-const LIVE_REFRESH_IDLE_MS = 60000;
-const LIVE_FETCH_TIMEOUT_MS = 10000;
-const LIVE_STALE_WARNING_MS = 120000;
-const KICKOFF_WATCH_BEFORE_MS = 30 * 60 * 1000;
-const KICKOFF_WATCH_AFTER_MS = 20 * 60 * 1000;
 const DISPLAY_TIME_ZONE = "America/Lima";
-const SCORING_STATUSES = new Set(["finished", "live"]);
+const SCORING_STATUSES = new Set(["finished"]);
 const EXACT_POINTS = 6;
 const CORRECT_POINTS = 3;
 const KNOCKOUT_EXACT_POINTS = 9;
@@ -249,14 +232,10 @@ async function loadPageData() {
 
     predictionRows = predictionData.predictions || [];
     championRows = championData.champions || [];
-    staticMatchRows = matchData.matches || [];
+    matchRows = matchData.matches || [];
     fallbackLeaderboardRows = leaderboardData.leaderboard || [];
     fallbackLastUpdated = matchData.last_updated || leaderboardData.last_updated;
-    matchRows = staticMatchRows;
-    lastMatchSignature = matchesSignature(matchRows);
     renderPageState();
-    startFreshnessClock();
-    startLiveRefreshLoop(0);
   } catch (error) {
     setLoadError(error);
   } finally {
@@ -270,101 +249,12 @@ function renderPageState() {
     ? scoreLeaderboard(predictionRows, leaderboardMatches)
     : fallbackLeaderboardRows;
 
-  if (selectedMatchView === "scheduled" && tournamentChampion()) {
-    selectedMatchView = "recent";
-    document.querySelectorAll("[data-match-view]").forEach((button) => {
-      const isActive = button.dataset.matchView === selectedMatchView;
-      button.classList.toggle("match-tab--active", isActive);
-      button.setAttribute("aria-selected", String(isActive));
-    });
-  }
-
-  renderLeaderboard(leaderboardRows, liveLastUpdated || fallbackLastUpdated);
-  renderHeroLive(matchRows);
+  renderLeaderboard(leaderboardRows, fallbackLastUpdated);
   renderMatches(document.getElementById("match-list"));
 }
 
-async function refreshLiveMatches() {
-  if (isRefreshingLive || !staticMatchRows.length) return;
-  isRefreshingLive = true;
-
-  try {
-    const liveRows = await liveMatches(staticMatchRows);
-    if (!liveRows) return;
-
-    const nextSignature = matchesSignature(liveRows);
-    if (nextSignature === lastMatchSignature) {
-      matchRows = liveRows;
-      renderHeroLive(matchRows);
-      updateFreshnessDisplay(liveLastUpdated || fallbackLastUpdated);
-      return;
-    }
-
-    matchRows = liveRows;
-    lastMatchSignature = nextSignature;
-    renderPageState();
-  } finally {
-    isRefreshingLive = false;
-    enableLeaderboardAnimations = true;
-  }
-}
-
-function startLiveRefreshLoop(delayMs = liveRefreshDelay()) {
-  if (liveRefreshTimerId) clearTimeout(liveRefreshTimerId);
-  liveRefreshTimerId = setTimeout(async () => {
-    try {
-      await refreshLiveMatches();
-    } catch (error) {
-      console.warn("Live refresh failed; retrying soon.", error);
-    } finally {
-      startLiveRefreshLoop();
-    }
-  }, delayMs);
-}
-
-function liveRefreshDelay() {
-  if (document.hidden) return LIVE_REFRESH_IDLE_MS;
-  if (hasLiveMatch(matchRows)) return LIVE_REFRESH_ACTIVE_MS;
-  if (hasMatchNearKickoff(matchRows)) return LIVE_REFRESH_WATCH_MS;
-  return LIVE_REFRESH_IDLE_MS;
-}
-
-function hasLiveMatch(matches) {
-  return matches.some((match) => match.status === "live");
-}
-
-function hasMatchNearKickoff(matches) {
-  const now = Date.now();
-  return matches.some((match) => {
-    if (match.status !== "scheduled") return false;
-    const kickoff = matchTimestamp(match);
-    if (Number.isNaN(kickoff)) return false;
-    return kickoff - now <= KICKOFF_WATCH_BEFORE_MS && now - kickoff <= KICKOFF_WATCH_AFTER_MS;
-  });
-}
-
-function matchesSignature(matches) {
-  return JSON.stringify(matches.map((match) => [
-    Number(match.match_id),
-    match.status,
-    match.home_score,
-    match.away_score,
-    match.played_at,
-    match.live_elapsed,
-    match.football_data_status,
-    Number(match.source_order || match.match_id),
-  ]));
-}
-
-function startFreshnessClock() {
-  if (freshnessTimerId) return;
-  freshnessTimerId = setInterval(() => {
-    updateFreshnessDisplay(liveLastUpdated || fallbackLastUpdated);
-  }, 1000);
-}
-
 async function fetchJson(path) {
-  const response = await fetch(path, { cache: "no-store" });
+  const response = await fetch(path);
   if (!response.ok) throw new Error(`No se pudo cargar ${path}.`);
   return response.json();
 }
@@ -390,17 +280,14 @@ function renderLeaderboard(rows, lastUpdatedValue) {
   heroSummary.textContent = rows.length
     ? `${leaderLabel(rows)} ${tournamentFinished ? "gana" : "va ganando"}, pierden TODOS`
     : "Calculando posiciones...";
-  updateFreshnessDisplay(lastUpdatedValue);
+  updateFinalStatus(lastUpdatedValue);
   tableMessage.textContent = rows.length ? leaderboardFilterSummary() : "Todavía no hay pronósticos puntuados.";
   tbody.innerHTML = "";
 
   rows.forEach((row, index) => {
     const rank = row.rank || index + 1;
-    const previous = previousLeaderboardSnapshot.get(row.participant);
-    const didChange = enableLeaderboardAnimations && hasRenderedLeaderboard && previous && (previous.rank !== rank || previous.points !== row.points);
     const tr = document.createElement("tr");
     tr.className = rowClass(rank, rows.length, row.is_last);
-    if (didChange) tr.classList.add("row-updated");
     tr.innerHTML = `
       <td data-label="Puesto"><span class="rank-badge ${rankClass(rank)}">${rankLabel(rank)}</span></td>
       <td data-label="Jugador">
@@ -421,22 +308,11 @@ function renderLeaderboard(rows, lastUpdatedValue) {
     });
     tbody.appendChild(tr);
   });
-
-  previousLeaderboardSnapshot = new Map(rows.map((row, index) => [
-    row.participant,
-    {
-      rank: row.rank || index + 1,
-      points: row.points,
-    },
-  ]));
-  hasRenderedLeaderboard = true;
 }
 
 function setLeaderboardFilter(filterName, isEnabled) {
   if (isEnabled) selectedLeaderboardFilters.add(filterName);
   else selectedLeaderboardFilters.delete(filterName);
-  previousLeaderboardSnapshot = new Map();
-  hasRenderedLeaderboard = false;
   renderPageState();
 }
 
@@ -524,7 +400,6 @@ function renderMatches(container) {
     const card = document.createElement("article");
     card.className = [
       "match-card",
-      match.status === "live" ? "match-card--live" : "",
       groupClass(match.group),
     ].filter(Boolean).join(" ");
     card.innerHTML = `
@@ -539,7 +414,6 @@ function renderMatches(container) {
           <span title="${escapeHtml(match.away_team)}">${flagMarkup(flagForTeam(match.away_team), match.away_team, "flag-img--large")}</span>
         </div>
         <div class="match-card__date">${escapeHtml(matchDateLabel(match))}</div>
-        ${liveDebugMarkup(match)}
       </button>
     `;
     card.querySelector("button").addEventListener("click", () => openMatchDialog(match));
@@ -666,87 +540,6 @@ function championDistributionRow(item, total, index) {
   `;
 }
 
-function renderHeroLive(matches) {
-  const livePanel = document.getElementById("hero-live");
-  const liveMatchesList = matches
-    .filter((match) => match.status === "live")
-    .sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
-
-  if (!liveMatchesList.length) {
-    livePanel.hidden = true;
-    livePanel.innerHTML = "";
-    return;
-  }
-
-  livePanel.hidden = false;
-  livePanel.innerHTML = `
-    <div class="hero-live__list">
-      ${liveMatchesList.map((match, index) => heroLiveButtonMarkup(match, index, liveMatchesList.length)).join("")}
-    </div>
-  `;
-  livePanel.querySelectorAll("[data-live-match-index]").forEach((button) => {
-    const liveMatch = liveMatchesList[Number(button.dataset.liveMatchIndex)];
-    button.addEventListener("click", () => openMatchDialog(liveMatch));
-  });
-}
-
-function heroLiveButtonMarkup(match, index, liveCount) {
-  const debug = liveDebugLabel(match);
-  const label = liveCount > 1 ? `En vivo ${index + 1}/${liveCount}` : "En vivo";
-  return `
-    <button class="hero-live__button" data-live-match-index="${index}" type="button">
-      <div class="hero-live__topline">
-        <span class="hero-live__label">${escapeHtml(label)}</span>
-        <span class="hero-live__credit">Gracias a: ${escapeHtml(liveSourceLabel(match))}</span>
-      </div>
-      <div class="hero-live__teams">
-        <span>${flagMarkup(flagForTeam(match.home_team), match.home_team)}</span>
-        <strong>${escapeHtml(scoreLabel(match))}</strong>
-        <span>${flagMarkup(flagForTeam(match.away_team), match.away_team)}</span>
-      </div>
-      <div class="hero-live__footer">
-        <small class="hero-live__meta">${escapeHtml(`${match.home_team} vs ${match.away_team}`)}</small>
-        ${debug ? `<small class="hero-live__debug">${escapeHtml(debug)}</small>` : ""}
-      </div>
-    </button>
-  `;
-}
-
-async function liveMatches(staticMatches) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), LIVE_FETCH_TIMEOUT_MS);
-
-  try {
-    const response = await fetch(`${LIVE_API_URL}?t=${Date.now()}`, {
-      cache: "no-store",
-      signal: controller.signal,
-    });
-    if (!response.ok) return null;
-
-    liveLastUpdated = response.headers.get("x-tronky-cache-updated-at") || new Date().toISOString();
-    const payload = await response.json();
-    const games = Array.isArray(payload) ? payload : payload.games || [];
-    const schedule = liveSchedule(staticMatches);
-    const byMatchId = new Map(staticMatches.map((match) => [Number(match.match_id), { ...match }]));
-
-    games.forEach((game) => {
-      const converted = convertLiveGame(game, schedule);
-      if (!converted) return;
-
-      const staticMatch = byMatchId.get(Number(converted.match_id));
-      if (staticMatch?.status === "finished" && converted.status === "scheduled") return;
-
-      byMatchId.set(Number(converted.match_id), converted);
-    });
-
-    return [...byMatchId.values()].sort((a, b) => Number(a.source_order || a.match_id) - Number(b.source_order || b.match_id));
-  } catch (_error) {
-    return null;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
 function matchSort(status, a, b) {
   const orderA = matchSortValue(a);
   const orderB = matchSortValue(b);
@@ -784,95 +577,6 @@ function formatPeruDateTime(timestamp) {
   }).formatToParts(new Date(timestamp));
   const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
   return `${values.day}/${values.month}/${values.year} ${values.hour}:${values.minute}`;
-}
-
-function liveSchedule(matches) {
-  const byPair = new Map();
-  const bySourceId = new Map();
-  matches.forEach((match) => {
-    byPair.set(pairKey(match.home_team, match.away_team), { match, reverse: false });
-    byPair.set(pairKey(match.away_team, match.home_team), { match, reverse: true });
-    if (match.source_match_id !== null && match.source_match_id !== undefined) {
-      bySourceId.set(Number(match.source_match_id), { match, reverse: false });
-    }
-  });
-  return { byPair, bySourceId };
-}
-
-function convertLiveGame(game, schedule) {
-  const homeTeam = normalizeTeam(game.home_team_name_en || "");
-  const awayTeam = normalizeTeam(game.away_team_name_en || "");
-  const sourceMatchId = numberOrNull(game.id);
-  const pairMatch = homeTeam && awayTeam ? schedule.byPair.get(pairKey(homeTeam, awayTeam)) : null;
-  const idMatch = sourceMatchId !== null ? schedule.bySourceId.get(Number(sourceMatchId)) : null;
-  const scheduleMatch = pairMatch || idMatch;
-  if (!scheduleMatch) return null;
-  if (!pairMatch && !sourceMatchCanUseLiveTeams(scheduleMatch.match, homeTeam, awayTeam)) return null;
-
-  const status = liveGameStatus(game);
-  const homeScore = numberOrNull(game.home_score);
-  const awayScore = numberOrNull(game.away_score);
-  const scoreHome = scheduleMatch.reverse ? awayScore : homeScore;
-  const scoreAway = scheduleMatch.reverse ? homeScore : awayScore;
-  const homePenalty = numberOrNull(game.home_penalty_score);
-  const awayPenalty = numberOrNull(game.away_penalty_score);
-
-  if (status !== "scheduled" && (scoreHome === null || scoreAway === null)) return null;
-
-  return {
-    ...scheduleMatch.match,
-    home_team: displayTeamForLiveMatch(scheduleMatch, homeTeam, awayTeam, "home"),
-    away_team: displayTeamForLiveMatch(scheduleMatch, homeTeam, awayTeam, "away"),
-    home_score: status === "scheduled" ? null : scoreHome,
-    away_score: status === "scheduled" ? null : scoreAway,
-    status,
-    source_match_id: pairMatch ? scheduleMatch.match.source_match_id : sourceMatchId,
-    source_order: liveSourceOrder(game, scheduleMatch.match),
-    played_at: game.local_date || scheduleMatch.match.played_at || "",
-    tronky_source: game.tronky_source || "worldcup26",
-    live_elapsed: String(game.time_elapsed || ""),
-    football_data_status: game.football_data_status || "",
-    home_penalty_score: scheduleMatch.reverse ? awayPenalty : homePenalty,
-    away_penalty_score: scheduleMatch.reverse ? homePenalty : awayPenalty,
-    winner_team: normalizeTeam(game.winner_team || penaltyWinnerTeam(game, scheduleMatch.reverse)),
-  };
-}
-
-function sourceMatchCanUseLiveTeams(match, homeTeam, awayTeam) {
-  if (!homeTeam || !awayTeam) return true;
-  return isPlaceholderTeam(match.home_team) || isPlaceholderTeam(match.away_team);
-}
-
-function displayTeamForLiveMatch(scheduleMatch, liveHomeTeam, liveAwayTeam, side) {
-  const match = scheduleMatch.match;
-  const staticTeam = side === "home" ? match.home_team : match.away_team;
-  if (!isPlaceholderTeam(staticTeam)) return staticTeam;
-  if (side === "home") return scheduleMatch.reverse ? liveAwayTeam : liveHomeTeam;
-  return scheduleMatch.reverse ? liveHomeTeam : liveAwayTeam;
-}
-
-function isPlaceholderTeam(team) {
-  return ["", "TBD", "POR DEFINIR"].includes(normalizedTeamName(team));
-}
-
-function liveSourceLabel(match) {
-  return match.tronky_source === "football-data-backup" || match.backup_source === "football-data"
-    ? "No iraní"
-    : "Iraní";
-}
-
-function liveGameStatus(game) {
-  const finished = String(game.finished || "").toUpperCase();
-  const elapsed = String(game.time_elapsed || "").toLowerCase();
-  if (finished === "TRUE") return "finished";
-  if (elapsed && !["notstarted", "not started", "0", "none", "null"].includes(elapsed)) return "live";
-  return "scheduled";
-}
-
-function liveSourceOrder(game, match) {
-  const id = Number(game.id || 0);
-  const parsed = parseWorldCupDate(game.local_date || "", timeZoneForMatch(match));
-  return Number.isNaN(parsed) ? id : parsed + id;
 }
 
 function parseWorldCupDate(value, timeZone = DISPLAY_TIME_ZONE) {
@@ -939,10 +643,6 @@ function currentScoringMatches(matches) {
 }
 
 function previousScoringMatches(matches) {
-  if (matches.some((match) => match.status === "live")) {
-    return matches.filter((match) => match.status === "finished");
-  }
-
   const finished = matches.filter((match) => match.status === "finished");
   if (!finished.length) return [];
 
@@ -1124,18 +824,6 @@ function actualQualifier(match) {
   return "";
 }
 
-function penaltyWinnerTeam(game, reverseScore = false) {
-  const homePenalty = numberOrNull(game.home_penalty_score);
-  const awayPenalty = numberOrNull(game.away_penalty_score);
-  if (homePenalty === null || awayPenalty === null || homePenalty === awayPenalty) return "";
-  const homeWon = reverseScore ? homePenalty < awayPenalty : homePenalty > awayPenalty;
-  return homeWon ? game.home_team_name_en || "" : game.away_team_name_en || "";
-}
-
-function pairKey(homeTeam, awayTeam) {
-  return `${normalizeTeam(homeTeam)}|${normalizeTeam(awayTeam)}`;
-}
-
 function normalizeTeam(value) {
   const text = String(value)
     .normalize("NFD")
@@ -1147,12 +835,6 @@ function normalizeTeam(value) {
     .replace(/\s+/g, " ");
   if (/^CURA.AO$/.test(text)) return "CURAZAO";
   return TEAM_ALIASES[text] || text;
-}
-
-function numberOrNull(value) {
-  if (value === null || value === undefined || value === "" || value === "null") return null;
-  const number = Number(value);
-  return Number.isNaN(number) ? null : number;
 }
 
 function groupClass(group) {
@@ -1459,7 +1141,7 @@ function openMatchDialog(match) {
 }
 
 function canSimulateMatch(match) {
-  if (match.status !== "scheduled" || hasLiveMatch(matchRows)) return false;
+  if (match.status !== "scheduled") return false;
   const nextMatch = nextScheduledMatch();
   return Boolean(nextMatch) && Number(nextMatch.match_id) === Number(match.match_id);
 }
@@ -1709,7 +1391,6 @@ function resultLabel(result) {
 }
 
 function statusLabel(status) {
-  if (status === "live") return "En vivo";
   if (status === "finished") return "Finalizado";
   return "Programado";
 }
@@ -1717,29 +1398,6 @@ function statusLabel(status) {
 function scoreLabel(match) {
   if (match.home_score === null || match.away_score === null) return "-";
   return `${match.home_score} - ${match.away_score}`;
-}
-
-function liveDebugLabel(match) {
-  if (match.status !== "live") return "";
-  const minute = liveMinuteFromElapsed(match.live_elapsed);
-  if (minute) return `Min. ${minute}`;
-  return "";
-}
-
-function liveDebugMarkup(match) {
-  const label = liveDebugLabel(match);
-  return label ? `<div class="match-card__debug">${escapeHtml(label)}</div>` : "";
-}
-
-function liveMinuteFromElapsed(value) {
-  const text = String(value || "").trim();
-  const normalized = text.toLowerCase();
-  if (!text || ["live", "in_play", "in play", "none", "null"].includes(normalized)) return "";
-  const direct = text.match(/^(\d{1,3}(?:\s*\+\s*\d{1,2})?)$/);
-  if (direct) return `${direct[1].replace(/\s+/g, "")}'`;
-  const embedded = text.match(/(\d{1,3})(?:\s*\+\s*(\d{1,2}))?/);
-  if (!embedded) return "";
-  return `${embedded[1]}${embedded[2] ? `+${embedded[2]}` : ""}'`;
 }
 
 function movementLabel(value) {
@@ -1823,49 +1481,15 @@ function formatTimestamp(value) {
   }).format(date);
 }
 
-function updateFreshnessDisplay(value) {
+function updateFinalStatus(value) {
   const lastUpdated = document.getElementById("last-updated");
   const statusPill = document.getElementById("status-pill");
   if (!lastUpdated || !statusPill) return;
 
-  lastUpdated.textContent = freshnessLabel(value);
+  lastUpdated.textContent = formatTimestamp(value);
   lastUpdated.title = formatTimestamp(value);
-
-  if (hasLiveMatch(matchRows) && isStaleTimestamp(value)) {
-    statusPill.textContent = "Datos con demora";
-    statusPill.className = "status-pill status-pill--warning";
-    return;
-  }
-
-  if (tournamentChampion()) {
-    statusPill.textContent = "Finalizado";
-    statusPill.className = "status-pill status-pill--ok";
-    return;
-  }
-
-  statusPill.textContent = "En vivo";
+  statusPill.textContent = "Finalizado";
   statusPill.className = "status-pill status-pill--ok";
-}
-
-function freshnessLabel(value) {
-  if (!value) return "Sin datos";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-
-  const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
-  if (seconds < 5) return "Actualizado ahora";
-  if (seconds < 60) return `Actualizado hace ${seconds} s`;
-
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `Actualizado hace ${minutes} min`;
-
-  return formatTimestamp(value);
-}
-
-function isStaleTimestamp(value) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return false;
-  return Date.now() - date.getTime() > LIVE_STALE_WARNING_MS;
 }
 
 function escapeHtml(value) {
@@ -1878,25 +1502,6 @@ function escapeHtml(value) {
 }
 
 loadPageData();
-
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) {
-    if (staticMatchRows.length) {
-      refreshLiveMatches();
-      startLiveRefreshLoop();
-    }
-    else loadPageData();
-  } else if (staticMatchRows.length) {
-    startLiveRefreshLoop();
-  }
-});
-window.addEventListener("focus", () => {
-  if (staticMatchRows.length) {
-    refreshLiveMatches();
-    startLiveRefreshLoop();
-  }
-  else loadPageData();
-});
 
 document.getElementById("dialog-close").addEventListener("click", () => {
   document.getElementById("player-dialog").close();

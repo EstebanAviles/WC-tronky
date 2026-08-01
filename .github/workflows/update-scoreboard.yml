@@ -1,14 +1,12 @@
-name: Update scoreboard
+name: Rebuild frozen scoreboard
 
 on:
   workflow_dispatch:
     inputs:
       reason:
-        description: "Why are you updating now?"
+        description: "Why are you rebuilding the final files?"
         required: false
-        default: "Manual scoreboard refresh"
-  schedule:
-    - cron: "*/5 * * * *"
+        default: "Manual rebuild of frozen scoreboard"
 
 permissions:
   contents: write
@@ -28,18 +26,9 @@ jobs:
           activate-environment: worldcup-tronky
           auto-activate-base: false
 
-      - name: Fetch results and score predictions
+      - name: Rebuild final scoreboard files
         shell: bash -el {0}
-        env:
-          FOOTBALL_DATA_SOURCE: "worldcup26"
-          WORLDCUP26_API_URL: "https://worldcup26.ir/get/games"
-          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
-          FOOTBALL_API_LEAGUE_ID: ${{ vars.FOOTBALL_API_LEAGUE_ID }}
-          FOOTBALL_API_SEASON: "2026"
-          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
-          FOOTBALL_DATA_SEASON: "2026"
         run: |
-          python scripts/fetch_results.py
           python scripts/score_predictions.py
 
       - name: Commit updated scoreboard data
